@@ -1,4 +1,4 @@
-vector<Vertex *> createPlane();
-vector<Vertex *> createBox(float x, float y, float z, int d=1);
-vector<Vertex *> createCone(float radius, float height, int slices, int stacks);
-vector<Vertex *> createSphere(float radius, int slices, int stacks);
+void createPlane(vector<Vertex *>* ret);
+void createBox(vector<Vertex *>* ret, float x, float y, float z, int d=1);
+void createCone(vector<Vertex *>* ret, int slices, int stacks);
+void createSphere(vector<Vertex *>* ret, int slices, int stacks);
