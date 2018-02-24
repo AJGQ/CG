@@ -58,9 +58,9 @@ void createCone(vector<Vertex*>* ret, int slices, int stacks){
     }
 }
 
-float X(int i, int j){ return radius * cosf(beta*j) * sinf(alpha*i); }
-float Z(int i, int j){ return radius * cosf(beta*j) * cosf(alpha*i); }
-float Y(int j)       { return radius * sinf(beta*j); }
+float X(int i, int j){ return radius * sinf(beta*j) * sinf(alpha*i); }
+float Z(int i, int j){ return radius * sinf(beta*j) * cosf(alpha*i); }
+float Y(int j)       { return radius * cosf(beta*j); }
 
 void createSphere(vector<Vertex*>* ret, int slices, int stacks){
     Vertex* inicial = new Vertex(0, 0, 0);
@@ -69,16 +69,16 @@ void createSphere(vector<Vertex*>* ret, int slices, int stacks){
     beta = M_PI/stacks;
         
     for(int i=0; i<slices; i++){
-        for(int j=-stacks/2; j<=stacks/2; j++){
+        for(int j=0; j<stacks; j++){
             int ip=i+1, jp=j+1;
 
             ret->push_back(inicial->plus( X(i,j),   Y(j),   Z(i,j)   ));
-            ret->push_back(inicial->plus( X(ip,j),  Y(j),   Z(ip,j)  ));
             ret->push_back(inicial->plus( X(ip,jp), Y(jp),  Z(ip,jp) ));
+            ret->push_back(inicial->plus( X(ip,j),  Y(j),   Z(ip,j)  ));
 
             ret->push_back(inicial->plus( X(ip,jp), Y(jp),  Z(ip,jp) ));
-            ret->push_back(inicial->plus( X(i,jp),  Y(jp),  Z(i,jp)  ));
             ret->push_back(inicial->plus( X(i,j),   Y(j),   Z(i,j)   ));
+            ret->push_back(inicial->plus( X(i,jp),  Y(jp),  Z(i,jp)  ));
         }
     }
 }
