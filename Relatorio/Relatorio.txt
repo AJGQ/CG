@@ -1,1 +1,5 @@
-forca!
+Relátorio desenvolvido em LaTeX.
+Overleaf share link: https://www.overleaf.com/13999103fgrtvprxkfqq
+link apenas para colaboradores.
+
+PS : Estou a usar uma template de um trabalho anterior, escuse the mess atm.
