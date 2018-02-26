@@ -7,6 +7,8 @@
 
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "pugixml-1.8/src/pugixml.hpp"
+#include <iostream>
 
 //-------------------------------------------------------------------------------//
 
@@ -261,7 +263,30 @@ void processSpecialKeys(int key, int xx, int yy) {
 
 //----------------------------------------------------------------------//
 
-int main(int argc, char **argv) {
+using namespace std;
+using namespace pugi;
+
+int main(int argc, char* argv[]){
+    xml_document doc;
+
+    xml_parse_result result = doc.load_file("../example.xml");
+    if(!result){
+        cout << result.description() << endl;
+        return -1;
+    }
+    xml_node models = doc.child("scene");
+    cout << models.name() << endl;
+    for(xml_node model = models.first_child(); model; model = model.next_sibling()){
+
+        cout << " " << model.name() << endl;
+
+        for(xml_attribute attr = model.first_attribute(); attr; attr = attr.next_attribute()){
+
+            cout << "  " << attr.name() << " = " << attr.value() << endl;
+
+        }
+    }
+    cout << endl;
 
 // init GLUT and the window
 	glutInit(&argc, argv);
