@@ -1,21 +1,20 @@
+
 #include <string>
 #include "Vertex.h"
 
 using namespace std;
 
-
 Vertex::Vertex(){
-    this-> x = 0.0; 
+    this-> x = 0.0;
     this-> y = 0.0;
     this-> z = 0.0;
 }
 
 Vertex::Vertex(float x, float y, float z){
-    this-> x = x; 
+    this-> x = x;
     this-> y = y;
     this-> z = z;
 }
-
 
 Vertex* Vertex::plus(float x, float y, float z){
     return new Vertex(this->x+x, this->y+y, this->z+z);
@@ -34,5 +33,3 @@ string Vertex::toGLString(){
 
     return ret;
 }
-
-

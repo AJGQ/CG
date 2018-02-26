@@ -1,5 +1,4 @@
 
-
 # copilacao do executavel
 make final
 
@@ -11,4 +10,3 @@ cp generator $E
 P=$(manpath | cut -d: -f-1)
 cp manGenerator.1 $P/man1/generator.1
 gzip $P/man1/generator.1
-
