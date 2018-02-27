@@ -11,6 +11,7 @@
 #include <fstream>
 #include <vector>
 #include <stdio.h>
+#include <string.h>
 using namespace std;
 
 
@@ -23,8 +24,11 @@ float tx = 0.0, ty = 0.0, tz = 0.0;
 float rx = 0.0, ry = 1.0, rz = 0.0;
 int ang = 0;
 
-//-Figura------//
 vector<const char*> v_models;
+
+float angle_a = 0.0, angle_b = 0.0, cam_raio = 5.0;
+float mouse_x = 0.0,mouse_y = 0.0;
+  
 
 
 //-------------------------------------------------------------------------------//
@@ -66,14 +70,17 @@ void drawAxes(float cmp) {
 	glColor3f(0, 0, 1); //-BLUE-//
 	glVertex3f(0, 0, 0);
 	glVertex3f(0, 0, 1.0*cmp);
-
+    
+	glColor3f(1, 1, 1); //-WHITE-//
 	glEnd();
 }
 
 //----------------------------------------------------------------------//
 
 void drawFile(const char* file){
-    FILE* f = fopen(file, "r");
+    char fi[50] = "models/";
+    strcat(fi,file);
+    FILE* f = fopen(fi, "r");
     if(f){
         float x,y,z;
         while(fscanf(f,"%f %f %f",&x,&y,&z) != EOF){
@@ -104,12 +111,15 @@ void renderScene(void) {
 
 	// clear buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    float cam_x = cam_raio*cosf(angle_b*(M_PI/180.0))*sinf(angle_a*(M_PI/180.0));
+    float cam_y = cam_raio*sinf(angle_b*(M_PI/180.0));
+    float cam_z = cam_raio*cosf(angle_b*(M_PI/180.0))*cosf(angle_a*(M_PI/180.0));
 
 	// set the camera
 	glLoadIdentity();
-	gluLookAt(5.0 ,5.0 ,5.0 ,
-		        0.0 ,0.0 ,0.0 ,
-			      0.0f,1.0f,0.0f);
+    gluLookAt(cam_x,cam_y,cam_z,
+            0.0,0.0,0.0,
+            0.0f,1.0f,0.0f);
 
 	glTranslatef(tx,ty,tz);
 	glRotatef(ang,rx,ry,rz);
@@ -136,7 +146,7 @@ void processKeys (unsigned char key, int xmouse, int ymouse) {
 
 		// Mudar a camera
 			// Nao percebo porque e que ele abranda...
-	  case 'u':	rx += 5.0; break;
+	    case 'u':	rx += 5.0; break;
 		case 'j':	rx -= 5.0; break;
 		case 'y':	ry += 5.0; break;
 		case 'i':	ry -= 5.0; break;
@@ -158,6 +168,23 @@ void processKeys (unsigned char key, int xmouse, int ymouse) {
 void processSpecialKeys(int key, int xx, int yy) {
 
 }
+
+void processMouse (int button, int state, int x, int y){
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+        mouse_x = x;
+        mouse_y = y;
+    }
+}
+
+void mousePress(int x, int y){
+    angle_a -= x - mouse_x;
+    angle_b += y - mouse_y;
+    mouse_x = x;
+    mouse_y = y;
+    glutPostRedisplay();
+
+}
+
 
 //----------------------------------------------------------------------//
 
@@ -205,6 +232,8 @@ int main(int argc, char* argv[]){
 // Callback registration for keyboard processing
 	glutKeyboardFunc(processKeys);
 	glutSpecialFunc(processSpecialKeys);
+    glutMouseFunc(processMouse);
+    glutMotionFunc(mousePress);
 
 //  OpenGL settings
 	glEnable(GL_DEPTH_TEST);
