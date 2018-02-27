@@ -3,8 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "Vertex.h"
-#include "create.h"
+#include "generatorHeaders/Vertex.h"
+#include "generatorHeaders/create.h"
 #include <algorithm>
 
 using namespace std;
