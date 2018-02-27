@@ -167,8 +167,8 @@ void createCylinder(vector<Vertex*>* ret, int slices) {
         ret->push_back(inicial->plus( Xc(radius,  i ), 0, Zc(radius, i ) ));
       //-Down-//
         ret->push_back(inicial->plus( 0              , height, 0              ));
-        ret->push_back(inicial->plus( Xc(radius, i+1), height, Zc(radius,i+1) ));
         ret->push_back(inicial->plus( Xc(radius,  i ), height, Zc(radius, i ) ));
+        ret->push_back(inicial->plus( Xc(radius, i+1), height, Zc(radius,i+1) ));
     }
 
   //-Laterais-//

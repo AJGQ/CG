@@ -22,7 +22,7 @@ int main(int argc, char** argv){
     else if ( !strncmp("sphere"  , argv[1], 6) && argc==6 ) { radius = atof(argv[3]); createSphere(&vv, atof(argv[4]), atof(argv[5])); }
     else if ( !strncmp("cone"    , argv[1], 4) && argc==7 ) { radius = atof(argv[3]); height = atof(argv[4]); createCone(&vv, atof(argv[5]), atoi(argv[6])); }
 
-    else if ( !strncmp("cylinder", argv[1], 4) && argc==7 ) { radius = atof(argv[3]); height = atof(argv[4]); createCylinder(&vv, atof(argv[5]), atoi(argv[6])); }
+    else if ( !strncmp("cylinder", argv[1], 4) && argc==6 ) { radius = atof(argv[3]); height = atof(argv[4]); createCylinder(&vv, atoi(argv[5])); }
 
     else cout << "\e[1;31mError:\e[0;1m try man generator\e[0m" << endl;
 
