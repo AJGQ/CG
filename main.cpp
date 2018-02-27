@@ -1,4 +1,3 @@
-
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -9,6 +8,11 @@
 #include <math.h>
 #include "pugixml-1.8/src/pugixml.hpp"
 #include <iostream>
+#include <fstream>
+#include <vector>
+#include <stdio.h>
+using namespace std;
+
 
 //-------------------------------------------------------------------------------//
 
@@ -20,7 +24,8 @@ float rx = 0.0, ry = 1.0, rz = 0.0;
 int ang = 0;
 
 //-Figura------//
-int fig;
+vector<const char*> v_models;
+
 
 //-------------------------------------------------------------------------------//
 
@@ -67,12 +72,27 @@ void drawAxes(float cmp) {
 
 //----------------------------------------------------------------------//
 
-void drawTest() {
-	glBegin(GL_LINES);
+void drawFile(const char* file){
+    FILE* f = fopen(file, "r");
+    if(f){
+        float x,y,z;
+        while(fscanf(f,"%f %f %f",&x,&y,&z) != EOF){
+            glVertex3f(x,y,z);
+        }
+        fclose(f);
+    }
+}
+
+
+//----------------------------------------------------------------------//
+
+void drawFiles() {
+	glBegin(GL_TRIANGLES);
 
 	//----------------------------------------------------------------------//
-
-
+    for(int i = 0; i<v_models.size(); i++){
+        drawFile((const char*)v_models.at(i));
+    }
 	//----------------------------------------------------------------------//
 
 	glEnd();
@@ -95,7 +115,7 @@ void renderScene(void) {
 	glRotatef(ang,rx,ry,rz);
 
 	drawAxes(2);
-	drawTest();
+	drawFiles();
 
 	// End of frame
 	glutSwapBuffers();
@@ -106,15 +126,8 @@ void renderScene(void) {
 void processKeys (unsigned char key, int xmouse, int ymouse) {
 	switch (key){
 
-		// Era suposto dar para mudar a figura para testar mas nao funciona...
-		case '1': fig = 1; break;
-		case '2': fig = 2; break;
-		case '3': fig = 3; break;
-		case '4': fig = 4; break;
-		case '5': fig = 5; break;
-
 		// Mudar o objeto de sitio
-		case 'w': tx += 0.25; break;
+		case 'w':   tx += 0.25; break;
 		case 's':	tx -= 0.25; break;
 		case 'q':	ty += 0.25; break;
 		case 'e':	ty -= 0.25; break;
@@ -159,15 +172,18 @@ int main(int argc, char* argv[]){
         cout << result.description() << endl;
         return -1;
     }
+
     xml_node models = doc.child("scene");
     cout << models.name() << endl;
+    
     for(xml_node model = models.first_child(); model; model = model.next_sibling()){
 
         cout << " " << model.name() << endl;
-
+        
         for(xml_attribute attr = model.first_attribute(); attr; attr = attr.next_attribute()){
-
+            
             cout << "  " << attr.name() << " = " << attr.value() << endl;
+            v_models.push_back(attr.value());
 
         }
     }
@@ -199,3 +215,8 @@ int main(int argc, char* argv[]){
 
 	return 1;
 }
+
+/*
+ * ofstream myfile;
+ * myfile.open ("example.bin", ios::out);
+ */
