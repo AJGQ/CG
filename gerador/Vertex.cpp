@@ -1,6 +1,6 @@
 
 #include <string>
-#include "Vertex.h"
+#include "generatorHeaders/Vertex.h"
 
 using namespace std;
 
@@ -22,7 +22,7 @@ Vertex* Vertex::plus(float x, float y, float z){
 
 string Vertex::toString(){
     string ret;
-    ret = to_string(x) + "\t" + to_string(y) + "\t" + to_string(z) + "\n";
+    ret = to_string(x) + " " + to_string(y) + " " + to_string(z) + "\n";
 
     return ret;
 }

@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include "Vertex.h"
+#include "generatorHeaders/Vertex.h"
 #include <vector>
 #include <cmath>
 
