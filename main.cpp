@@ -9,6 +9,7 @@
 #include <math.h>
 #include "pugixml-1.8/src/pugixml.hpp"
 #include <iostream>
+#include <fstream>
 
 //-------------------------------------------------------------------------------//
 
@@ -96,6 +97,7 @@ void renderScene(void) {
 
 	drawAxes(2);
 	drawTest();
+	ifstream file("models");
 
 	// End of frame
 	glutSwapBuffers();

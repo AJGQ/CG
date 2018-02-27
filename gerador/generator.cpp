@@ -27,8 +27,7 @@ int main(int argc, char** argv){
     else cout << "\e[1;31mError:\e[0;1m try man generator\e[0m" << endl;
 
     ofstream file(argv[2]);
-    for_each(vv.begin(), vv.end(), [&file](Vertex* v) { file << v->toGLString(); });
-    //for_each(vv.begin(), vv.end(), [&file](Vertex* v) { file << v->toString(); });
+    for_each(vv.begin(), vv.end(), [&file](Vertex* v) { file << v->toString(); });
 
     return 0;
 }
