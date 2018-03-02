@@ -1,23 +1,15 @@
-
 #include <iostream>
 #include "generatorHeaders/Vertex.h"
 #include <vector>
 #include <cmath>
 
-extern float alpha;
-extern float beta;
-extern float radius;
-extern float height;
-
 //-Points----------------------------------------------------------------------//
 
-float X(int i, int j) { return radius * sinf(beta*j) * sinf(alpha*i); }
-float Y(int j)        { return radius * cosf(beta*j); }
-float Z(int i, int j) { return radius * sinf(beta*j) * cosf(alpha*i); }
-
-float Xc(float r, int i) { return r * sinf(alpha*i); }
-float Yc(float h, int j) { return h * j; }
-float Zc(float r, int i) { return r * cosf(alpha*i); }
+Vertex* spherePoint(Vertex* inicial, float radius, float alpha, float beta, int i, int j){
+    return inicial->plus( radius * sinf(beta*j) * sinf(alpha*i) ,
+                          radius * cosf(beta*j),
+                          radius * sinf(beta*j) * cosf(alpha*i) );
+}
 
 //-Graphical Primitives--------------------------------------------------------//
 
@@ -98,40 +90,50 @@ void createBox(vector<Vertex*>* ret, float x, float y, float z, int d) {
 
   //----------------------------------------------------//
 
-void createSphere(vector<Vertex*>* ret, int slices, int stacks) {
+void createSphere(vector<Vertex*>* ret, float radius, int slices, int stacks) {
     Vertex* inicial = new Vertex(0, 0, 0);
 
-    alpha = (2*M_PI)/slices;
-    beta  = M_PI/stacks;
+    float alpha = (2*M_PI)/slices;
+    float beta  = M_PI/stacks;
 
     for(int i=0; i<slices; i++){
-        for(int j=0; j<stacks; j++){
-            int ip=i+1, jp=j+1;
+        int ip = i+1, j=0, jp=1;
+        ret->push_back(spherePoint(inicial,radius,alpha,beta, i, j));
+        ret->push_back(spherePoint(inicial,radius,alpha,beta, i, jp));
+        ret->push_back(spherePoint(inicial,radius,alpha,beta, ip, jp));
 
-            ret->push_back(inicial->plus( X(i,j)  , Y(j) , Z(i,j)   ));
-            ret->push_back(inicial->plus( X(ip,jp), Y(jp), Z(ip,jp) ));
-            ret->push_back(inicial->plus( X(ip,j) , Y(j) , Z(ip,j)  ));
+        for(j=1; j<stacks-1; j++){
+            jp=j+1;
 
-            ret->push_back(inicial->plus( X(ip,jp), Y(jp), Z(ip,jp) ));
-            ret->push_back(inicial->plus( X(i,j)  , Y(j) , Z(i,j)   ));
-            ret->push_back(inicial->plus( X(i,jp) , Y(jp), Z(i,jp)  ));
+            ret->push_back(spherePoint(inicial,radius,alpha,beta, i, j));
+            ret->push_back(spherePoint(inicial,radius,alpha,beta, ip, jp));
+            ret->push_back(spherePoint(inicial,radius,alpha,beta, ip, j));
+
+            ret->push_back(spherePoint(inicial,radius,alpha,beta, ip, jp));
+            ret->push_back(spherePoint(inicial,radius,alpha,beta, i, j));
+            ret->push_back(spherePoint(inicial,radius,alpha,beta, i, jp));
         }
+        jp = j+1;
+
+        ret->push_back(spherePoint(inicial,radius,alpha,beta, i, j));
+        ret->push_back(spherePoint(inicial,radius,alpha,beta, ip, jp));
+        ret->push_back(spherePoint(inicial,radius,alpha,beta, i, jp));
     }
 }
 
-  //----------------------------------------------------//
+//----------------------------------------------------//
 
-void createCone(vector<Vertex*>* ret, int slices, int stacks) {
+void createCone(vector<Vertex*>* ret, float radius, float height, int slices, int stacks) {
     Vertex* inicial = new Vertex(0, -(height/2), 0);
 
     float h = height/stacks;
-    alpha = (2*M_PI)/slices;
+    float alpha = (2*M_PI)/slices;
 
   //-Base------//
     for(int i=0; i<slices; i++){
         ret->push_back(inicial);
-        ret->push_back(inicial->plus( Xc(radius, i+1), 0, Zc(radius,i+1) ));
-        ret->push_back(inicial->plus( Xc(radius,  i ), 0, Zc(radius, i ) ));
+        ret->push_back(inicial->plus( radius * sinf(alpha*i+1), 0, radius * cosf(alpha*(i+1)) ));
+        ret->push_back(inicial->plus( radius * sinf(alpha*i)  , 0, radius * cosf(alpha*i)     ));
     }
 
   //-Laterais-//
@@ -140,54 +142,48 @@ void createCone(vector<Vertex*>* ret, int slices, int stacks) {
         float rp = radius * ( (float)(stacks-(j+1)) / stacks ); //raio da base inferior (menor)
 
         for(int i=0; i<slices; i++){
-            ret->push_back(inicial->plus( Xc(r, i+1) ,Yc(h,  j )    ,Zc(r,  i+1) ));
-            ret->push_back(inicial->plus( Xc(rp,i+1) ,Yc(h, j+1)    ,Zc(rp, i+1) ));
-            ret->push_back(inicial->plus( Xc(r,  i ) ,Yc(h,  j )    ,Zc(r,   i ) ));
+            ret->push_back(inicial->plus( r * sinf(alpha*i)     , h * j    , r * cosf(alpha*(i+1))  ));
+            ret->push_back(inicial->plus( rp * sinf(alpha*(i+1)), h * (j+1), rp * cosf(alpha*(i+1)) ));
+            ret->push_back(inicial->plus( r * sinf(alpha*i)     , h * j    , r * cosf(alpha*i)      ));
 
-            ret->push_back(inicial->plus( Xc(r,  i ) ,Yc(h,  j )    ,Zc(r,   i ) ));
-            ret->push_back(inicial->plus( Xc(rp,i+1) ,Yc(h, j+1)    ,Zc(rp, i+1) ));
-            ret->push_back(inicial->plus( Xc(rp, i ) ,Yc(h, j+1)    ,Zc(rp,  i ) ));
+            ret->push_back(inicial->plus( r * sinf(alpha*i)     , h * j    , r * cosf(alpha*i)      ));
+            ret->push_back(inicial->plus( rp * sinf(alpha*(i+1)), h * (j+1), rp * cosf(alpha*(i+1)) ));
+            ret->push_back(inicial->plus( rp * sinf(alpha*i)    , h * (j+1), rp * cosf(alpha*i)     ));
         }
     }
 }
 
 //-Extra primitives------------------------------------------------------------//
 
-void createCylinder(vector<Vertex*>* ret, int slices) {
+void createCylinder(vector<Vertex*>* ret, float radius, float height, int slices) {
 
     Vertex* inicial = new Vertex(0, -(height/2), 0);
 
-    alpha = (2*M_PI)/slices;
+    float alpha = (2*M_PI)/slices;
 
   //-Bases----//
     for(int i=0; i<slices; i++){
       //-Up-//
         ret->push_back(inicial);
-        ret->push_back(inicial->plus( Xc(radius, i+1), 0, Zc(radius,i+1) ));
-        ret->push_back(inicial->plus( Xc(radius,  i ), 0, Zc(radius, i ) ));
+        ret->push_back(inicial->plus( radius * sinf(alpha*(i+1)), 0, radius * cosf(alpha*(i+1)) ));
+        ret->push_back(inicial->plus( radius * sinf(alpha*i)    , 0, radius * cosf(alpha*i)     ));
       //-Down-//
-        ret->push_back(inicial->plus( 0              , height, 0              ));
-        ret->push_back(inicial->plus( Xc(radius,  i ), height, Zc(radius, i ) ));
-        ret->push_back(inicial->plus( Xc(radius, i+1), height, Zc(radius,i+1) ));
+        ret->push_back(inicial->plus( 0                         , height, 0                          ));
+        ret->push_back(inicial->plus( radius * sinf(alpha*i)    , height, radius * cosf(alpha*i)     ));
+        ret->push_back(inicial->plus( radius * sinf(alpha*(i+1)), height, radius * cosf(alpha*(i+1)) ));
     }
 
   //-Laterais-//
     for(int i=0; i<slices; i++){
       //-Up-//
-        ret->push_back(inicial->plus( Xc(radius, i+1), 0     , Zc(radius,i+1) ));
-        ret->push_back(inicial->plus( Xc(radius, i+1), height, Zc(radius,i+1) ));
-        ret->push_back(inicial->plus( Xc(radius,  i ), 0     , Zc(radius, i ) ));
+        ret->push_back(inicial->plus( radius * sinf(alpha*(i+1)), 0     , radius * cosf(alpha*(i+1))      ));
+        ret->push_back(inicial->plus( radius * sinf(alpha*(i+1)), height, radius * cosf(alpha*(i+1)) ));
+        ret->push_back(inicial->plus( radius * sinf(alpha*i)    , 0     , radius * cosf(alpha*i)     ));
       //-Down-//
-        ret->push_back(inicial->plus( Xc(radius,  i ), 0     , Zc(radius, i ) ));
-        ret->push_back(inicial->plus( Xc(radius, i+1), height, Zc(radius,i+1) ));
-        ret->push_back(inicial->plus( Xc(radius,  i ), height, Zc(radius, i ) ));
+        ret->push_back(inicial->plus( radius * sinf(alpha*i)    , 0     , radius * cosf(alpha*i)     ));
+        ret->push_back(inicial->plus( radius * sinf(alpha*(i+1)), height, radius * cosf(alpha*(i+1)) ));
+        ret->push_back(inicial->plus( radius * sinf(alpha*i)    , height, radius * cosf(alpha*i)     ));
     }
-}
-
-    //----------------------------------------------------//
-
-void createN64(vector<Vertex*>* ret) {
-
 }
 
     //----------------------------------------------------//
