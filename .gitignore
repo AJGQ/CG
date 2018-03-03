@@ -1,12 +1,6 @@
 
-*.swp
-*.swo
-*.o
-Makefile
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-cmake_install.cmake
-install_manifest.txt
+*.DS_Store
+*.sw[pon]
+.idea/
+
 compile_commands.json
-CTestTestfile.cmake
