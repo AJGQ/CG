@@ -24,7 +24,7 @@ using namespace std;
 GLuint buffers[1];
 float *arrayFloat;
 
-vector<const char*> *fileName_models;
+vector<const char*> fileNameModels;
 
 float alfa = 0.0, beta = 0.0, radius = 5.0;
 float camX, camY, camZ;
@@ -122,11 +122,11 @@ void processSpecialKeys(int key, int xx, int yy) {
 
 	case GLUT_KEY_UP: beta += 0.1f;
 		if (beta > 1.5f) beta = 1.5f;
-		break;
+	break;
 
 	case GLUT_KEY_DOWN:beta -= 0.1f;
 		if (beta < -1.5) beta = -1.5f;
-		break;
+	break;
 	}
 	spherical2Cartesian();
 	glutPostRedisplay();
@@ -174,7 +174,8 @@ void renderScene(void) {
 
 
 int main(int argc, char** argv){
-    if(argc >= 2) parseXML(argv[1]);
+    if(argc < 2) error("missing xml file");
+    parseXML(argv[1]);
 
 // init GLUT and the window
 	glutInit(&argc, argv);

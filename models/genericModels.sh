@@ -1,10 +1,10 @@
 #!/bin/bash
 
 array=("generator plane plane.3d"
-"generator box box.3d 3 4 5 10"
-"generator cylinder cylinder.3d 3 5 24"
-"generator cone cone.3d 3 5 24 10"
-"generator sphere sphere.3d 4 24 24"
+"generator box 3 4 5 10 box.3d"
+"generator cylinder 1 3 24 10 cylinder.3d"
+"generator cone 3 5 24 10 cone.3d"
+"generator sphere 1 48 100 sphere.3d"
 )
 
 for command in "${array[@]}" 

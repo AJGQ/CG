@@ -27,6 +27,8 @@ math.h
 /Users/vascolleitao/Desktop/CG/engine/parseXML.cpp
 parseXML.h
 /Users/vascolleitao/Desktop/CG/engine/parseXML.h
+stdlib.h
+-
 
 /Users/vascolleitao/Desktop/CG/engine/parseXML.h
 pugixml-1.8/src/pugixml.hpp
