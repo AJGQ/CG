@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
@@ -18,18 +19,22 @@
 
 using namespace std;
 
-//-------------------------------------------------------------------------------//
-// global var
+//-----------------------------------------------------------------------------//
 
 GLuint buffers[1];
 float *arrayFloat=NULL;
 
 vector<const char*> fileNameModels;
 
+//-Moviento Camera-//
 float alfa = 0.0, beta = 0.0, radius = 5.0;
 float camX, camY, camZ;
 
-//-------------------------------------------------------------------------------//
+//-Modo-------//
+int disMode = 1;
+int axes = 0;
+
+//-----------------------------------------------------------------------------//
 
 void error(const char *s){
         cout << "\e[1;31mError:\e[0;1m" << s << "\e[0m" << endl;
@@ -37,9 +42,7 @@ void error(const char *s){
 }
 
 
-//-------------------------------------------------------------------------------//
-
-
+//-----------------------------------------------------------------------------//
 
 void spherical2Cartesian() {
 
@@ -47,8 +50,16 @@ void spherical2Cartesian() {
 	camY = radius * sin(beta);
 	camZ = radius * cos(beta) * cos(alfa);
 }
-  
 
+void changeDisplayMode() {
+		switch(disMode) {
+			case 0:	glPolygonMode(GL_FRONT_AND_BACK, GL_POINT); break;
+			case 1:	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE ); break;
+			case 2:	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL );	break;
+			default: break;
+		}
+		glutPostRedisplay();
+}
 
 //-------------------------------------------------------------------------------//
 
@@ -89,7 +100,7 @@ void drawAxes(float cmp) {
 	glColor3f(0, 0, 1); //-BLUE-//
 	glVertex3f(0, 0, 0);
 	glVertex3f(0, 0, 1.0*cmp);
-    
+
 	glColor3f(1, 1, 1); //-WHITE-//
 	glEnd();
 }
@@ -98,8 +109,13 @@ void drawAxes(float cmp) {
 
 void processKeys(unsigned char c, int xx, int yy) {
 
-// put code to process regular keys in here
 	switch(c){
+
+    // Mudar o modo de display
+    case '1': disMode = 0; break; // GL_POINT
+    case '2':	disMode = 1; break; // GL_LINE
+    case '3':	disMode = 2; break; // GL_FILL
+
 		case 'w': radius -= 0.1f;
 		if (radius < 0.1f) radius = 0.1f;
 		break;
@@ -157,13 +173,15 @@ void renderScene(void) {
 	// clear buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+  changeDisplayMode();
+
 	// set the camera
 	glLoadIdentity();
-    gluLookAt(camX, camY, camZ,
-              0.0, 0.0, 0.0,
-              0.0f, 1.0f, 0.0f);
+  gluLookAt(camX, camY, camZ,
+            0.0 , 0.0 , 0.0 ,
+            0.0f, 1.0f, 0.0f);
 
-	drawAxes(2);
+	if (axes) { drawAxes(3); }
 	drawFiles();
 
 	// End of frame
@@ -172,43 +190,40 @@ void renderScene(void) {
 
 //----------------------------------------------------------------------//
 
-
 int main(int argc, char** argv){
-    if(argc < 2) error("missing xml file");
-    parseXML(argv[1]);
+  if(argc < 2) error("missing xml file");
+  parseXML(argv[1]);
 
 // init GLUT and the window
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH|GLUT_DOUBLE|GLUT_RGBA);
-	glutInitWindowPosition(100,100);
-	glutInitWindowSize(800,800);
-	glutCreateWindow("CG@DI-UM");
+  glutInit(&argc, argv);
+  glutInitDisplayMode(GLUT_DEPTH|GLUT_DOUBLE|GLUT_RGBA);
+  glutInitWindowPosition(100,100);
+  glutInitWindowSize(800,800);
+  glutCreateWindow("CG@DI-UM");
 
 // Required callback registry
-	glutDisplayFunc(renderScene);
-	glutReshapeFunc(changeSize);
+  glutDisplayFunc(renderScene);
+  glutReshapeFunc(changeSize);
 
-// Callback registration for keyboard processing
-	glutKeyboardFunc(processKeys);
-	glutSpecialFunc(processSpecialKeys);
-    //glutMouseFunc(processMouse);
-    //glutMotionFunc(mousePress);
+// Callback registration for keyboard and mouse processing
+  glutKeyboardFunc(processKeys);
+  glutSpecialFunc(processSpecialKeys);
+  glutMouseFunc(processMouse);
+  glutMotionFunc(mousePress);
 
-//  OpenGL settings
-    #ifndef __APPLE__
-    glewInit();
-    #endif
-  	glEnableClientState(GL_VERTEX_ARRAY);
+// OpenGL settings
+  #ifndef __APPLE__
+  glewInit();
+  #endif
+  glEnableClientState(GL_VERTEX_ARRAY);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 
-    spherical2Cartesian();
+  spherical2Cartesian();
 
 // enter GLUT's main cycle
-	glutMainLoop();
+  glutMainLoop();
 
 	return 1;
 }
-
