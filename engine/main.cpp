@@ -22,7 +22,7 @@ using namespace std;
 // global var
 
 GLuint buffers[1];
-float *arrayFloat;
+float *arrayFloat=NULL;
 
 vector<const char*> fileNameModels;
 
