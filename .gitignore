@@ -2,5 +2,6 @@
 *.DS_Store
 *.sw[pon]
 .idea/
+*.3d
 
 compile_commands.json
