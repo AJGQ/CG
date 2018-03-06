@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/artur/UM/ano3/CG/CG/main.cpp
+GLUT/glut.h
+-
+GL/glut.h
+-
+math.h
+-
+pugixml-1.8/src/pugixml.hpp
+/home/artur/UM/ano3/CG/CG/pugixml-1.8/src/pugixml.hpp
+iostream
+-
+fstream
+-
+vector
+-
+stdio.h
+-
+string.h
+-
+
+/home/artur/UM/ano3/CG/CG/pugixml-1.8/src/pugiconfig.hpp
+
+/home/artur/UM/ano3/CG/CG/pugixml-1.8/src/pugixml.hpp
+pugiconfig.hpp
+/home/artur/UM/ano3/CG/CG/pugixml-1.8/src/pugiconfig.hpp
+stddef.h
+-
+exception
+-
+iterator
+-
+iosfwd
+-
+string
+-
+

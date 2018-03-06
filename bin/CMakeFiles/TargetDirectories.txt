@@ -1,0 +1,3 @@
+/home/artur/UM/ano3/CG/CG/bin/CMakeFiles/edit_cache.dir
+/home/artur/UM/ano3/CG/CG/bin/CMakeFiles/rebuild_cache.dir
+/home/artur/UM/ano3/CG/CG/bin/CMakeFiles/trabalho.dir
