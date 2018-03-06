@@ -1,1 +1,0 @@
-/usr/bin/c++      CMakeFiles/trabalho.dir/main.cpp.o  -o trabalho -rdynamic -lGLU -lGL -lglut -lXmu -lXi 
