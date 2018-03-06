@@ -33,14 +33,14 @@ void createBox(char **argv) {
     //-XY-----------------------//
     for(i=0; i<d; i++){
         for(j=0; j<=d; j++){
-            fprintf(outputFile, "%f:%f:%f\n", j * dx,   i   * dy, 0.0 );
-            fprintf(outputFile, "%f:%f:%f\n", j * dx, (i+1) * dy, 0.0 );
+            fprintf(outputFile, "%f:%f:%f\n", j * dx-x/2.0 ,   i   * dy-y/2.0 , -z/2.0 );
+            fprintf(outputFile, "%f:%f:%f\n", j * dx-x/2.0 , (i+1) * dy-y/2.0 , -z/2.0 );
         }
     }
     for(i=0; i<d; i++){
         for(j=0; j<=d; j++){
-            fprintf(outputFile, "%f:%f:%f\n", j * dx, (i+1) * dy, z );
-            fprintf(outputFile, "%f:%f:%f\n", j * dx,   i   * dy, z );
+            fprintf(outputFile, "%f:%f:%f\n", j * dx-x/2.0 , (i+1) * dy-y/2.0 , z/2.0 );
+            fprintf(outputFile, "%f:%f:%f\n", j * dx-x/2.0 ,   i   * dy-y/2.0 , z/2.0 );
         }
     }
 
@@ -48,28 +48,28 @@ void createBox(char **argv) {
     //-XZ-----------------------//
     for(i=0; i<d; i++){
         for(j=0; j<=d; j++){
-            fprintf(outputFile, "%f:%f:%f\n",   i   * dx, 0.0 , j * dz );
-            fprintf(outputFile, "%f:%f:%f\n", (i+1) * dx, 0.0 , j * dz );
+            fprintf(outputFile, "%f:%f:%f\n",   i   * dx-x/2.0 , -y/2.0 , j * dz - z/2.0  );
+            fprintf(outputFile, "%f:%f:%f\n", (i+1) * dx-x/2.0 , -y/2.0 , j * dz - z/2.0  );
         }
     }
     for(i=0; i<d; i++){
         for(j=0; j<=d; j++){
-            fprintf(outputFile, "%f:%f:%f\n", (i+1) * dx, y , j * dz );
-            fprintf(outputFile, "%f:%f:%f\n",   i   * dx, y , j * dz );
+            fprintf(outputFile, "%f:%f:%f\n", (i+1) * dx-x/2.0 , y/2.0 , j * dz - z/2.0  );
+            fprintf(outputFile, "%f:%f:%f\n",   i   * dx-x/2.0 , y/2.0 , j * dz - z/2.0  );
         }
     }
 
     //-YZ-----------------------//
     for(i=0; i<d; i++){
         for(j=0; j<=d; j++){
-            fprintf(outputFile, "%f:%f:%f\n", 0.0 , (i+1) * dy, j * dz );
-            fprintf(outputFile, "%f:%f:%f\n", 0.0 ,   i   * dy, j * dz );
+            fprintf(outputFile, "%f:%f:%f\n", -x/2.0 , (i+1) * dy-y/2.0 , j * dz - z/2.0  );
+            fprintf(outputFile, "%f:%f:%f\n", -x/2.0 ,   i   * dy-y/2.0 , j * dz - z/2.0  );
         }
     }
     for(i=0; i<d; i++){
         for(j=0; j<=d; j++){
-            fprintf(outputFile, "%f:%f:%f\n", x ,   i   * dy, j * dz );
-            fprintf(outputFile, "%f:%f:%f\n", x , (i+1) * dy, j * dz );
+            fprintf(outputFile, "%f:%f:%f\n", x/2.0 ,   i   * dy-y/2.0 , j * dz - z/2.0  );
+            fprintf(outputFile, "%f:%f:%f\n", x/2.0 , (i+1) * dy-y/2.0 , j * dz - z/2.0  );
         }
     }
 }
@@ -177,22 +177,22 @@ void createCylinder(char **argv) {
     for(i=0; i<stacks; i++) fprintf(outputFile , "s%d\n", 2*(slices+2)); 
 
     // base
-    fprintf(outputFile, "0.0:0.0:0.0\n"); // vertice da base
+    fprintf(outputFile, "0.0:%f:0.0\n", -height/2); // vertice da base
     for(i=0; i<=slices; i++) 
-        fprintf(outputFile, "%f:%f:%f\n", cos(i * angle * M_PI/180.0)*radius, 0.0, sin(i * angle * M_PI/180.0)*radius);
+        fprintf(outputFile, "%f:%f:%f\n", cos(i * angle * M_PI/180.0)*radius, -height/2.0 , sin(i * angle * M_PI/180.0)*radius);
 
     // topo
-    fprintf(outputFile, "0.0:%f:0.0\n", height); // vertice topo
+    fprintf(outputFile, "0.0:%f:0.0\n", height/2); // vertice topo
     for(i=0; i<=slices; i++) 
-        fprintf(outputFile, "%f:%f:%f\n", cos(i * angle * M_PI/180.0)*radius, height, -sin(i * angle * M_PI/180.0)*radius);
+        fprintf(outputFile, "%f:%f:%f\n", cos(i * angle * M_PI/180.0)*radius, height/2.0, -sin(i * angle * M_PI/180.0)*radius);
 
 
 
      // body
     for(j=0; j<stacks; j++){
         for(i=0; i<=slices+1; i++){
-            fprintf(outputFile, "%f:%f:%f\n", cos(i * angle * M_PI/180.0)*radius,   j   * h, sin(i * angle *M_PI/180.0)*radius);
-            fprintf(outputFile, "%f:%f:%f\n", cos(i * angle * M_PI/180.0)*radius, (j+1) * h, sin(i * angle *M_PI/180.0)*radius);
+            fprintf(outputFile, "%f:%f:%f\n", cos(i * angle * M_PI/180.0)*radius,   j   * h -height/2.0 , sin(i * angle *M_PI/180.0)*radius);
+            fprintf(outputFile, "%f:%f:%f\n", cos(i * angle * M_PI/180.0)*radius, (j+1) * h -height/2.0 , sin(i * angle *M_PI/180.0)*radius);
         }
     }
 }
