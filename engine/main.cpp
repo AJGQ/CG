@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
@@ -111,16 +110,20 @@ void processKeys(unsigned char c, int xx, int yy) {
 
 	switch(c){
 
-    // Mudar o modo de display
-    case '1': disMode = 0; break; // GL_POINT
-    case '2':	disMode = 1; break; // GL_LINE
-    case '3':	disMode = 2; break; // GL_FILL
+        // Mudar o modo de display
+        case '1': disMode = 0; break; // GL_POINT
+        case '2':	disMode = 1; break; // GL_LINE
+        case '3':	disMode = 2; break; // GL_FILL
 
-		case 'w': radius -= 0.1f;
-		if (radius < 0.1f) radius = 0.1f;
-		break;
+        case 'w': radius -= 0.1f;
+                if (radius < 0.1f) radius = 0.1f;
+                break;
 
-		case 's': radius += 0.1f; break;
+        case 's': radius += 0.1f; break;
+        case 'x': 
+            if(axes == 1) axes = 0;
+            else axes = 1;
+            break;
 	}
 	spherical2Cartesian();
 	glutPostRedisplay();
@@ -208,8 +211,8 @@ int main(int argc, char** argv){
 // Callback registration for keyboard and mouse processing
   glutKeyboardFunc(processKeys);
   glutSpecialFunc(processSpecialKeys);
-  glutMouseFunc(processMouse);
-  glutMotionFunc(mousePress);
+  //glutMouseFunc(processMouse);
+  //glutMotionFunc(mousePress);
 
 // OpenGL settings
   #ifndef __APPLE__
