@@ -1,0 +1,3 @@
+/Users/vascolleitao/Desktop/CG/engine/CMakeFiles/rebuild_cache.dir
+/Users/vascolleitao/Desktop/CG/engine/CMakeFiles/edit_cache.dir
+/Users/vascolleitao/Desktop/CG/engine/CMakeFiles/engine.dir
