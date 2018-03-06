@@ -15,7 +15,99 @@ void createPlane(char **argv) {
 }
 
   //----------------------------------------------------//
-  
+
+void drawN64(){
+    
+    
+
+}
+
+void drawN(int color){
+	
+	//down
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 2.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0-5.0/3.0, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0-5.0/3.0, 1.0f);
+
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 2.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0-5.0/3.0, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 0.0f, 2.0f);
+	//up
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 5.0/3.0, 2.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 5.0/3.0, 2.0f);
+
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 5.0/3.0, 2.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0f, 1.0f);
+	
+	//out
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 0.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 1.0f);
+
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 0.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 0.0f);
+	//
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0-5.0/3.0, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 2.0f);
+
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 2.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 5.0/3.0, 2.0f);
+	//
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 2.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 3.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 3.0f);
+
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 2.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 3.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 2.0f);
+	//in
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0f, 0.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0f, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 0.0f, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 0.0f, 0.0f);
+	//
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 5.0/3.0, 2.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 0.0f, 2.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0-5.0/3.0, 1.0f);
+
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 5.0/3.0, 2.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0-5.0/3.0, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0f, 1.0f);
+	//
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0f, 2.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0f, 3.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 0.0f, 3.0f);
+
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0f, 2.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 0.0f, 3.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 0.0f, 2.0f);
+
+	//bottom
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 0.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 0.0f, 0.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 0.0f, 1.0f);
+
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 0.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 0.0f, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 0.0f, 1.0f);
+	//top
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0f, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0f, 0.0f);
+
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 1.0f);
+	fprintf(outputFile,"%f:%f:%f\n",1.0f, 3.0f, 0.0f);
+	fprintf(outputFile,"%f:%f:%f\n",0.0f, 3.0f, 0.0f);
+}
+
+  //----------------------------------------------------//
+
+
 void createBox(char **argv) {
     const float x = atof(argv[2]);
     const float y = atof(argv[3]);

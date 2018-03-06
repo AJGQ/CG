@@ -33,6 +33,8 @@ float camX, camY, camZ;
 int disMode = 1;
 int axes = 0;
 
+int frame = 0;
+int timebase = 0;
 //-----------------------------------------------------------------------------//
 
 void error(const char *s){
@@ -40,6 +42,21 @@ void error(const char *s){
         _exit(-1);
 }
 
+
+void printFPS(){
+    float fps;
+    frame++;
+    char title[50];
+
+    int time = glutGet(GLUT_ELAPSED_TIME);
+    if (time - timebase > 1000) {
+        fps = frame*1000.0/(time-timebase);
+        timebase = time;
+        frame = 0;
+        sprintf(title,"%f Um Belo Trabalho",fps);
+        glutSetWindowTitle(title);
+    } 
+}
 
 //-----------------------------------------------------------------------------//
 
@@ -172,6 +189,7 @@ void mousePress(int x, int y){
 //----------------------------------------------------------------------//
 
 void renderScene(void) {
+    printFPS();
 
 	// clear buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -186,7 +204,8 @@ void renderScene(void) {
 
 	if (axes) { drawAxes(3); }
 	drawFiles();
-
+    
+    
 	// End of frame
 	glutSwapBuffers();
 }
