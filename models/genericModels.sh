@@ -7,13 +7,13 @@ array=("generator plane plane.3d"
 "generator sphere 1 12 10 sphere.3d"
 )
 
-for command in "${array[@]}" 
+for command in "${array[@]}"
 do
     eval $command > /dev/null 2>&1
     if [ $? -eq 0 ]; then
         perl -C -e 'print chr 0x2713'
-        echo " " $command 
-    else 
+        echo " " $command
+    else
         perl -C -e 'print chr 0x2717'
         echo " " $command
     fi
