@@ -1,5 +1,6 @@
+
 #ifndef PARSE_XML_H
-#define PARSE_XML_H 
+#define PARSE_XML_H
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"

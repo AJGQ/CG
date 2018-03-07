@@ -1,13 +1,13 @@
 
-# copilacao do executavel
+# Compilacao do Executavel
 cmake CMakeLists.txt
-make 
+make
 
-# install exec
+# Install Exec
 E=$(echo $PATH | cut -d: -f1 )
 cp engine $E
 
-# install manual
+# Install Manual
 : '
 P=$(manpath | cut -d: -f-1)
 cp manGenerator.1 $P/man1/generator.1

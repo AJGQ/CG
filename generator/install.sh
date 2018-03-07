@@ -1,11 +1,12 @@
-# copilacao do executavel
+
+# Compilacao do executavel
 make final
 
-# install exec
+# Install exec
 E=$(echo $PATH | cut -d: -f1 )
 cp -f generator $E
 
-# install manual
+# Install Manual
 P=$(manpath | cut -d: -f1)
 cp -f manGenerator.1 $P/man1/generator.1
 gzip -f $P/man1/generator.1

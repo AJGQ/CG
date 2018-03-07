@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
@@ -18,32 +19,39 @@
 
 using namespace std;
 
-//-----------------------------------------------------------------------------//
+//-Globais---------------------------------------------------------------------//
 
 GLuint buffers[1];
 float *arrayFloat=NULL;
 
 vector<const char*> fileNameModels;
 
-//-Moviento Camera-//
-float alfa = 0.0, beta = 0.0, radius = 5.0;
+//-Camera--------//
+float alpha = 0.0, beta = 0.0, radius = 5.0;
 float camX, camY, camZ;
+float mouX = 0.0, mouY = 0.0;
 
-//-Modo-------//
+//-Display-------//
 int disMode = 1;
 int axes = 0;
 
+//-FPS Counter---//
 int frame = 0;
 int timebase = 0;
-//-----------------------------------------------------------------------------//
 
-void error(const char *s){
-        cout << "\e[1;31mError:\e[0;1m" << s << "\e[0m" << endl;
-        _exit(-1);
+//-Funcoes---------------------------------------------------------------------//
+
+void error(const char *s) {
+   cout << "\e[1;31mError:\e[0;1m" << s << "\e[0m" << endl; _exit(-1);
 }
 
+void spherical2Cartesian() {
+  camX = radius * cos(beta) * sin(alpha);
+  camY = radius * sin(beta);
+  camZ = radius * cos(beta) * cos(alpha);
+}
 
-void printFPS(){
+void printFPS() {
     float fps;
     frame++;
     char title[50];
@@ -55,164 +63,128 @@ void printFPS(){
         frame = 0;
         sprintf(title,"%f Um Belo Trabalho",fps);
         glutSetWindowTitle(title);
-    } 
+    }
+}
+
+void changeSize(int w, int h) {
+	if(h == 0) h = 1;
+
+	float ratio = w * 1.0 / h;
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+  glViewport(0, 0, w, h);
+	gluPerspective(45.0f ,ratio, 1.0f ,1000.0f);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+void changeDisplayMode() {
+  switch(disMode) {
+    case 0:	glPolygonMode(GL_FRONT_AND_BACK, GL_POINT); break;
+    case 1:	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE ); break;
+    case 2:	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL );	break;
+    default: break;
+  }
+  glutPostRedisplay();
 }
 
 //-----------------------------------------------------------------------------//
 
-void spherical2Cartesian() {
-
-	camX = radius * cos(beta) * sin(alfa);
-	camY = radius * sin(beta);
-	camZ = radius * cos(beta) * cos(alfa);
-}
-
-void changeDisplayMode() {
-		switch(disMode) {
-			case 0:	glPolygonMode(GL_FRONT_AND_BACK, GL_POINT); break;
-			case 1:	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE ); break;
-			case 2:	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL );	break;
-			default: break;
-		}
-		glutPostRedisplay();
-}
-
-//-------------------------------------------------------------------------------//
-
-void changeSize(int w, int h) {
-
-	// Prevent a divide by zero, when window is too short
-	// (you cant make a window with zero width).
-	if(h == 0)
-		h = 1;
-
-	// Compute window's aspect ratio
-	float ratio = w * 1.0 / h;
-	// Set the projection matrix as current
-	glMatrixMode(GL_PROJECTION);
-	// Load Identity Matrix
-	glLoadIdentity();
-	// Set the viewport to be the entire window
-    glViewport(0, 0, w, h);
-	// Set perspective
-	gluPerspective(45.0f ,ratio, 1.0f ,1000.0f);
-	// Return to the model view matrix mode
-	glMatrixMode(GL_MODELVIEW);
-}
-
-//----------------------------------------------------------------------//
-
-void drawAxes(float cmp) {
+void drawAxes() {
 	glBegin(GL_LINES);
 
 	glColor3f(1, 0, 0); //-RED----//
-	glVertex3f(0      , 0, 0);
-	glVertex3f(1.0*cmp, 0, 0);
+	glVertex3f(0         , 0, 0);
+	glVertex3f(0.5*radius, 0, 0);
 
 	glColor3f(0, 1, 0); //-GREEN-//
-	glVertex3f(0, 0      , 0);
-	glVertex3f(0, 1.0*cmp, 0);
+	glVertex3f(0, 0         , 0);
+	glVertex3f(0, 0.5*radius, 0);
 
 	glColor3f(0, 0, 1); //-BLUE-//
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 0, 1.0*cmp);
+	glVertex3f(0, 0, 0         );
+	glVertex3f(0, 0, 0.5*radius);
 
 	glColor3f(1, 1, 1); //-WHITE-//
 	glEnd();
 }
 
-//----------------------------------------------------------------------//
+//-Controlos-------------------------------------------------------------------//
 
 void processKeys(unsigned char c, int xx, int yy) {
 
-	switch(c){
+	switch(c) {
+    // Mudar o modo de display
+    case '1': disMode = 0; break; // GL_POINT
+    case '2':	disMode = 1; break; // GL_LINE
+    case '3':	disMode = 2; break; // GL_FILL
 
-        // Mudar o modo de display
-        case '1': disMode = 0; break; // GL_POINT
-        case '2':	disMode = 1; break; // GL_LINE
-        case '3':	disMode = 2; break; // GL_FILL
-
-        case 'w': radius -= 0.1f;
-                if (radius < 0.1f) radius = 0.1f;
-                break;
-
-        case 's': radius += 0.1f; break;
-        case 'x': 
-            if(axes == 1) axes = 0;
-            else axes = 1;
+    case 'w': radius -= 0.1f;
+            if (radius < 0.1f) radius = 0.1f;
             break;
+
+    case 's': radius += 0.1f; break;
+
+    case 'x':
+        if (axes == 1) axes = 0; else axes = 1;
+        break;
 	}
 	spherical2Cartesian();
 	glutPostRedisplay();
 }
-
-//----------------------------------------------------------------------//
 
 void processSpecialKeys(int key, int xx, int yy) {
 
 	switch (key) {
+  	case GLUT_KEY_RIGHT: alpha -= 0.1; break;
+  	case GLUT_KEY_LEFT:  alpha += 0.1; break;
 
-	case GLUT_KEY_RIGHT: alfa -= 0.1; break;
+  	case GLUT_KEY_UP:  beta += 0.1f;
+  		if (beta > 1.5f) beta = 1.5f;
+  	break;
 
-	case GLUT_KEY_LEFT: alfa += 0.1; break;
-
-	case GLUT_KEY_UP: beta += 0.1f;
-		if (beta > 1.5f) beta = 1.5f;
-	break;
-
-	case GLUT_KEY_DOWN:beta -= 0.1f;
-		if (beta < -1.5) beta = -1.5f;
-	break;
+  	case GLUT_KEY_DOWN: beta -= 0.1f;
+  		if (beta < -1.5)  beta = -1.5f;
+  	break;
 	}
 	spherical2Cartesian();
 	glutPostRedisplay();
-
 }
 
-/*void processMouse (int button, int state, int x, int y){
-    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
-        mouse_x = x;
-        mouse_y = y;
+void processMouse (int button, int state, int x, int y) {
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+        mouX = x;
+        mouY = y;
     }
 }
 
-void mousePress(int x, int y){
-    angle_a -= x - mouse_x;
-    angle_b += y - mouse_y;
-    mouse_x = x;
-    mouse_y = y;
+void mousePress (int x, int y) {
+    alpha -= x - mouX;
+    beta  += y - mouY;
+    mouX = x;
+    mouY = y;
     glutPostRedisplay();
-
 }
-*/
 
-//----------------------------------------------------------------------//
+//-Render----------------------------------------------------------------------//
 
 void renderScene(void) {
-    printFPS();
-
-	// clear buffers
+  printFPS();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
   changeDisplayMode();
 
-	// set the camera
 	glLoadIdentity();
   gluLookAt(camX, camY, camZ,
             0.0 , 0.0 , 0.0 ,
             0.0f, 1.0f, 0.0f);
 
-	if (axes) { drawAxes(3); }
+	if (axes) { drawAxes(); }
 	drawFiles();
-    
-    
-	// End of frame
 	glutSwapBuffers();
 }
 
-//----------------------------------------------------------------------//
+//-----------------------------------------------------------------------------//
 
-int main(int argc, char** argv){
+int main(int argc, char** argv) {
   if(argc < 2) error("missing xml file");
   parseXML(argv[1]);
 
@@ -230,8 +202,8 @@ int main(int argc, char** argv){
 // Callback registration for keyboard and mouse processing
   glutKeyboardFunc(processKeys);
   glutSpecialFunc(processSpecialKeys);
-  //glutMouseFunc(processMouse);
-  //glutMotionFunc(mousePress);
+  glutMouseFunc(processMouse);
+  glutMotionFunc(mousePress);
 
 // OpenGL settings
   #ifndef __APPLE__
@@ -244,7 +216,7 @@ int main(int argc, char** argv){
 
   spherical2Cartesian();
 
-// enter GLUT's main cycle
+// Enter GLUT's main cycle
   glutMainLoop();
 
 	return 1;

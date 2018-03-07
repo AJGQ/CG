@@ -1,10 +1,10 @@
+
 #ifndef CREATE_H
-#define CREATE_H 
+#define CREATE_H
 
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-
 
 void createPlane    (char **argv);
 void createBox      (char **argv);
