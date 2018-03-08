@@ -231,8 +231,8 @@ void createTorus(char **argv){
 
     for(int i = 0; i<Sl; i++){
         for(int j = 0; j<sl+1; j++){
-            torusPoint(R,r,angle_a,angle_b,i+1,j  );
             torusPoint(R,r,angle_a,angle_b,i  ,j  );
+            torusPoint(R,r,angle_a,angle_b,i+1,j  );
         }
     }
 

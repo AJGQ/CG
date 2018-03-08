@@ -27,7 +27,7 @@ float *arrayFloat=NULL;
 vector<const char*> fileNameModels;
 
 //-Camera--------//
-float alpha = 0.0, beta = 0.0, radius = 5.0;
+float alpha = 0.0, beta = 0.0, radius = 10.0;
 float camX, camY, camZ;
 float mouX = 0.0, mouY = 0.0;
 
@@ -125,7 +125,7 @@ void processKeys(unsigned char c, int xx, int yy) {
     case 's': radius += 0.1f; break;
 
     case 'x':
-        if (axes == 1) axes = 0; else axes = 1;
+        axes = 1 - axes;
         break;
 	}
 	spherical2Cartesian();
@@ -158,10 +158,14 @@ void processMouse (int button, int state, int x, int y) {
 }
 
 void mousePress (int x, int y) {
-    alpha -= x - mouX;
-    beta  += y - mouY;
+    alpha -= ((float)(x - mouX))/50;
+    float aux = beta + ((float)(y - mouY))/50;
+    if(aux<M_PI/2 && aux>-M_PI/2)   beta = aux;
+    else if( aux>=M_PI/2 )          beta = M_PI/2;
+    else                            beta = -M_PI/2;
     mouX = x;
     mouY = y;
+    spherical2Cartesian();
     glutPostRedisplay();
 }
 
