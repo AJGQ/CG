@@ -12,6 +12,9 @@ void createSphere   (char **argv);
 void createCone     (char **argv);
 
 void createCylinder (char **argv);
-void createN64      (char **argv);
+
+void torusPoint(float R, float r, float angle_a, float angle_b, int i, int j);
+void createTorus(char **argv);
+//void createN64      (char **argv);
 
 #endif

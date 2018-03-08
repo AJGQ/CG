@@ -18,6 +18,7 @@ int main(int argc, char** argv){
   else if(argc==6 && !strncmp("sphere"  , argv[1], 6)) { createSphere(argv); }
   else if(argc==7 && !strncmp("cone"    , argv[1], 4)) { createCone(argv); }
   else if(argc==7 && !strncmp("cylinder", argv[1], 8)) { createCylinder(argv); }
+  else if(argc==7 && !strncmp("torus"   , argv[1], 5)) { createTorus(argv); }
   else error("try man generator");
 
   return 0;
