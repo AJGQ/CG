@@ -133,6 +133,7 @@ void processKeys(unsigned char c, int xx, int yy) {
     case 'r': disColor = 1; break; // Red
     case 'g': disColor = 2; break; // Green
     case 'b': disColor = 3; break; // Blue
+    case 'd': disColor = 0; break; // Default - White
 	}
 	spherical2Cartesian();
 	glutPostRedisplay();
