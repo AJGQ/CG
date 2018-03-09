@@ -161,7 +161,14 @@ void processMouse (int button, int state, int x, int y) {
     if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
         mouX = x;
         mouY = y;
+    }else if(button == 3){
+        radius -= 0.3;
+    }else if(button == 4){
+        radius += 0.3;
     }
+    spherical2Cartesian();
+    glutPostRedisplay();
+
 }
 
 void mousePress (int x, int y) {
