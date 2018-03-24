@@ -1,5 +1,5 @@
 Relátorio desenvolvido em LaTeX.
-Overleaf share link: https://www.overleaf.com/13999103fgrtvprxkfqq
+Overleaf share link: 
+Fase 1 : https://www.overleaf.com/13999103fgrtvprxkfqq
+Fase 2 : https://www.overleaf.com/15006630qffctjbypwxm
 link apenas para colaboradores.
-
-PS : Estou a usar uma template de um trabalho anterior, escuse the mess atm.

@@ -20,6 +20,7 @@ void Model::doit(){
     int i, cont, nbuff, *pos, *tot;
     char *typ;
     float x,y,z;
+    float redVal, greenVal, blueVal;
 
     file = fopen(this->file, "r");
     if(!file){
@@ -133,6 +134,28 @@ Scale::Scale(xml_node node){
 void Scale::doit(){
     glScalef(this->x,this->y,this->z);
 }
+
+//-Color------------------------------------------------------------------//
+Color::Color(float redVal, float greenVal, float blueVal){
+   this->redVal = redVal; 
+   this->greenVal = greenVal; 
+   this->blueVal = blueVal; 
+}
+Color::Color(xml_node node){
+    //cout << "parse de Color comecou" << endl;
+    xml_attribute aux_redVal = node.attribute("R");
+    xml_attribute aux_greenVal = node.attribute("G");
+    xml_attribute aux_blueVal = node.attribute("B");
+
+    this->redVal = aux_redVal ? aux_redVal.as_float() : 1.0f;
+    this->greenVal = aux_greenVal ? aux_greenVal.as_float() : 1.0f;
+    this->blueVal = aux_blueVal ? aux_blueVal.as_float() : 1.0f;
+    //cout << "parse de Color acabou" << endl;
+}
+void Color::doit(){
+    glColor3f(this->redVal,this->greenVal,this->blueVal);
+}
+
 //-Models------------------------------------------------------------------//
 Models::Models(std::vector<Model*> models){
     this->models = models; 
@@ -163,12 +186,15 @@ Group::Group(xml_node node){
         }else if(strcmp(trans.name(),"scale") == 0){
             this->transforms.push_back(new Scale(trans));
 
+        }else if(strcmp(trans.name(),"color") == 0){
+            this->transforms.push_back(new Color(trans));
+
         }else if(strcmp(trans.name(),"models") == 0){
             this->transforms.push_back(new Models(trans));
 
         }else if(strcmp(trans.name(),"group") == 0){
             this->transforms.push_back(new Group(trans));
-
+        
         }else{
             cout << "Erro no formato do xml, foi lido: " << trans.name() << endl;
         }

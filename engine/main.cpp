@@ -35,7 +35,7 @@ float mouX = 0.0, mouY = 0.0;
 
 //-Display-------//
 int disMode = 1;
-int disColor = 0; //white
+//int disColor = 0; //white
 int axes = 0;
 
 //-FPS Counter---//
@@ -130,12 +130,13 @@ void processKeys(unsigned char c, int xx, int yy) {
         case 'x':
                   axes = 1 - axes;
                   break;
-
+/*        
         case 'p': disColor = 4; break; // Pink
         case 'r': disColor = 1; break; // Red
         case 'g': disColor = 2; break; // Green
         case 'b': disColor = 3; break; // Blue
-        case 'd': disColor = 0; break; // Default - White
+        case 'd': disColor = 0; break; // Default - White 
+*/
     }
     spherical2Cartesian();
     glutPostRedisplay();
@@ -186,6 +187,7 @@ void mousePress (int x, int y) {
 }
 
 //-Color-----------------------------------------------------------------------//
+/* 
 void setColor(){
     switch(disColor) {
         case 0:	glColor3f(1.0f,1.0f,1.0f); break; //White
@@ -196,6 +198,7 @@ void setColor(){
         default: break;
     }
 }
+ */
 //-Render----------------------------------------------------------------------//
 
 void renderScene(void) {
@@ -210,7 +213,7 @@ void renderScene(void) {
 
     if (axes) { drawAxes(); }
 
-    setColor();
+    //setColor();
     scene->doit();
     //drawFiles();
     glutSwapBuffers();

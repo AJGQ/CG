@@ -57,6 +57,14 @@ class Scale : public PhysicScene{
     void doit();
 };
 
+class Color : public PhysicScene{
+    float redVal, greenVal, blueVal;
+  public:
+    Color(float, float, float);
+    Color(xml_node);
+    void doit();
+};
+
 class Models : public PhysicScene{
     vector<Model*> models;
   public:
