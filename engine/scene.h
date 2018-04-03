@@ -14,8 +14,8 @@
 #include <GL/glut.h>
 #endif
 
-using namespace pugi; 
-using namespace std; 
+using namespace pugi;
+using namespace std;
 
 extern float *arrayFloat;
 extern GLuint buffers[1];
@@ -27,6 +27,7 @@ class PhysicScene{
     //virtual ~PhysicScene() = 0;
     virtual void doit() = 0;
 };
+
 class Model {
     const char* file;
   public:
@@ -34,6 +35,7 @@ class Model {
     Model(xml_node);
     void doit();
 };
+
 class Translate : public PhysicScene{
     float x, y, z;
   public:
@@ -41,6 +43,7 @@ class Translate : public PhysicScene{
     Translate(xml_node);
     void doit();
 };
+
 class Rotate : public PhysicScene{
     float angle;
     float x, y, z;
@@ -49,6 +52,7 @@ class Rotate : public PhysicScene{
     Rotate(xml_node);
     void doit();
 };
+
 class Scale : public PhysicScene{
     float x, y, z;
   public:
@@ -72,6 +76,7 @@ class Models : public PhysicScene{
     Models(xml_node);
     void doit();
 };
+
 class Group : public PhysicScene{
     vector<PhysicScene*> transforms;
   public:

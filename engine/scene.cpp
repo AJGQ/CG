@@ -1,21 +1,24 @@
+
 #include "scene.h"
 #include <stdlib.h>
 #include <iostream>
 
+//-Model----------------------------------------------------------------------//
 
-//-Model------------------------------------------------------------------//
-Model::Model(const char* file){
-   this->file = file; 
+Model::Model(const char* file) {
+   this->file = file;
 }
-Model::Model(xml_node node){
+
+Model::Model(xml_node node) {
     //cout << "parse de Model comecou" << endl;
     this->file = (char*)malloc(50*sizeof(char));
     strcpy((char*)this->file, node.attribute("file").as_string());
 
     //cout << "parse de Model acabou" << endl;
 }
-void Model::doit(){
-    
+
+void Model::doit() {
+
     FILE* file;
     int i, cont, nbuff, *pos, *tot;
     char *typ;
@@ -23,7 +26,7 @@ void Model::doit(){
     float redVal, greenVal, blueVal;
 
     file = fopen(this->file, "r");
-    if(!file){
+    if(!file) {
         cout << "this->file: " << this->file << "file: " << file << endl;
         error("opening file");
     }
@@ -71,13 +74,15 @@ void Model::doit(){
     }
 }
 
-//-Translate-----------------------------------------------------------------//
-Translate::Translate(float x, float y, float z){
-   this->x = x; 
-   this->y = y; 
-   this->z = z; 
+//-Translate------------------------------------------------------------------//
+
+Translate::Translate(float x, float y, float z) {
+   this->x = x;
+   this->y = y;
+   this->z = z;
 }
-Translate::Translate(xml_node node){
+
+Translate::Translate(xml_node node) {
     //cout << "parse de Translate comecou" << endl;
     xml_attribute aux_x = node.attribute("X");
     xml_attribute aux_y = node.attribute("Y");
@@ -88,17 +93,21 @@ Translate::Translate(xml_node node){
     this->z = aux_z ? aux_z.as_float() : 0.0f;
     //cout << "parse de Translate acabou" << endl;
 }
-void Translate::doit(){
+
+void Translate::doit() {
     glTranslatef(this->x,this->y,this->z);
 }
-//-Rotate------------------------------------------------------------------//
-Rotate::Rotate(float angle, float x, float y, float z){
-   this->angle = angle; 
-   this->x = x; 
-   this->y = y; 
-   this->z = z; 
+
+//-Rotate---------------------------------------------------------------------//
+
+Rotate::Rotate(float angle, float x, float y, float z) {
+   this->angle = angle;
+   this->x = x;
+   this->y = y;
+   this->z = z;
 }
-Rotate::Rotate(xml_node node){
+
+Rotate::Rotate(xml_node node) {
     //cout << "parse de Rotate comecou" << endl;
     xml_attribute aux_angle = node.attribute("angle");
     xml_attribute aux_x     = node.attribute("axisX");
@@ -111,16 +120,20 @@ Rotate::Rotate(xml_node node){
     this->z     = aux_z     ? aux_z.as_float()     : 0.0f;
     //cout << "parse de Rotate acabou" << endl;
 }
-void Rotate::doit(){
+
+void Rotate::doit() {
     glRotatef(this->angle,this->x,this->y,this->z);
 }
-//-Scale------------------------------------------------------------------//
-Scale::Scale(float x, float y, float z){
-   this->x = x; 
-   this->y = y; 
-   this->z = z; 
+
+//-Scale----------------------------------------------------------------------//
+
+Scale::Scale(float x, float y, float z) {
+   this->x = x;
+   this->y = y;
+   this->z = z;
 }
-Scale::Scale(xml_node node){
+
+Scale::Scale(xml_node node) {
     //cout << "parse de Scale comecou" << endl;
     xml_attribute aux_x = node.attribute("X");
     xml_attribute aux_y = node.attribute("Y");
@@ -131,93 +144,106 @@ Scale::Scale(xml_node node){
     this->z = aux_z ? aux_z.as_float() : 0.0f;
     //cout << "parse de Scale acabou" << endl;
 }
-void Scale::doit(){
+
+void Scale::doit() {
     glScalef(this->x,this->y,this->z);
 }
 
-//-Color------------------------------------------------------------------//
-Color::Color(float redVal, float greenVal, float blueVal){
-   this->redVal = redVal; 
-   this->greenVal = greenVal; 
-   this->blueVal = blueVal; 
+//-Color----------------------------------------------------------------------//
+
+Color::Color(float redVal, float greenVal, float blueVal) {
+   this->redVal = redVal;
+   this->greenVal = greenVal;
+   this->blueVal = blueVal;
 }
-Color::Color(xml_node node){
+
+Color::Color(xml_node node) {
     //cout << "parse de Color comecou" << endl;
     xml_attribute aux_redVal = node.attribute("R");
     xml_attribute aux_greenVal = node.attribute("G");
     xml_attribute aux_blueVal = node.attribute("B");
 
-    this->redVal = aux_redVal ? aux_redVal.as_float() : 1.0f;
-    this->greenVal = aux_greenVal ? aux_greenVal.as_float() : 1.0f;
-    this->blueVal = aux_blueVal ? aux_blueVal.as_float() : 1.0f;
+    this->redVal = aux_redVal ? aux_redVal : 0; //f
+    this->greenVal = aux_greenVal ? aux_greenVal : 0; //f
+    this->blueVal = aux_blueVal ? aux_blueVal : 0; //f
     //cout << "parse de Color acabou" << endl;
 }
-void Color::doit(){
-    glColor3f(this->redVal,this->greenVal,this->blueVal);
+
+void Color::doit() {
+    glColor3ub(this->redVal,this->greenVal,this->blueVal);
 }
 
-//-Models------------------------------------------------------------------//
-Models::Models(std::vector<Model*> models){
-    this->models = models; 
+//-Models---------------------------------------------------------------------//
+
+Models::Models(std::vector<Model*> models) {
+    this->models = models;
 }
-Models::Models(xml_node node){
-    for(xml_node trans = node.first_child(); trans; trans = trans.next_sibling()){
+
+Models::Models(xml_node node) {
+    for(xml_node trans = node.first_child(); trans; trans = trans.next_sibling()) {
         this->models.push_back(new Model(trans));
     }
 }
-void Models::doit(){
-    for(int i = 0; i<models.size();i++){
+
+void Models::doit() {
+    for(int i = 0; i<models.size();i++) {
         this->models[i]->doit();
     }
 }
-//-Group------------------------------------------------------------------//
-Group::Group(std::vector<PhysicScene*> transforms){
-    this->transforms = transforms; 
+
+//-Group----------------------------------------------------------------------//
+
+Group::Group(std::vector<PhysicScene*> transforms) {
+    this->transforms = transforms;
 }
-Group::Group(xml_node node){
+
+Group::Group(xml_node node) {
     //cout << "parse de Group comecou" << endl;
-    for(xml_node trans = node.first_child(); trans; trans = trans.next_sibling()){
-        if(strcmp(trans.name(),"translate") == 0){
+    for(xml_node trans = node.first_child(); trans; trans = trans.next_sibling()) {
+        if(strcmp(trans.name(),"translate") == 0) {
             this->transforms.push_back(new Translate(trans));
 
-        }else if(strcmp(trans.name(),"rotate") == 0){
+        }else if(strcmp(trans.name(),"rotate") == 0) {
             this->transforms.push_back(new Rotate(trans));
 
-        }else if(strcmp(trans.name(),"scale") == 0){
+        }else if(strcmp(trans.name(),"scale") == 0) {
             this->transforms.push_back(new Scale(trans));
 
-        }else if(strcmp(trans.name(),"color") == 0){
+        }else if(strcmp(trans.name(),"color") == 0) {
             this->transforms.push_back(new Color(trans));
 
-        }else if(strcmp(trans.name(),"models") == 0){
+        }else if(strcmp(trans.name(),"models") == 0) {
             this->transforms.push_back(new Models(trans));
 
-        }else if(strcmp(trans.name(),"group") == 0){
+        }else if(strcmp(trans.name(),"group") == 0) {
             this->transforms.push_back(new Group(trans));
-        
+
         }else{
             cout << "Erro no formato do xml, foi lido: " << trans.name() << endl;
         }
     }
     //cout << "parse de Group acabou" << endl;
 }
-void Group::doit(){
+
+void Group::doit() {
     glPushMatrix();
-    for(int i = 0; i<transforms.size(); i++){
+    for(int i = 0; i<transforms.size(); i++) {
         this->transforms[i]->doit();
     }
     glPopMatrix();
 }
-//-Scene------------------------------------------------------------------//
-Scene::Scene(Group* group){
+//-Scene----------------------------------------------------------------------//
+
+Scene::Scene(Group* group) {
     this->group = group;
 }
-Scene::Scene(const char* xml_file){
+
+Scene::Scene(const char* xml_file) {
     //cout << "parse de Scene comecou" << endl;
     xml_document doc;
     xml_parse_result result;
-    
-    if( !(result = doc.load_file(xml_file)) ){
+
+    if( !(result = doc.load_file(xml_file)) ) {
         std::cout << "XML [" << xml_file << "] parsed with errors, attr value: [" << doc.child("node").attribute("attr").value() << "]\n";
         std::cout << "Error description: " << result.description() << "\n";
         std::cout << "Error offset: " << result.offset << " (error at [..." << (xml_file + result.offset) << "]\n\n";
@@ -227,6 +253,7 @@ Scene::Scene(const char* xml_file){
     this->group = new Group(models.first_child());
     //cout << "parse de Scene acabou" << endl;
 }
-void Scene::doit(){
+
+void Scene::doit() {
     this->group->doit();
 }
