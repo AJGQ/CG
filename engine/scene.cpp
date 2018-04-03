@@ -163,9 +163,9 @@ Color::Color(xml_node node) {
     xml_attribute aux_greenVal = node.attribute("G");
     xml_attribute aux_blueVal = node.attribute("B");
 
-    this->redVal = aux_redVal ? aux_redVal : 0; //f
-    this->greenVal = aux_greenVal ? aux_greenVal : 0; //f
-    this->blueVal = aux_blueVal ? aux_blueVal : 0; //f
+    this->redVal = aux_redVal ? aux_redVal.as_float() : 0; //f
+    this->greenVal = aux_greenVal ? aux_greenVal.as_float() : 0; //f
+    this->blueVal = aux_blueVal ? aux_blueVal.as_float() : 0; //f
     //cout << "parse de Color acabou" << endl;
 }
 
