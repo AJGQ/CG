@@ -17,7 +17,6 @@
 using namespace pugi;
 using namespace std;
 
-extern float *arrayFloat;
 extern GLuint buffers[1];
 
 extern void error(const char *s);
@@ -29,9 +28,12 @@ class PhysicScene{
 };
 
 class Model {
-    const char* file;
   public:
-    Model(const char*);
+    int N;
+    int index;
+    float *arrayFloat;
+    int *pos, *len;
+    char *typ;
     Model(xml_node);
     void doit();
 };

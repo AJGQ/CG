@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
-#include "parseXML.h"
 #include "scene.h"
 
 #pragma clang diagnostic push
@@ -215,7 +214,6 @@ void renderScene(void) {
 
     //setColor();
     scene->doit();
-    //drawFiles();
     glutSwapBuffers();
 }
 
@@ -223,7 +221,6 @@ void renderScene(void) {
 
 int main(int argc, char** argv) {
     if(argc < 2) error("missing xml file");
-    //parseXML(argv[1]);
     scene = new Scene(argv[1]);
 
     // init GLUT and the window
@@ -247,6 +244,7 @@ int main(int argc, char** argv) {
 #ifndef __APPLE__
     glewInit();
 #endif
+    glGenBuffers(1, buffers);
     glEnableClientState(GL_VERTEX_ARRAY);
 
     glEnable(GL_DEPTH_TEST);

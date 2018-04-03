@@ -5,72 +5,48 @@
 
 //-Model----------------------------------------------------------------------//
 
-Model::Model(const char* file) {
-   this->file = file;
-}
-
 Model::Model(xml_node node) {
-    //cout << "parse de Model comecou" << endl;
-    this->file = (char*)malloc(50*sizeof(char));
-    strcpy((char*)this->file, node.attribute("file").as_string());
+    FILE* file;
+    int i, total;
+    float x, y, z;
 
-    //cout << "parse de Model acabou" << endl;
+    file = fopen(node.attribute("file").as_string(), "r");
+    //strcpy((char*)this->file, node.attribute("file").as_string());
+    if(!file) error("opening file");
+    fscanf(file,"%d\n",&(this->N));
+
+    this->index = 0;
+    this->pos = new int[this->N];
+    this->len = new int[this->N];
+    this->typ = new char[this->N];
+
+    for(i=0, total=0; i<this->N; i++) {
+        fscanf(file,"%c%d\n", &typ[i], &len[i]);
+        pos[i] = total;
+        total += len[i];
+    }
+    this->arrayFloat = new float[total * 3];
+    while(fscanf(file,"%f:%f:%f\n",&x,&y,&z) != EOF) {
+        this->arrayFloat[this->index++] = x;
+        this->arrayFloat[this->index++] = y;
+        this->arrayFloat[this->index++] = z;
+    }
 }
 
 void Model::doit() {
-
-    FILE* file;
-    int i, cont, nbuff, *pos, *tot;
-    char *typ;
-    float x,y,z;
-    float redVal, greenVal, blueVal;
-
-    file = fopen(this->file, "r");
-    if(!file) {
-        cout << "this->file: " << this->file << "file: " << file << endl;
-        error("opening file");
-    }
-    fscanf(file,"%d\n",&nbuff);
-
-    //fprintf(stderr,"%d\n", nbuff);
-
-    pos = (int*)malloc(nbuff * sizeof(int));
-    tot = (int*)malloc(nbuff * sizeof(int));
-    typ = (char*)malloc(nbuff * sizeof(char));
-
-    for(i=0, cont=0; i<nbuff; i++) {
-        fscanf(file,"%c%d\n", &typ[i], &tot[i]);
-        pos[i] = cont;
-        cont += tot[i];
-        //fprintf(stderr,"%c%d\n", typ[i], tot[i]);
-    }
-
-    glGenBuffers(1, buffers);
-    arrayFloat = (float *)(malloc(cont * 3 * sizeof(float)));
-
-    for(i=0; fscanf(file,"%f:%f:%f\n",&x,&y,&z) != EOF; i+=3) {
-        //fprintf(stderr,"%f:%f:%f\n", x, y, z);
-        arrayFloat[i] = x;
-        arrayFloat[i+1] = y;
-        arrayFloat[i+2] = z;
-    }
-    fclose(file);
-
+    int i, gl;
     glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
-    glBufferData(GL_ARRAY_BUFFER,  cont * 3 * sizeof(float), arrayFloat, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
-
+    glBufferData(GL_ARRAY_BUFFER, this->index * 3 * sizeof(float), this->arrayFloat, GL_STATIC_DRAW);
     glVertexPointer(3,GL_FLOAT,0,0);
 
-    for(i=0; i<nbuff; i++) {
-        //fprintf(stderr,"%c\n", typ[i]);
-        //fprintf(stderr,"%d:%d\n", pos[i], tot[i]);
-        switch(typ[i]) {
-            case 's' : glDrawArrays(GL_TRIANGLE_STRIP   , pos[i], tot[i]); break;
-            case 'f' : glDrawArrays(GL_TRIANGLE_FAN     , pos[i], tot[i]); break;
-            case 't' : glDrawArrays(GL_TRIANGLES        , pos[i], tot[i]); break;
+    for(i=0; i<this->N; i++) {
+        switch(this->typ[i]) {
+            case 's' : gl = GL_TRIANGLE_STRIP;  break;
+            case 'f' : gl = GL_TRIANGLE_FAN;    break;
+            case 't' : gl = GL_TRIANGLES;       break;
             default  : error("array type bad specified");
         }
+        glDrawArrays(gl, this->pos[i], this->len[i]);
     }
 }
 
