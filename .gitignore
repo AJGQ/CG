@@ -4,4 +4,7 @@
 .idea/
 *.3d
 
+generator/generator
+engine/engine
+
 compile_commands.json

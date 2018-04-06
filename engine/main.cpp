@@ -22,9 +22,9 @@ using namespace std;
 //-Globais---------------------------------------------------------------------//
 
 GLuint buffers[1];
-float *arrayFloat=NULL;
+//float *arrayFloat=NULL;
 
-vector<const char*> fileNameModels; 
+//vector<const char*> fileNameModels; 
 Scene* scene;
 
 //-Camera--------//
@@ -44,7 +44,8 @@ int timebase = 0;
 //-Funcoes---------------------------------------------------------------------//
 
 void error(const char *s) {
-    cout << "\e[1;31mError:\e[0;1m" << s << "\e[0m" << endl; _exit(-1);
+    cerr << "\e[1;31mError:\e[0;1m" << s << "\e[0m" << endl; 
+    _exit(-1);
 }
 
 void spherical2Cartesian() {
@@ -117,8 +118,8 @@ void processKeys(unsigned char c, int xx, int yy) {
     switch(c) {
         // Mudar o modo de display
         case '1': disMode = 0; break; // GL_POINT
-        case '2':	disMode = 1; break; // GL_LINE
-        case '3':	disMode = 2; break; // GL_FILL
+        case '2': disMode = 1; break; // GL_LINE
+        case '3': disMode = 2; break; // GL_FILL
 
         case 'w': radius -= 0.1f;
                   if (radius < 0.1f) radius = 0.1f;
@@ -126,9 +127,7 @@ void processKeys(unsigned char c, int xx, int yy) {
 
         case 's': radius += 0.1f; break;
 
-        case 'x':
-                  axes = 1 - axes;
-                  break;
+        case 'x': axes = 1 - axes; break;
 /*        
         case 'p': disColor = 4; break; // Pink
         case 'r': disColor = 1; break; // Red
