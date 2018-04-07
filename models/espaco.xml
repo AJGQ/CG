@@ -9,7 +9,8 @@
             </models>
         </group>
         <group> <!-- "Mercury" -->
-            <translate X="6" Y="6" Z="6" />
+            <rotate    angle="0" axisX="0" axisY="1" axisZ="0" />
+            <translate X="6.38" Y="0" Z="0" />
             <scale     X="0.38" Y="0.38" Z="0.38" /> <!-- " 38% " -->
             <color     R="250" G="248" B="242" />
             <models>
@@ -17,7 +18,8 @@
             </models>
         </group>
         <group> <!-- "Venus" -->
-            <translate X="7" Y="7" Z="7" />
+            <rotate    angle="0" axisX="0" axisY="1" axisZ="0" />
+            <translate X="8.71" Y="0" Z="0" />
             <scale     X="0.95" Y="0.95" Z="0.95" /> <!-- " 95% " -->
             <color     R="255" G="255" B="242" />
             <models>
@@ -25,7 +27,8 @@
             </models>
         </group>
         <group> <!-- "Earth" -->
-            <translate X="8.5" Y="8.5" Z="8.5" />
+            <rotate    angle="0" axisX="0" axisY="1" axisZ="0" />
+            <translate X="11.66" Y="0" Z="0" />
             <scale     X="1" Y="1" Z="1" /> <!-- " 100% " -->
             <color     R="11" G="92" B="227" />
             <models>
@@ -33,7 +36,8 @@
             </models>
         </group>
         <group> <!-- "Mars" -->
-            <translate X="9" Y="9" Z="9" />
+            <rotate    angle="0" axisX="0" axisY="1" axisZ="0" />
+            <translate X="14.19" Y="0" Z="0" />
             <scale     X="0.53" Y="0.53" Z="0.53" /> <!-- " 53% " -->
             <color     R="240" G="198" B="29" />
             <models>
@@ -41,15 +45,17 @@
             </models>
         </group>
         <group> <!-- "Jupiter" -->
-            <translate X="13" Y="13" Z="13" />
-            <scale     X="3" Y="3" Z="3" /> <!-- " 1,120% " -->
+            <rotate    angle="0" axisX="0" axisY="1" axisZ="0" />
+            <translate X="18.72" Y="0" Z="0" />
+            <scale     X="3" Y="3" Z="3" /> <!-- " 1120% " -->
             <color     R="253" G="199" B="145" />
             <models>
                 <model file="sphere.3d" />
             </models>
         </group>
         <group> <!-- "Saturn" -->
-            <translate X="19" Y="19" Z="19" />
+            <rotate    angle="0" axisX="0" axisY="1" axisZ="0" />
+            <translate X="25.52" Y="0" Z="0" />
             <scale     X="2.8" Y="2.8" Z="2.8" /> <!-- " 945% " -->
             <color     R="224" G="196" B="34" />
             <models>
@@ -57,7 +63,8 @@
             </models>
         </group>
         <group> <!-- "Uranus" -->
-            <translate X="34.5" Y="34.5" Z="34.5" />
+            <rotate    angle="0" axisX="0" axisY="1" axisZ="0" />
+            <translate X="31.12" Y="0" Z="0" />
             <scale     X="1.8" Y="1.8" Z="1.8" /> <!-- " 400% " -->
             <color     R="220" G="241" B="245" />
             <models>
@@ -65,7 +72,8 @@
             </models>
         </group>
         <group> <!-- "Neptune" -->
-            <translate X="38" Y="38" Z="38" />
+            <rotate    angle="0" axisX="0" axisY="1" axisZ="0" />
+            <translate X="35.32" Y="0" Z="0" />
             <scale     X="1.4" Y="1.4" Z="1.4" /> <!-- " 388%  " -->
             <color     R="57" G="182" B="247" />
             <models>
@@ -73,7 +81,8 @@
             </models>
         </group>
         <group> <!-- "Pluto" -->
-            <translate X="40" Y="40" Z="40" />
+            <rotate    angle="0" axisX="0" axisY="1" axisZ="1" />
+            <translate X="37.92" Y="0" Z="0" />
             <scale     X="0.2" Y="0.2" Z="0.2" /> <!-- " 20% " -->
             <color     R="221" G="196" B="175" />
             <models>
