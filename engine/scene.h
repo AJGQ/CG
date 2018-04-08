@@ -24,7 +24,7 @@ extern void error(const char *s);
 class PhysicScene{
   public:
     //virtual ~PhysicScene() = 0;
-    virtual void doit() = 0;
+    virtual void draw() = 0;
 };
 
 class Model {
@@ -35,7 +35,7 @@ class Model {
     int *pos, *len;
     char *typ;
     Model(xml_node);
-    void doit();
+    void draw();
 };
 
 class Translate : public PhysicScene{
@@ -43,7 +43,7 @@ class Translate : public PhysicScene{
   public:
     Translate(float,float,float);
     Translate(xml_node);
-    void doit();
+    void draw();
 };
 
 class Rotate : public PhysicScene{
@@ -52,7 +52,7 @@ class Rotate : public PhysicScene{
   public:
     Rotate(float,float,float,float);
     Rotate(xml_node);
-    void doit();
+    void draw();
 };
 
 class Scale : public PhysicScene{
@@ -60,7 +60,7 @@ class Scale : public PhysicScene{
   public:
     Scale(float,float,float);
     Scale(xml_node);
-    void doit();
+    void draw();
 };
 
 class Color : public PhysicScene{
@@ -68,7 +68,7 @@ class Color : public PhysicScene{
   public:
     Color(float, float, float);
     Color(xml_node);
-    void doit();
+    void draw();
 };
 
 class Models : public PhysicScene{
@@ -76,7 +76,7 @@ class Models : public PhysicScene{
   public:
     Models(vector<Model*>);
     Models(xml_node);
-    void doit();
+    void draw();
 };
 
 class Group : public PhysicScene{
@@ -84,7 +84,7 @@ class Group : public PhysicScene{
   public:
     Group(vector<PhysicScene*>);
     Group(xml_node);
-    void doit();
+    void draw();
 };
 
 class Scene {
@@ -92,7 +92,7 @@ class Scene {
   public:
     Scene(Group*);
     Scene(const char* xml_file);
-    void doit();
+    void draw();
 };
 
 #endif

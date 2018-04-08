@@ -33,7 +33,7 @@ Model::Model(xml_node node) {
     }
 }
 
-void Model::doit() {
+void Model::draw() {
     int i, gl;
     glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
     glBufferData(GL_ARRAY_BUFFER, this->index * 3 * sizeof(float), this->arrayFloat, GL_STATIC_DRAW);
@@ -70,7 +70,7 @@ Translate::Translate(xml_node node) {
     //cout << "parse de Translate acabou" << endl;
 }
 
-void Translate::doit() {
+void Translate::draw() {
     glTranslatef(this->x,this->y,this->z);
 }
 
@@ -97,7 +97,7 @@ Rotate::Rotate(xml_node node) {
     //cout << "parse de Rotate acabou" << endl;
 }
 
-void Rotate::doit() {
+void Rotate::draw() {
     glRotatef(this->angle,this->x,this->y,this->z);
 }
 
@@ -121,7 +121,7 @@ Scale::Scale(xml_node node) {
     //cout << "parse de Scale acabou" << endl;
 }
 
-void Scale::doit() {
+void Scale::draw() {
     glScalef(this->x,this->y,this->z);
 }
 
@@ -145,7 +145,7 @@ Color::Color(xml_node node) {
     //cout << "parse de Color acabou" << endl;
 }
 
-void Color::doit() {
+void Color::draw() {
     glColor3ub(this->redVal,this->greenVal,this->blueVal);
 }
 
@@ -161,9 +161,9 @@ Models::Models(xml_node node) {
     }
 }
 
-void Models::doit() {
+void Models::draw() {
     for(int i = 0; i<models.size();i++) {
-        this->models[i]->doit();
+        this->models[i]->draw();
     }
 }
 
@@ -201,10 +201,10 @@ Group::Group(xml_node node) {
     //cout << "parse de Group acabou" << endl;
 }
 
-void Group::doit() {
+void Group::draw() {
     glPushMatrix();
     for(int i = 0; i<transforms.size(); i++) {
-        this->transforms[i]->doit();
+        this->transforms[i]->draw();
     }
     glPopMatrix();
 }
@@ -230,6 +230,6 @@ Scene::Scene(const char* xml_file) {
     //cout << "parse de Scene acabou" << endl;
 }
 
-void Scene::doit() {
-    this->group->doit();
+void Scene::draw() {
+    this->group->draw();
 }

@@ -212,7 +212,7 @@ void renderScene(void) {
     if (axes) { drawAxes(); }
 
     //setColor();
-    scene->doit();
+    scene->draw();
     glutSwapBuffers();
 }
 
