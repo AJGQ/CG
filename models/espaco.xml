@@ -63,6 +63,33 @@
         <group> <!-- "Jupiter" -->
             <rotate    angle="200" axisX="0" axisY="1" axisZ="0" />
             <translate X="18.72" Y="0" Z="0" />
+            <group> <!-- "moon 1" -->
+                <rotate    angle="40" axisX="0" axisY="1" axisZ="0" />
+                <translate X="4" Y="0" Z="0" />
+                <scale     X="0.1" Y="0.1" Z="0.1" />
+                <color     R="100" G="100" B="100" />
+                <models>
+                    <model file="sphere.3d" />
+                </models>
+            </group>
+            <group> <!-- "moon 2" -->
+                <rotate    angle="140" axisX="0" axisY="1" axisZ="0" />
+                <translate X="4.5" Y="0" Z="0" />
+                <scale     X="0.3" Y="0.2" Z="0.3" />
+                <color     R="255" G="200" B="200" />
+                <models>
+                    <model file="sphere.3d" />
+                </models>
+            </group>
+            <group> <!-- "moon 3" -->
+                <rotate    angle="210" axisX="0" axisY="1" axisZ="0" />
+                <translate X="4.1" Y="0" Z="0" />
+                <scale     X="0.2" Y="0.2" Z="0.2" />
+                <color     R="253" G="255" B="200" />
+                <models>
+                    <model file="sphere.3d" />
+                </models>
+            </group>
             <scale     X="3" Y="3" Z="3" /> <!-- " 1120% " -->
             <color     R="253" G="199" B="145" />
             <models>
