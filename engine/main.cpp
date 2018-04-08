@@ -28,7 +28,7 @@ GLuint buffers[1];
 Scene* scene;
 
 //-Camera--------//
-float alpha = 0.0, beta = 0.0, radius = 10.0;
+float alpha = 0.0, beta = 0.0, radius = 20.0;
 float camX, camY, camZ;
 float mouX = 0.0, mouY = 0.0;
 
