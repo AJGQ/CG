@@ -1,3 +1,7 @@
 <scene>
-    <model file="torus.3d" />
+    <group>
+        <models>
+            <model file="torus.3d" />
+        </models>
+    </group>
 </scene>
