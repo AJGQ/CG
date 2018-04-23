@@ -1,4 +1,17 @@
 <scene>
-    <model file="torus.3d" />
-    <model file="cylinder.3d" />
+    <group>
+        <group>
+            <rotate time = "1" axisX = "0" axisY = "1" axisZ = "0"/> 
+            <models>
+                <model file = "sphere.3d"/>
+            </models>
+        </group>
+        <group>
+            <rotate time = "0.5" axisX = "0" axisY = "1" axisZ = "0"/>
+            <translate X = "3" Y = "0" Z = "0"/>
+            <models>
+                <model file = "sphere.3d"/>
+            </models>
+        </group>
+    </group>
 </scene>

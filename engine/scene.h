@@ -47,10 +47,10 @@ class Translate : public PhysicScene{
 };
 
 class Rotate : public PhysicScene{
-    float angle;
+    float angle, time;
     float x, y, z;
   public:
-    Rotate(float,float,float,float);
+    Rotate(float,float,float,float,float);
     Rotate(xml_node);
     void draw();
 };
