@@ -39,18 +39,18 @@ class Model {
 };
 
 class Translate : public PhysicScene{
-    float x, y, z;
+    float time, x, y, z;
   public:
-    Translate(float,float,float);
+    Translate( float, float, float, float);
     Translate(xml_node);
     void draw();
 };
 
 class Rotate : public PhysicScene{
-    float angle;
+    float angle, time;
     float x, y, z;
   public:
-    Rotate(float,float,float,float);
+    Rotate(float,float,float,float,float);
     Rotate(xml_node);
     void draw();
 };

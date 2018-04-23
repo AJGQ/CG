@@ -11,6 +11,7 @@ Model::Model(xml_node node) {
     float x, y, z;
 
     file = fopen(node.attribute("file").as_string(), "r");
+    
     //strcpy((char*)this->file, node.attribute("file").as_string());
     if(!file) error("opening file");
     fscanf(file,"%d\n",&(this->N));
@@ -52,61 +53,81 @@ void Model::draw() {
 
 //-Translate------------------------------------------------------------------//
 
-Translate::Translate(float x, float y, float z) {
-   this->x = x;
-   this->y = y;
-   this->z = z;
+Translate::Translate(float time=0.0, float x, float y, float z) {
+  this -> time = time
+  this -> x    = x;
+  this -> y    = y;
+  this -> z    = z;
 }
 
 Translate::Translate(xml_node node) {
     //cout << "parse de Translate comecou" << endl;
-    xml_attribute aux_x = node.attribute("X");
-    xml_attribute aux_y = node.attribute("Y");
-    xml_attribute aux_z = node.attribute("Z");
+    xml_attribute aux_time = node.attribute("time");
+    xml_attribute aux_x    = node.attribute("X");
+    xml_attribute aux_y    = node.attribute("Y");
+    xml_attribute aux_z    = node.attribute("Z");
 
-    this->x = aux_x ? aux_x.as_float() : 0.0f;
-    this->y = aux_y ? aux_y.as_float() : 0.0f;
-    this->z = aux_z ? aux_z.as_float() : 0.0f;
+    this-> time = aux_x ? aux_time.as_float() : 0.0f;
+    this-> x    = aux_x ? aux_x.   as_float() : 0.0f;
+    this-> y    = aux_y ? aux_y.   as_float() : 0.0f;
+    this-> z    = aux_z ? aux_z.   as_float() : 0.0f;
     //cout << "parse de Translate acabou" << endl;
 }
 
 void Translate::draw() {
-    glTranslatef(this->x,this->y,this->z);
+    if (time == 0) //catMull(this->time,this->x,this->y,this->z);
+    else glTranslatef(this->x,this->y,this->z);
 }
 
 //-Rotate---------------------------------------------------------------------//
 
-Rotate::Rotate(float angle, float x, float y, float z) {
-   this->angle = angle;
-   this->x = x;
-   this->y = y;
-   this->z = z;
+Rotate::Rotate(float time, float angle, float x, float y, float z) {
+    this->time = time;
+    this->angle = angle;
+    this->x = x;
+    this->y = y;
+    this->z = z;
 }
 
 Rotate::Rotate(xml_node node) {
     //cout << "parse de Rotate comecou" << endl;
+    xml_attribute aux_time  = node.attribute("time");
     xml_attribute aux_angle = node.attribute("angle");
     xml_attribute aux_x     = node.attribute("axisX");
     xml_attribute aux_y     = node.attribute("axisY");
     xml_attribute aux_z     = node.attribute("axisZ");
 
+    this->time  = aux_time  ? aux_time.as_float()  : 0.0f;
     this->angle = aux_angle ? aux_angle.as_float() : 0.0f;
     this->x     = aux_x     ? aux_x.as_float()     : 0.0f;
     this->y     = aux_y     ? aux_y.as_float()     : 0.0f;
     this->z     = aux_z     ? aux_z.as_float()     : 0.0f;
+        
+    if(this->angle != 0.0 && this->time != 0.0){
+        this->time  = (360.0/this->angle) * this->time;
+        this->angle = 0.0;
+    }
     //cout << "parse de Rotate acabou" << endl;
 }
 
 void Rotate::draw() {
-    glRotatef(this->angle,this->x,this->y,this->z);
+    if(this->time == 0.0){
+        glRotatef(this->angle,this->x,this->y,this->z);
+    } else {
+        int globalTime = glutGet(GLUT_ELAPSED_TIME);
+        int time = (int)(1000*this->time);
+        int intervalo = globalTime % time;
+
+        glRotatef(((float)intervalo/(float)time)*360.0 , this->x, this->y, this->z);
+    }
 }
 
 //-Scale----------------------------------------------------------------------//
 
 Scale::Scale(float x, float y, float z) {
-   this->x = x;
-   this->y = y;
-   this->z = z;
+    this->x = x;
+    this->y = y;
+    this->z = z;
 }
 
 Scale::Scale(xml_node node) {
@@ -128,9 +149,9 @@ void Scale::draw() {
 //-Color----------------------------------------------------------------------//
 
 Color::Color(float redVal, float greenVal, float blueVal) {
-   this->redVal = redVal;
-   this->greenVal = greenVal;
-   this->blueVal = blueVal;
+    this->redVal = redVal;
+    this->greenVal = greenVal;
+    this->blueVal = blueVal;
 }
 
 Color::Color(xml_node node) {
