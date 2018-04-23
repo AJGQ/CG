@@ -39,9 +39,9 @@ class Model {
 };
 
 class Translate : public PhysicScene{
-    float x, y, z;
+    float time, x, y, z;
   public:
-    Translate(float,float,float);
+    Translate( float, float, float, float);
     Translate(xml_node);
     void draw();
 };

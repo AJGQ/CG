@@ -52,26 +52,30 @@ void Model::draw() {
 
 //-Translate------------------------------------------------------------------//
 
-Translate::Translate(float x, float y, float z) {
-   this->x = x;
-   this->y = y;
-   this->z = z;
+Translate::Translate(float time=0.0, float x, float y, float z) {
+  this -> time = time
+  this -> x    = x;
+  this -> y    = y;
+  this -> z    = z;
 }
 
 Translate::Translate(xml_node node) {
     //cout << "parse de Translate comecou" << endl;
-    xml_attribute aux_x = node.attribute("X");
-    xml_attribute aux_y = node.attribute("Y");
-    xml_attribute aux_z = node.attribute("Z");
+    xml_attribute aux_time = node.attribute("time");
+    xml_attribute aux_x    = node.attribute("X");
+    xml_attribute aux_y    = node.attribute("Y");
+    xml_attribute aux_z    = node.attribute("Z");
 
-    this->x = aux_x ? aux_x.as_float() : 0.0f;
-    this->y = aux_y ? aux_y.as_float() : 0.0f;
-    this->z = aux_z ? aux_z.as_float() : 0.0f;
+    this-> time = aux_x ? aux_time.as_float() : 0.0f;
+    this-> x    = aux_x ? aux_x.   as_float() : 0.0f;
+    this-> y    = aux_y ? aux_y.   as_float() : 0.0f;
+    this-> z    = aux_z ? aux_z.   as_float() : 0.0f;
     //cout << "parse de Translate acabou" << endl;
 }
 
 void Translate::draw() {
-    glTranslatef(this->x,this->y,this->z);
+    if (time == 0) //catMull(this->time,this->x,this->y,this->z);
+    else glTranslatef(this->x,this->y,this->z);
 }
 
 //-Rotate---------------------------------------------------------------------//
