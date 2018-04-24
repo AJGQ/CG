@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <iostream>
 
+extern int trajetorias;
+
 //-Model----------------------------------------------------------------------//
 
 Model::Model(xml_node node) {
@@ -96,9 +98,11 @@ void Translate::draw() {
     if (time == 0) {
         glTranslatef(this->x,this->y,this->z);
     } else { 
-        if(this->x != 0.0 || this->y != 0.0 || this->z != 0.0){
+        if(this->x != 0.0 || this->y != 0.0 || this->z != 0.0)
             glTranslatef(this->x,this->y,this->z);
-        }
+        if(trajetorias)
+            renderCatmullRomCurve(this->points);
+
         startPath(this->points, this->time);
     }
 }

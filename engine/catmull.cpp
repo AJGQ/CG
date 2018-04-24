@@ -109,8 +109,6 @@ void startPath(std::vector<float*> p, float time){
     float up[3] = {0,1,0};
     float Z[3];
 
-    renderCatmullRomCurve(p);
-
     getGlobalCatmullRomPoint(p, t, pos, deriv);
     normalize(deriv);
 
