@@ -1,5 +1,5 @@
-
 #include "scene.h"
+#include "catmull.h"
 #include <stdlib.h>
 #include <iostream>
 
@@ -53,11 +53,11 @@ void Model::draw() {
 
 //-Translate------------------------------------------------------------------//
 
-Translate::Translate(float time=0.0, float x, float y, float z) {
-  this -> time = time
-  this -> x    = x;
-  this -> y    = y;
-  this -> z    = z;
+Translate::Translate(float time, float x, float y, float z) {
+  this->time = time;
+  this->x    = x;
+  this->y    = y;
+  this->z    = z;
 }
 
 Translate::Translate(xml_node node) {
@@ -67,16 +67,40 @@ Translate::Translate(xml_node node) {
     xml_attribute aux_y    = node.attribute("Y");
     xml_attribute aux_z    = node.attribute("Z");
 
-    this-> time = aux_x ? aux_time.as_float() : 0.0f;
-    this-> x    = aux_x ? aux_x.   as_float() : 0.0f;
-    this-> y    = aux_y ? aux_y.   as_float() : 0.0f;
-    this-> z    = aux_z ? aux_z.   as_float() : 0.0f;
+    this->time = aux_time ? aux_time.as_float() : 0.0f;
+    this->x    = aux_x    ? aux_x.as_float()    : 0.0f;
+    this->y    = aux_y    ? aux_y.as_float()    : 0.0f;
+    this->z    = aux_z    ? aux_z.as_float()    : 0.0f;
+
+    for(xml_node point = node.first_child(); point; point = point.next_sibling()) {
+        if(strcmp(point.name(),"point") == 0) {
+            aux_x = point.attribute("X");
+            aux_y = point.attribute("Y");
+            aux_z = point.attribute("Z");
+
+            float* v = (float*)malloc(3*sizeof(float));
+            v[0] = aux_x ? aux_x.as_float() : 0.0f;
+            v[1] = aux_y ? aux_y.as_float() : 0.0f;
+            v[2] = aux_z ? aux_z.as_float() : 0.0f;
+
+            this->points.push_back(v);
+        }else{
+            error("O translate tem apenas nodes point");
+        }
+    }
+    
     //cout << "parse de Translate acabou" << endl;
 }
 
 void Translate::draw() {
-    if (time == 0) //catMull(this->time,this->x,this->y,this->z);
-    else glTranslatef(this->x,this->y,this->z);
+    if (time == 0) {
+        glTranslatef(this->x,this->y,this->z);
+    } else { 
+        if(this->x != 0.0 || this->y != 0.0 || this->z != 0.0){
+            glTranslatef(this->x,this->y,this->z);
+        }
+        startPath(this->points, this->time);
+    }
 }
 
 //-Rotate---------------------------------------------------------------------//
@@ -116,9 +140,9 @@ void Rotate::draw() {
     } else {
         int globalTime = glutGet(GLUT_ELAPSED_TIME);
         int time = (int)(1000*this->time);
-        int intervalo = globalTime % time;
+        int interval = globalTime % time;
 
-        glRotatef(((float)intervalo/(float)time)*360.0 , this->x, this->y, this->z);
+        glRotatef(((float)interval/(float)time)*360.0 , this->x, this->y, this->z);
     }
 }
 
@@ -178,7 +202,11 @@ Models::Models(std::vector<Model*> models) {
 
 Models::Models(xml_node node) {
     for(xml_node trans = node.first_child(); trans; trans = trans.next_sibling()) {
-        this->models.push_back(new Model(trans));
+        if(strcmp(trans.name(),"model") == 0) {
+            this->models.push_back(new Model(trans));
+        }else{
+            error("O models tem apenas nodes model");
+        }
     }
 }
 

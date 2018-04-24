@@ -3,6 +3,7 @@
 #define SCENE_H
 
 #include "pugixml-1.8/src/pugixml.hpp"
+#include "catmull.h"
 #include <unistd.h>
 #include <string.h>
 #include <vector>
@@ -39,6 +40,7 @@ class Model {
 };
 
 class Translate : public PhysicScene{
+    vector<float*> points;
     float time, x, y, z;
   public:
     Translate( float, float, float, float);

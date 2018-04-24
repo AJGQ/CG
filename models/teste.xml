@@ -1,6 +1,12 @@
 <scene>
     <group>
         <group>
+            <translate time = "1">
+                <point X = "1"/>
+                <point Y = "1"/>
+                <point Z = "1"/>
+                <point />
+            </translate>
             <rotate time = "1" axisX = "0" axisY = "1" axisZ = "0"/> 
             <models>
                 <model file = "sphere.3d"/>
