@@ -3,7 +3,7 @@
         <group> <!-- "Sol" -->
             <translate X="0" Y="0" Z="0" />
             <group>
-                <rotate time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
+                <rotate time = "5" axisX = "0" axisY = "1" axisZ = "0"/>
                 <translate X="0" Y="6.5" Z="0" />
                 <color     R="247" G="115" B="12" />
                 <models>
@@ -21,7 +21,7 @@
                 </models>
             </group>
             <group> <!-- "Venus" -->
-                <rotate time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
+                <rotate time = "6" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="180" axisX="0" axisY="1" axisZ="0" />
                 <translate X="8.71" Y="0" Z="0" />
                 <scale     X="0.95" Y="0.95" Z="0.95" /> <!-- " 95% " -->
@@ -31,7 +31,7 @@
                 </models>
             </group>
             <group> <!-- "Earth" -->
-                <rotate time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
+                <rotate time = "4" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="230" axisX="0" axisY="1" axisZ="0" />
                 <translate X="11.66" Y="0" Z="0" />
                 <group> <!-- "Moon" -->
@@ -50,7 +50,7 @@
                 </models>
             </group>
             <group> <!-- "Mars" -->
-                <rotate time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
+                <rotate time = "2" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="150" axisX="0" axisY="1" axisZ="0" />
                 <translate X="14.19" Y="0" Z="0" />
                 <scale     X="0.53" Y="0.53" Z="0.53" /> <!-- " 53% " -->
@@ -60,11 +60,11 @@
                 </models>
             </group>
             <group> <!-- "Jupiter" -->
-                <rotate time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
+                <rotate time = "8" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="200" axisX="0" axisY="1" axisZ="0" />
                 <translate X="18.72" Y="0" Z="0" />
                 <group> <!-- "moon 1" -->
-                    <rotate time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
+                    <rotate time = "5" axisX = "0" axisY = "1" axisZ = "0"/>
                     <rotate    angle="40" axisX="0" axisY="1" axisZ="0" />
                     <translate X="4" Y="0" Z="0" />
                     <scale     X="0.1" Y="0.1" Z="0.1" />
@@ -84,7 +84,7 @@
                     </models>
                 </group>
                 <group> <!-- "moon 3" -->
-                    <rotate time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
+                    <rotate time = "4" axisX = "0" axisY = "1" axisZ = "0"/>
                     <rotate    angle="210" axisX="0" axisY="1" axisZ="0" />
                     <translate X="4.1" Y="0" Z="0" />
                     <scale     X="0.2" Y="0.2" Z="0.2" />
@@ -100,12 +100,11 @@
                 </models>
             </group>
             <group> <!-- "Saturn" -->
-                <rotate time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
+                <rotate time = "10" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="280" axisX="0" axisY="1" axisZ="0" />
                 <translate X="25.52" Y="0" Z="0" />
                 <scale     X="2.8" Y="2.8" Z="2.8" /> <!-- " 945% " -->
                 <group>
-                    <rotate time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
                     <rotate    angle="40" axisX="0" axisY="0" axisZ="1" />
                     <scale     X="1.1" Y="0.1" Z="1.1" /> <!-- " 945% " -->
                     <color     R="255" G="255" B="100" />
@@ -119,7 +118,7 @@
                 </models>
             </group>
             <group> <!-- "Uranus" -->
-                <rotate time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
+                <rotate time = "9" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="310" axisX="0" axisY="1" axisZ="0" />
                 <translate X="31.12" Y="0" Z="0" />
                 <scale     X="1.8" Y="1.8" Z="1.8" /> <!-- " 400% " -->
@@ -129,7 +128,7 @@
                 </models>
             </group>
             <group> <!-- "Neptune" -->
-                <rotate time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
+                <rotate time = "11" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="10" axisX="0" axisY="1" axisZ="0" />
                 <translate X="35.32" Y="0" Z="0" />
                 <scale     X="1.4" Y="1.4" Z="1.4" /> <!-- " 388%  " -->
@@ -139,13 +138,31 @@
                 </models>
             </group>
             <group> <!-- "Pluto" -->
-                <rotate time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
+                <rotate time = "12" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="50" axisX="0" axisY="1" axisZ="1" />
                 <translate X="37.92" Y="0" Z="0" />
                 <scale     X="0.2" Y="0.2" Z="0.2" /> <!-- " 20% " -->
                 <color     R="221" G="196" B="175" />
                 <models>
                     <model file="sphere.3d" />
+                </models>
+            </group>
+            <group> <!-- "Comet" -->
+                <translate X="45" Y="0" Z="0" />
+                <scale     X="4" Y="4" Z="4" /> <!-- " ???% " -->
+                <color     R="102" G="102" B="120" />
+                <translate time="15" >
+                    <point X="45"  Y="0"   Z="-10" />
+                    <point X="45"  Y="45"  Z="0" />
+                    <point X="0"   Y="60"  Z="10" />
+                    <point X="-10" Y="25"  Z="15" />
+                    <point X="0"   Y="0"   Z="25" />
+                    <point X="25"  Y="-25" Z="5" />
+                    <point X="-40" Y="20"  Z="-5" />
+                    <point X="-80" Y="0"   Z="-15" />
+                </translate>
+                <models>
+                  <model file="sphere.3d" />
                 </models>
             </group>
             <scale     X="5" Y="5" Z="5" /> <!-- " 10900% " -->
