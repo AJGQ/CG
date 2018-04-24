@@ -19,7 +19,7 @@ int main(int argc, char** argv){
   else if(argc==7 && !strncmp("cone"    , argv[1], 4)) createCone(argv); 
   else if(argc==7 && !strncmp("cylinder", argv[1], 8)) createCylinder(argv); 
   else if(argc==7 && !strncmp("torus"   , argv[1], 5)) createTorus(argv); 
-  else if(argc==3 && !strncmp("bezier"  , argv[1], 6)) createBezier(argv);
+  else if(argc==5 && !strncmp("bezier"  , argv[1], 6)) createBezier(argv);
   else error("try man generator");
 
   return 0;
