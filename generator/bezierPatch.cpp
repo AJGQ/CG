@@ -1,7 +1,7 @@
 
 #include "bezierPatch.h"
 
-extern FILE* outputfile;
+extern FILE* outputFile;
 FILE* inputFile;
 
 
@@ -54,22 +54,6 @@ void multMatrixVector(float *m, float *v, float *res) {
 	}
 }
 
-void multMatrixVertex_Matrix(float){
-
-}
-      
-
-void readPatch(int **patch){
-    *patch = (int*)malloc(16 * sizeof(int));
-    for(int i=0; i<16; i++) fscanf(inputFile, "%d, ", &(*patch)[i]);
-    fscanf(inputFile, "%d", &(*patch)[15]);
-}
-
-void readVertex(float **vertex){
-    *vertex = (float*)malloc(3 * sizeof(float));
-    for(int i=0; i<3; i++) fscanf(inputFile, "%f, ", &(*vertex)[i]);
-    fscanf(inputFile, "%f", &(*vertex)[3]);
-}
 
 
 void getBezierPoint(float u, float v, float *patch, float *pos/*, float *deriv*/) {
@@ -79,76 +63,102 @@ void getBezierPoint(float u, float v, float *patch, float *pos/*, float *deriv*/
                      1,  0,  0, 0      
                   };
     float MT[4*4];
-    float A[4*4], B[4*4], C[4*4];
+    float A[4], B[4], C[4];
     float U[4] = {u*u*u, u*u, u, 1};
     float V[4] = {v*v*v, v*v, v, 1};
     tranpose(M, MT);
 
     multMatrixVector(MT, V, A);
-
-    multMatrixMatrix(patch, A, B);
-
-    multMatrixMatrix(M ,B, C);
-
-    multVectorMatrix(U, V, pos);
-
-}
-
-void getPatch(int* indexes, float** vertexes, float* res){
-    for(int i=0; i<16; i++){
-        for(int j=0; j<3; j++){
-            res[j + 16*i] = vertexes[indexes[i]][j];
-        }
-        res[4 + i*16] = 1;
-    }
-    
+    multMatrixVector(patch, A, B);
+    multMatrixVector(M ,B, C);
+    multVectorMatrix(U, C, pos);
 }
 
 void drawPatch(float* patch, int slices){
     int u, v;
-    float step = 1/slices;
+    float step = 1.0/slices;
     float vertex[3];
     for(u=0; u<slices; u++){
         for(v=0; v<slices; v++){
             getBezierPoint(u*step,      v*step,      patch, vertex);
-            fprintf(stderr, "%f %f %f\n",vertex[0], vertex[1], vertex[2]);
+            fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
+            
             getBezierPoint((u+1)*step,  (v+1)*step,  patch, vertex);
+            fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
+            
             getBezierPoint((u+1)*step,  v*step,      patch, vertex);
+            fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
+
+
 
             getBezierPoint(u*step,      v*step,      patch, vertex);
+            fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
+            
             getBezierPoint((u+1)*step,  (v+1)*step,  patch, vertex);
+            fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
+            
             getBezierPoint(u*step,      (v+1)*step,  patch, vertex);
+            fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
+            fflush(outputFile);
         }
     }
+    fprintf(stderr, "exit drawPatch\n");
+    
+}
+
+void getPatch(int* indexes, float** vertexes, float* res){
+    int i, j;
+    for(i=0; i<16; i++){
+        for(j=0; j<3; j++){
+            res[j + i*4] = vertexes[indexes[i]][j];
+            //fprintf(stderr, "%f, ", res[j+ i*4]);
+        }
+        res[j + (i*4)] = 1.0;
+        //fprintf(stderr, "%f\n", res[j+ i*4]);
+    }
+}
+
+void readPatch(int **patch){
+    int i, x;
+    *patch = (int*)malloc(16 * sizeof(int));
+    for(i=0; i<15; i++) fscanf(inputFile, "%d, ", &((*patch)[i]));
+    fscanf(inputFile, "%d", &((*patch)[i]));
+}
+
+void readVertex(float **vertex){
+    int i;
+    *vertex = (float*)malloc(3 * sizeof(float));
+    for(i=0; i<2; i++) fscanf(inputFile, "%f, ", &((*vertex)[i]));
+    fscanf(inputFile, "%f", &(*vertex)[i]);
 }
 
 
 void createBezier(char **argv) {
-    FILE* inputFile = fopen(argv[2], "r");
-    int slices, nPatch, nVertex, **indexes;
+    int i, slices, nPatch, nVertex, **indexes;
     float** vertexes;
     float patch[16*4];
 
+    inputFile = fopen(argv[2], "r");
     slices = atoi(argv[3]);
+    if(!inputFile){ fprintf(stderr, "error: opening input file\n"); exit(0); }
 
-
-    if(!inputFile){
-        fprintf(stderr, "error: opening input file\n");
-        exit(0);
-    }
-	// read file
     fscanf(inputFile, "%d", &nPatch);
-    fprintf(stderr, "%d\n", nPatch);
-    indexes = (int**)malloc(nPatch * sizeof(int*));
-    for(int i=0; i<nPatch; i++) readPatch(&indexes[i]);
+    indexes = (int**)malloc(nPatch * sizeof(int*)); 
+    for(i=0; i<nPatch; i++) readPatch(&indexes[i]);
     
     fscanf(inputFile, "%d", &nVertex);
     vertexes = (float**)malloc(nVertex * sizeof(float*));
-    for(int i=0; i<nVertex; i++) readVertex(&vertexes[i]);
+    for(i=0; i<nVertex; i++) readVertex(&vertexes[i]);
 
-    for(int i=0; i<nPatch; i++){
+
+    fprintf(outputFile, "1\n"); 
+    fprintf(outputFile, "t%d\n", slices*slices*2*nPatch);
+
+    for(i=0; i<nPatch; i++){
         getPatch(indexes[i], vertexes, patch); 
+    fprintf(stderr, "before drawPatch\n");
         drawPatch(patch, slices);
+    fprintf(stderr, "after drawPatch\n");
     }
 }
 

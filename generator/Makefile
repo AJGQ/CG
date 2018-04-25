@@ -1,4 +1,3 @@
-
 CC=g++ -g
 OU=-std=c++11
 PROJECT_NAME=generator
@@ -13,11 +12,6 @@ bezierPatch.o: bezierPatch.cpp
 	$(CC) $(OU) bezierPatch.cpp -c
 
 
-final: generator cleanObj
-
-clean: cleanObj cleanFiles
-
-
-cleanObj:
+clean:
 	rm -f *.o
 
