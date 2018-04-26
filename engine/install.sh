@@ -1,11 +1,10 @@
-
+cd $(dirname $0)
 # Compilacao do Executavel
 cmake CMakeLists.txt
 make
 
 # Install Exec
-E=$(echo $PATH | cut -d: -f1 )
-cp engine $E
+cp engine /usr/local/bin
 
 # Install Manual
 : '

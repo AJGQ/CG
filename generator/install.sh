@@ -1,3 +1,4 @@
+cd $(dirname $0)
 # Compilacao do executavel
 make generator
 
