@@ -218,10 +218,10 @@ void mousePress (int x, int y) {
 void menu_op(int op){ // unsigned char op, int xx, int yy
     switch (op) {
         // Mudar o modo de display
-        case '1': disMode = 0; break; // GL_POINT
-        case '2': disMode = 1; break; // GL_LINE
-        case '3': disMode = 2; break; // GL_FILL
-        case '4': //modo fps
+        case 1: disMode = 0; break; // GL_POINT
+        case 2: disMode = 1; break; // GL_LINE
+        case 3: disMode = 2; break; // GL_FILL
+        case 4: //modo fps
             glutKeyboardFunc(teclado_normal_fps);
             glutSpecialFunc(teclado_especial_fps);
             glutMouseFunc(rato_fps);
@@ -229,7 +229,7 @@ void menu_op(int op){ // unsigned char op, int xx, int yy
             tipo_camera = 2; 
             break;
 
-        case '5': //modo explorador
+        case 5: //modo explorador
             glutKeyboardFunc(teclado_normal_explorador);
             glutSpecialFunc(teclado_especial_explorador);
             glutMouseFunc(rato_explorador);
@@ -237,8 +237,8 @@ void menu_op(int op){ // unsigned char op, int xx, int yy
             tipo_camera = 1; 
             break;
 
-        case '6': axes = 1 - axes; break;
-        case '7': trajetorias = 1 - trajetorias; break;
+        case 6: axes = 1 - axes; break;
+        case 7: trajetorias = 1 - trajetorias; break;
 
         default:
             break;
@@ -303,8 +303,8 @@ int main(int argc, char** argv) {
         glutAddMenuEntry("GL POINT",1);
         glutAddMenuEntry("GL LINE",2);
         glutAddMenuEntry("GL FILL",3);
-        glutAddMenuEntry("Mostra Eixos",5);
-        glutAddMenuEntry("Mostra Trajetorias",6);
+        glutAddMenuEntry("Mostra Eixos",6);
+        glutAddMenuEntry("Mostra Trajetorias",7);
         
         Menu_Camera=glutCreateMenu(menu_op);
         glutAddMenuEntry("Modo FPS",4);
