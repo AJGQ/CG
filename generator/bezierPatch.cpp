@@ -36,12 +36,11 @@ void multMatrixMatrix(float* m1, float* m2, float *res){
     }
 }
 
-void tranpose(float* m, float* res){
+void transpose(float* m, float* res){
     for(int i=0; i<4; i++){
         for(int j=0; j<4; j++){
             res[i + 4*j] = m[j + 4*i];
         }
-    
     }
 }
       
@@ -49,12 +48,49 @@ void multMatrixVector(float *m, float *v, float *res) {
 	for (int i = 0; i < 4; i++) {
 		res[i] = 0;
 		for (int j = 0; j < 4; j++) {
-			res[i] += m[i+ j * 4] * v[j];
+			res[i] += m[i * 4 + j] * v[j];
 		}
 	}
 }
 
+void scalePoint(float s, float* p, float* res) {
+    for (int i = 0; i<3; i++){
+        res[i] = p[i] * s; 
+    }
+}
 
+void sumPoint(float* p, float* res){
+    res[0] += p[0];
+    res[1] += p[1];
+    res[2] += p[2];
+}
+
+void multVectorPoints(float *v, float *p, float *res) {
+    float aux[4];
+	for (int i = 0; i < 4; ++i) {
+		res[4*i] = 0;         
+		res[4*i + 1] = 0; 
+		res[4*i + 2] = 0; 
+		res[4*i + 3] = 1; 
+		for (int j = 0; j < 4; ++j) {
+			//res[i] += v[j] * p[j * 4 + i];
+            scalePoint(v[j], p + 4*(4*j + i), aux);
+            sumPoint(aux, res + 4*i);
+		}
+	}
+}
+
+void multPointsVector(float* p, float* v, float* res){
+    float aux[4];
+    res[0] = 0;
+    res[1] = 0;
+    res[2] = 0;
+    res[3] = 1;
+    for (int i = 0; i < 4; i++){
+        scalePoint(v[i], p + 4*i, aux);
+        sumPoint(aux, res);
+    }
+}
 
 void getBezierPoint(float u, float v, float *patch, float *pos/*, float *deriv*/) {
     float M[4*4]= { -1,  3, -3, 1,
@@ -63,46 +99,40 @@ void getBezierPoint(float u, float v, float *patch, float *pos/*, float *deriv*/
                      1,  0,  0, 0      
                   };
     float MT[4*4];
-    float A[4], B[4], C[4];
+    float A[4], B[4], C[4*4];
     float U[4] = {u*u*u, u*u, u, 1};
     float V[4] = {v*v*v, v*v, v, 1};
-    tranpose(M, MT);
+    transpose(M, MT);
 
-    multMatrixVector(MT, V, A);
-    multMatrixVector(patch, A, B);
-    multMatrixVector(M ,B, C);
-    multVectorMatrix(U, C, pos);
+    // B(U,V) = U*M*P*MT*V
+    multVectorMatrix(U, M, A);
+    multMatrixVector(MT, V, B);
+    multVectorPoints(A, patch, C);
+    multPointsVector(C,B,pos);
+    //printf("%f %f %f %f\n", pos[0], pos[1], pos[2], pos[3]);
+
+    //multMatrixVector(patch, A, B);
+    //multMatrixVector(M ,B, C);
+    //multVectorMatrix(U, C, pos);
 }
 
 void drawPatch(float* patch, int slices){
+
     int u, v;
     float step = 1.0/slices;
-    float vertex[3];
+    float vertex[4];
     for(u=0; u<slices; u++){
-        for(v=0; v<slices; v++){
+        for(v=0; v<slices+1; v++){
+            getBezierPoint((u+1)*step,  v*step,  patch, vertex);
+            fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
+            
             getBezierPoint(u*step,      v*step,      patch, vertex);
             fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
             
-            getBezierPoint((u+1)*step,  (v+1)*step,  patch, vertex);
-            fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
-            
-            getBezierPoint((u+1)*step,  v*step,      patch, vertex);
-            fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
-
-
-
-            getBezierPoint(u*step,      v*step,      patch, vertex);
-            fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
-            
-            getBezierPoint((u+1)*step,  (v+1)*step,  patch, vertex);
-            fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
-            
-            getBezierPoint(u*step,      (v+1)*step,  patch, vertex);
-            fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
             fflush(outputFile);
         }
     }
-    fprintf(stderr, "exit drawPatch\n");
+    //fprintf(stderr, "exit drawPatch\n");
     
 }
 
@@ -113,7 +143,7 @@ void getPatch(int* indexes, float** vertexes, float* res){
             res[j + i*4] = vertexes[indexes[i]][j];
             //fprintf(stderr, "%f, ", res[j+ i*4]);
         }
-        res[j + (i*4)] = 1.0;
+        res[j + i*4] = 1.0;
         //fprintf(stderr, "%f\n", res[j+ i*4]);
     }
 }
@@ -122,14 +152,14 @@ void readPatch(int **patch){
     int i, x;
     *patch = (int*)malloc(16 * sizeof(int));
     for(i=0; i<15; i++) fscanf(inputFile, "%d, ", &((*patch)[i]));
-    fscanf(inputFile, "%d", &((*patch)[i]));
+    fscanf(inputFile, "%d\n", &((*patch)[i]));
 }
 
 void readVertex(float **vertex){
     int i;
     *vertex = (float*)malloc(3 * sizeof(float));
-    for(i=0; i<2; i++) fscanf(inputFile, "%f, ", &((*vertex)[i]));
-    fscanf(inputFile, "%f", &(*vertex)[i]);
+    for(i=0; i<2; i++) fscanf(inputFile, " %f,", &((*vertex)[i]));
+    fscanf(inputFile, " %f\n", &(*vertex)[i]);
 }
 
 
@@ -142,25 +172,26 @@ void createBezier(char **argv) {
     slices = atoi(argv[3]);
     if(!inputFile){ fprintf(stderr, "error: opening input file\n"); exit(0); }
 
-    fscanf(inputFile, "%d", &nPatch);
+    fscanf(inputFile, "%d\n", &nPatch);
     indexes = (int**)malloc(nPatch * sizeof(int*)); 
     for(i=0; i<nPatch; i++) readPatch(&indexes[i]);
     
-    fscanf(inputFile, "%d", &nVertex);
+    fscanf(inputFile, "%d\n", &nVertex);
     vertexes = (float**)malloc(nVertex * sizeof(float*));
     for(i=0; i<nVertex; i++) readVertex(&vertexes[i]);
 
+    //printf("nPatch = %d;\nslices = %d;\n", nPatch, slices);
 
-    fprintf(outputFile, "1\n"); 
-    fprintf(outputFile, "t%d\n", slices*slices*2*nPatch);
+    fprintf(outputFile, "%d\n", nPatch*slices); 
+    for(i = 0; i <  nPatch*slices; i++){
+        fprintf(outputFile, "s%d\n", 2*(slices + 1));
+    }
 
     for(i=0; i<nPatch; i++){
         getPatch(indexes[i], vertexes, patch); 
-    fprintf(stderr, "before drawPatch\n");
-        drawPatch(patch, slices);
-    fprintf(stderr, "after drawPatch\n");
+    //fprintf(stderr, "before drawPatch\n");
+      drawPatch(patch, slices);
+    //fprintf(stderr, "after drawPatch\n");
     }
 }
 
-
-    
