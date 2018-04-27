@@ -43,7 +43,6 @@ class Translate : public PhysicScene{
     vector<float*> points;
     float time, x, y, z;
   public:
-    Translate( float, float, float, float);
     Translate(xml_node);
     void draw();
 };
@@ -52,7 +51,6 @@ class Rotate : public PhysicScene{
     float angle, time;
     float x, y, z;
   public:
-    Rotate(float,float,float,float,float);
     Rotate(xml_node);
     void draw();
 };
@@ -60,7 +58,6 @@ class Rotate : public PhysicScene{
 class Scale : public PhysicScene{
     float x, y, z;
   public:
-    Scale(float,float,float);
     Scale(xml_node);
     void draw();
 };
@@ -68,7 +65,6 @@ class Scale : public PhysicScene{
 class Color : public PhysicScene{
     float redVal, greenVal, blueVal;
   public:
-    Color(float, float, float);
     Color(xml_node);
     void draw();
 };
@@ -76,7 +72,6 @@ class Color : public PhysicScene{
 class Models : public PhysicScene{
     vector<Model*> models;
   public:
-    Models(vector<Model*>);
     Models(xml_node);
     void draw();
 };
@@ -84,7 +79,6 @@ class Models : public PhysicScene{
 class Group : public PhysicScene{
     vector<PhysicScene*> transforms;
   public:
-    Group(vector<PhysicScene*>);
     Group(xml_node);
     void draw();
 };
@@ -92,7 +86,6 @@ class Group : public PhysicScene{
 class Scene {
     Group* group;
   public:
-    Scene(Group*);
     Scene(const char* xml_file);
     void draw();
 };

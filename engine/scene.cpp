@@ -55,13 +55,6 @@ void Model::draw() {
 
 //-Translate------------------------------------------------------------------//
 
-Translate::Translate(float time, float x, float y, float z) {
-  this->time = time;
-  this->x    = x;
-  this->y    = y;
-  this->z    = z;
-}
-
 Translate::Translate(xml_node node) {
     //cout << "parse de Translate comecou" << endl;
     xml_attribute aux_time = node.attribute("time");
@@ -109,14 +102,6 @@ void Translate::draw() {
 
 //-Rotate---------------------------------------------------------------------//
 
-Rotate::Rotate(float time, float angle, float x, float y, float z) {
-    this->time = time;
-    this->angle = angle;
-    this->x = x;
-    this->y = y;
-    this->z = z;
-}
-
 Rotate::Rotate(xml_node node) {
     //cout << "parse de Rotate comecou" << endl;
     xml_attribute aux_time  = node.attribute("time");
@@ -152,12 +137,6 @@ void Rotate::draw() {
 
 //-Scale----------------------------------------------------------------------//
 
-Scale::Scale(float x, float y, float z) {
-    this->x = x;
-    this->y = y;
-    this->z = z;
-}
-
 Scale::Scale(xml_node node) {
     //cout << "parse de Scale comecou" << endl;
     xml_attribute aux_x = node.attribute("X");
@@ -175,12 +154,6 @@ void Scale::draw() {
 }
 
 //-Color----------------------------------------------------------------------//
-
-Color::Color(float redVal, float greenVal, float blueVal) {
-    this->redVal = redVal;
-    this->greenVal = greenVal;
-    this->blueVal = blueVal;
-}
 
 Color::Color(xml_node node) {
     //cout << "parse de Color comecou" << endl;
@@ -200,10 +173,6 @@ void Color::draw() {
 
 //-Models---------------------------------------------------------------------//
 
-Models::Models(std::vector<Model*> models) {
-    this->models = models;
-}
-
 Models::Models(xml_node node) {
     for(xml_node trans = node.first_child(); trans; trans = trans.next_sibling()) {
         if(strcmp(trans.name(),"model") == 0) {
@@ -221,10 +190,6 @@ void Models::draw() {
 }
 
 //-Group----------------------------------------------------------------------//
-
-Group::Group(std::vector<PhysicScene*> transforms) {
-    this->transforms = transforms;
-}
 
 Group::Group(xml_node node) {
     //cout << "parse de Group comecou" << endl;
@@ -262,10 +227,6 @@ void Group::draw() {
     glPopMatrix();
 }
 //-Scene----------------------------------------------------------------------//
-
-Scene::Scene(Group* group) {
-    this->group = group;
-}
 
 Scene::Scene(const char* xml_file) {
     //cout << "parse de Scene comecou" << endl;
