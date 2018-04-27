@@ -63,8 +63,8 @@ void getCatmullRomPoint(float t,
     multVectorMatrix(T, A, pos);
 
 	// compute deriv = T' * A
-    float T_[4] = {3*t*t, 2*t, 1, 0};
-    multVectorMatrix(T_, A, deriv);
+    //float T_[4] = {3*t*t, 2*t, 1, 0};
+    //multVectorMatrix(T_, A, deriv);
 }
 
 void getGlobalCatmullRomPoint(std::vector<float*> p, float gt, float *pos, float *deriv) {
@@ -104,10 +104,10 @@ void startPath(std::vector<float*> p, float time){
     int interval = globalTime % timeMS;
     float t = ((float)interval)/timeMS; // t in [0-1[
 
-    float pos[3];
-    float deriv[3];
+    float pos[3] = {0,0,0};
+    float deriv[3] = {1,0,0};
     float up[3] = {0,1,0};
-    float Z[3];
+    float Z[3] = {0,0,1};
 
     getGlobalCatmullRomPoint(p, t, pos, deriv);
     normalize(deriv);
