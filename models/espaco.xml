@@ -159,8 +159,10 @@
                     <point X="-40" Y="20"  Z="-5" />
                     <point X="-80" Y="0"   Z="-15" />
                 </translate>
+                <rotate    angle="270" axisX="1" axisY="0" axisZ="0" />
+                <scale     X="0.5" Y="0.5" Z="0.5" /> <!-- " 10900% " -->
                 <models>
-                  <model file="sphere.3d" />
+                  <model file="teapot.3d" />
                 </models>
             </group>
             <scale     X="5" Y="5" Z="5" /> <!-- " 10900% " -->
