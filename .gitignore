@@ -3,6 +3,7 @@
 *.sw[pon]
 .idea/
 *.3d
+*.o
 
 generator/generator
 engine/engine

@@ -10,8 +10,9 @@ void createPlane    (char **argv);
 void createBox      (char **argv);
 void createSphere   (char **argv);
 void createCone     (char **argv);
-
 void createCylinder (char **argv);
+
+void createBezier   (char **argv);
 
 void torusPoint(float R, float r, float angle_a, float angle_b, int i, int j);
 void createTorus(char **argv);
