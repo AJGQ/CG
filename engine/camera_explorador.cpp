@@ -1,6 +1,6 @@
 #include "camera_explorador.h"
 
-float raio=8,angCam_h=0,angCam_v=0.5,angAux_h=0,angAux_v=0,x_tela,y_tela,look[]={0,0,0},avanco=0.5;
+float raio=20,angCam_h=0,angCam_v=0.5,angAux_h=0,angAux_v=0,x_tela,y_tela,look[]={0,0,0},avanco=0.5;
 
 int estado_botao=0;
 
@@ -16,7 +16,7 @@ void modo_explorador(){
 
 //Funçoes para o Rato
 void rato_explorador(int botao, int estado, int x, int y){
-    if(botao == GLUT_LEFT_BUTTON) {
+    if(botao == GLUT_LEFT_BUTTON && estado == GLUT_DOWN) {
         estado_botao=1;
         x_tela = x;
         y_tela = y;
@@ -33,18 +33,15 @@ void rato_explorador(int botao, int estado, int x, int y){
 }
 
 void mov_rato_explorador(int x, int y){
-    float teste;
-    if(estado_botao==1){
-        if(x_tela!=x)
-            angAux_h= (x_tela-x)*0.007;
-        
-        if(y_tela!=y){
-            teste= (y-y_tela)*0.007;
-            if(teste+angCam_v>-M_PI_2 && teste+angCam_v<M_PI_2 )
-                angAux_v=teste;
-        }
-     //   glutPostRedisplay();
-    }
+    angCam_h -= ((float)(x - x_tela))/50;
+    float aux = angCam_v + ((float)(y - y_tela))/50;
+    if(aux<M_PI/2-0.1 && aux>-M_PI/2+0.1)   angCam_v = aux;
+    else if( aux>=M_PI/2-0.1 )              angCam_v = M_PI/2-0.1;
+    else                                    angCam_v = -M_PI/2+0.1;
+    x_tela = x;
+    y_tela = y;
+    //spherical2Cartesian();
+    glutPostRedisplay();
 }
 
 //Funçoes para o teclado

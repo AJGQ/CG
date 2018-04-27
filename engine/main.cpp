@@ -30,6 +30,7 @@ GLuint buffers[1];
 Scene* scene;
 
 //-Camera--------//
+extern float raio;
 float alpha = 0.0, beta = 0.0, radius = 20.0;
 float camX, camY, camZ;
 float mouX = 0.0, mouY = 0.0;
@@ -103,15 +104,15 @@ void drawAxes() {
 
     glColor3f(1, 0, 0); //-RED----//
     glVertex3f(0         , 0, 0);
-    glVertex3f(0.5*radius, 0, 0);
+    glVertex3f(0.5*raio, 0, 0);
 
     glColor3f(0, 1, 0); //-GREEN-//
     glVertex3f(0, 0         , 0);
-    glVertex3f(0, 0.5*radius, 0);
+    glVertex3f(0, 0.5*raio, 0);
 
     glColor3f(0, 0, 1); //-BLUE-//
     glVertex3f(0, 0, 0         );
-    glVertex3f(0, 0, 0.5*radius);
+    glVertex3f(0, 0, 0.5*raio);
 
     glColor3f(1, 1, 1); //-WHITE-//
     glEnd();
@@ -260,10 +261,10 @@ void renderScene(void) {
       0.0 , 0.0 , 0.0 ,
       0.0f, 1.0f, 0.0f);
 
-    if (axes) { drawAxes(); }
-
     if (tipo_camera==1) { modo_explorador();}
     else if(tipo_camera==2) { modo_fps();}
+
+    if (axes) { drawAxes(); }
 
     //setColor();
     scene->draw();
