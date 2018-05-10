@@ -24,6 +24,7 @@ using namespace std;
 //-Globais---------------------------------------------------------------------//
 
 GLuint buffers[1];
+GLuint normalBuff[1];
 //float *arrayFloat=NULL;
 
 //vector<const char*> fileNameModels;
@@ -37,7 +38,7 @@ float mouX = 0.0, mouY = 0.0;
 int tipo_camera=1;
 
 //-Display-------//
-int disMode = 1;
+int disMode = 2;
 //int disColor = 0; //white
 int axes = 0;
 int trajetorias = 1;
@@ -266,6 +267,14 @@ void renderScene(void) {
 
     if (axes) { drawAxes(); }
 
+    //
+    float white[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+    float pos[4] =   {10.0, 10.0, 10.0, 1};
+    glLightfv(GL_LIGHT0, GL_POSITION, pos);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, white);
+    //
+
+
     //setColor();
     scene->draw();
     glutSwapBuffers();
@@ -324,10 +333,17 @@ int main(int argc, char** argv) {
     glewInit();
 #endif
     glGenBuffers(1, buffers);
+    glGenBuffers(1, normalBuff);
     glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
+
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
+    glEnable(GL_LIGHTING);
+
+    glEnable(GL_LIGHT0);
+    glEnable(GL_RESCALE_NORMAL);
 
     spherical2Cartesian();
 

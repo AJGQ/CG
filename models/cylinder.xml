@@ -1,3 +1,10 @@
 <scene>
-    <model file="cylinder.3d" />
+    <group>
+        <translate X="0" Y="0" Z="0" />
+        <color R="195" G="19" B="19" />
+        <models>
+		    <model file="cylinder.3d" />
+        </models>
+    </group>
 </scene>
+

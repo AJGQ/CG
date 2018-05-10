@@ -19,6 +19,7 @@ using namespace pugi;
 using namespace std;
 
 extern GLuint buffers[1];
+extern GLuint normalBuff[1];
 
 extern void error(const char *s);
 
@@ -33,6 +34,7 @@ class Model {
     int N;
     int index;
     float *arrayFloat;
+    float *arrayNormal;
     int *pos, *len;
     char *typ;
     Model(xml_node);

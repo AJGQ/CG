@@ -1,6 +1,6 @@
 #include "camera_explorador.h"
 
-float raio=20,angCam_h=0,angCam_v=0.5,angAux_h=0,angAux_v=0,x_tela,y_tela,look[]={0,0,0},avanco=0.5;
+float raio=20,angCam_h=0,angCam_v=0.5,angAux_h=0,angAux_v=0,x_tela,y_tela,look[3]={0,0,0},avanco=0.5;
 
 int estado_botao=0;
 
@@ -48,7 +48,7 @@ void mov_rato_explorador(int x, int y){
 void teclado_normal_explorador(unsigned char tecla,int x, int y){
     switch (tecla) {
         case 'a':
-            raio-=avanco;
+            raio= raio-avanco<0 ? raio: raio-avanco;
             break;
         case 'd':
             raio+=avanco;

@@ -29,10 +29,17 @@ Model::Model(xml_node node) {
         total += len[i];
     }
     this->arrayFloat = new float[total * 3];
+    this->arrayNormal= new float[total * 3];
     while(fscanf(file,"%f:%f:%f\n",&x,&y,&z) != EOF) {
-        this->arrayFloat[this->index++] = x;
-        this->arrayFloat[this->index++] = y;
-        this->arrayFloat[this->index++] = z;
+        this->arrayFloat[this->index] = x;
+        this->arrayFloat[this->index+1] = y;
+        this->arrayFloat[this->index+2] = z;
+        fscanf(file,"%f:%f:%f\n",&x,&y,&z);
+        this->arrayNormal[this->index] = x;
+        this->arrayNormal[this->index+1] = y;
+        this->arrayNormal[this->index+2] = z;
+
+        this->index += 3;
     }
 }
 
@@ -42,6 +49,9 @@ void Model::draw() {
     glBufferData(GL_ARRAY_BUFFER, this->index * 3 * sizeof(float), this->arrayFloat, GL_STATIC_DRAW);
     glVertexPointer(3,GL_FLOAT,0,0);
 
+    glBindBuffer(GL_ARRAY_BUFFER, normalBuff[0]);
+    glBufferData(GL_ARRAY_BUFFER, this->index * 3 * sizeof(float), this->arrayNormal, GL_STATIC_DRAW);
+    glNormalPointer(GL_FLOAT,0,0);
     for(i=0; i<this->N; i++) {
         switch(this->typ[i]) {
             case 's' : gl = GL_TRIANGLE_STRIP;  break;

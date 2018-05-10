@@ -1,0 +1,54 @@
+<scene>
+    <group> <!-- " Terra.Scale = 1" -->
+        <group> <!-- "Sol" -->
+            <translate X="0" Y="0" Z="0" />
+            <group>
+                <rotate    time = "5" axisX = "0" axisY = "1" axisZ = "0"/>
+                <translate X="0" Y="6.5" Z="0" />
+                <color     R="247" G="115" B="12" />
+                <models>
+                    <model file="N64.3d" />
+                </models>
+            </group>
+            <group> <!-- "Mercury" -->
+                <rotate    time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
+                <rotate    angle="45" axisX="0" axisY="1" axisZ="0" />
+                <translate X="6.38" Y="0" Z="0" />
+                <scale     X="0.38" Y="0.38" Z="0.38" /> <!-- " 38% " -->
+                <color     R="250" G="248" B="242" />
+                <models>
+                    <model file="sphere.3d" />
+                </models>
+            </group>
+            <group> <!-- "Venus" -->
+                <rotate    time = "6" axisX = "0" axisY = "1" axisZ = "0"/>
+                <rotate    angle="180" axisX="0" axisY="1" axisZ="0" />
+                <translate X="8.71" Y="0" Z="0" />
+                <scale     X="0.95" Y="0.95" Z="0.95" /> <!-- " 95% " -->
+                <color     R="255" G="255" B="242" />
+                <models>
+                    <model file="sphere.3d" />
+                </models>
+            </group>
+            <group> <!-- "Earth" -->
+                <rotate    time = "4" axisX = "0" axisY = "1" axisZ = "0"/>
+                <rotate    angle="230" axisX="0" axisY="1" axisZ="0" />
+                <translate X="11.66" Y="0" Z="0" />
+                <group> <!-- "Moon" -->
+                    <rotate    angle="10" axisX="0" axisY="1" axisZ="0" />
+                    <translate X="2.27" Y="0" Z="0" />
+                    <scale     X="0.27" Y="0.27" Z="0.27" /> <!-- " 27% " -->
+                    <color     R="254" G="252" B="215" />
+                    <models>
+                        <model file="sphere.3d" />
+                    </models>
+                </group>
+                <scale     X="1" Y="1" Z="1" /> <!-- " 100% " -->
+                <color     R="11" G="92" B="227" />
+                <models>
+                    <model file="sphere.3d" />
+                </models>
+            </group>
+        </group>
+    </group>
+</scene>
