@@ -38,7 +38,7 @@ float mouX = 0.0, mouY = 0.0;
 int tipo_camera=1;
 
 //-Display-------//
-int disMode = 2;
+int disMode = GL_FILL;
 //int disColor = 0; //white
 int axes = 0;
 int trajetorias = 1;
@@ -87,16 +87,6 @@ void changeSize(int w, int h) {
     glMatrixMode(GL_MODELVIEW);
 }
 
-void changeDisplayMode() {
-    switch(disMode) {
-        case 0:	glPolygonMode(GL_FRONT_AND_BACK, GL_POINT); break;
-        case 1:	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE ); break;
-        case 2:	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL );	break;
-        default: break;
-    }
-    glutPostRedisplay();
-}
-
 
 //-----------------------------------------------------------------------------//
 
@@ -121,108 +111,13 @@ void drawAxes() {
 
 
 
-//-Controlos-------------------------------------------------------------------//
-
-/*
-void processKeys(unsigned char c, int xx, int yy) {
-
-    switch(c) {
-        // Mudar o modo de display
-        case '1': disMode = 0; break; // GL_POINT
-        case '2': disMode = 1; break; // GL_LINE
-        case '3': disMode = 2; break; // GL_FILL
-        case 'w': radius -= 0.1f;
-                  if (radius < 0.1f) radius = 0.1f;
-                  break;
-
-        case 's': radius += 0.1f; break;
-        case 'x': axes = 1 - axes; break;
-        case 't': trajetorias = 1 - trajetorias; break;
-        case 'f': 
-            glutKeyboardFunc(teclado_normal_fps);
-            glutSpecialFunc(teclado_especial_fps);
-            glutMouseFunc(rato_fps);
-            glutMotionFunc(mov_rato_fps);
-            tipo_camera = 2; 
-            break;
-        case 'e': 
-            glutKeyboardFunc(processKeys);
-            glutSpecialFunc(processSpecialKeys);
-            glutMouseFunc(processMouse);
-            glutMotionFunc(mousePress);
-            tipo_camera = 1; 
-            break;
-    }
-    spherical2Cartesian();
-    glutPostRedisplay();
-}
-
-
-void processKeys(unsigned char c, int xx, int yy) {
-
-    switch(c) {
-        case 'w': radius -= 0.1f;
-                  if (radius < 0.1f) radius = 0.1f;
-                  break;
-
-        case 's': radius += 0.1f; break;
-    }
-    spherical2Cartesian();
-    glutPostRedisplay();
-}
-
-void processSpecialKeys(int key, int xx, int yy) {
-
-    switch (key) {
-        case GLUT_KEY_RIGHT: alpha -= 0.1; break;
-        case GLUT_KEY_LEFT:  alpha += 0.1; break;
-
-        case GLUT_KEY_UP:  beta += 0.1f;
-                           if (beta > 1.5f) beta = 1.5f;
-                           break;
-
-        case GLUT_KEY_DOWN: beta -= 0.1f;
-                            if (beta < -1.5)  beta = -1.5f;
-                            break;
-    }
-    spherical2Cartesian();
-    glutPostRedisplay();
-}
-
-void processMouse (int button, int state, int x, int y) {
-    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-        mouX = x;
-        mouY = y;
-    }else if(button == 3){
-        radius -= 0.3;
-    }else if(button == 4){
-        radius += 0.3;
-    }
-    spherical2Cartesian();
-    glutPostRedisplay();
-
-}
-
-
-void mousePress (int x, int y) {
-    alpha -= ((float)(x - mouX))/50;
-    float aux = beta + ((float)(y - mouY))/50;
-    if(aux<M_PI/2-0.1 && aux>-M_PI/2+0.1)   beta = aux;
-    else if( aux>=M_PI/2-0.1 )              beta = M_PI/2-0.1;
-    else                                    beta = -M_PI/2+0.1;
-    mouX = x;
-    mouY = y;
-    spherical2Cartesian();
-    glutPostRedisplay();
-}
-*/
 // -Menu de operação-----------------------------------------------------------//
 void menu_op(int op){ // unsigned char op, int xx, int yy
     switch (op) {
         // Mudar o modo de display
-        case 1: disMode = 0; break; // GL_POINT
-        case 2: disMode = 1; break; // GL_LINE
-        case 3: disMode = 2; break; // GL_FILL
+        case 1: disMode = GL_POINT; break; // GL_POINT
+        case 2: disMode = GL_LINE;  break; // GL_LINE
+        case 3: disMode = GL_FILL;  break; // GL_FILL
         case 4: //modo fps
             glutKeyboardFunc(teclado_normal_fps);
             glutSpecialFunc(teclado_especial_fps);
@@ -246,6 +141,7 @@ void menu_op(int op){ // unsigned char op, int xx, int yy
             break;
     }
     spherical2Cartesian();
+    glPolygonMode(GL_FRONT, disMode);
     glutPostRedisplay();
 }
 
@@ -254,7 +150,7 @@ void menu_op(int op){ // unsigned char op, int xx, int yy
 void renderScene(void) {
     printFPS();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    changeDisplayMode();
+    glutPostRedisplay();
 
     glLoadIdentity();
     gluLookAt(
@@ -268,10 +164,8 @@ void renderScene(void) {
     if (axes) { drawAxes(); }
 
     //
-    float white[4] = {1.0f, 1.0f, 1.0f, 1.0f};
-    float pos[4] =   {10.0, 10.0, 10.0, 1};
-    glLightfv(GL_LIGHT0, GL_POSITION, pos);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, white);
+    //float white[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+    //glMaterialfv(GL_FRONT, GL_DIFFUSE, white);
     //
 
 
@@ -340,9 +234,7 @@ int main(int argc, char** argv) {
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
-    glEnable(GL_LIGHTING);
 
-    glEnable(GL_LIGHT0);
     glEnable(GL_RESCALE_NORMAL);
 
     spherical2Cartesian();

@@ -64,6 +64,14 @@ class Scale : public PhysicScene{
     void draw();
 };
 
+class Light{
+  public:
+    int type;
+    float pos[4], diff[3], spec[3], amb[3];
+    Light(xml_node);
+    void draw(int);
+};
+
 class Color : public PhysicScene{
     float redVal, greenVal, blueVal;
   public:
@@ -78,6 +86,12 @@ class Models : public PhysicScene{
     void draw();
 };
 
+class Lights : public PhysicScene{
+    vector<Light*> vlights;
+  public:
+    Lights(xml_node);
+    void draw();
+};
 class Group : public PhysicScene{
     vector<PhysicScene*> transforms;
   public:
@@ -87,6 +101,7 @@ class Group : public PhysicScene{
 
 class Scene {
     Group* group;
+    Lights* lights;
   public:
     Scene(const char* xml_file);
     void draw();

@@ -1,7 +1,9 @@
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #include "scene.h"
 #include "catmull.h"
 #include <stdlib.h>
 #include <iostream>
+#include <string.h>
 
 extern int trajetorias;
 
@@ -178,7 +180,30 @@ Color::Color(xml_node node) {
 }
 
 void Color::draw() {
-    glColor3ub(this->redVal,this->greenVal,this->blueVal);
+    glColor3f(this->redVal,this->greenVal,this->blueVal);
+}
+
+//-Light----------------------------------------------------------------------//
+ 
+Light::Light(xml_node node) {
+    xml_attribute aux_type = node.attribute("type");
+    xml_attribute aux_x = node.attribute("posX");
+    xml_attribute aux_y = node.attribute("posY");
+    xml_attribute aux_z = node.attribute("posZ");
+
+    if(!strncmp("POINT", aux_type.as_string(), 5)) this->pos[3] = 1;
+    else if(!strncmp("DIRECTIONAL", aux_type.as_string(), 11)) this->pos[3] = 0;  
+
+    this->pos[0] = aux_x ? aux_x.as_float() : 0.0f;
+    this->pos[1] = aux_y ? aux_y.as_float() : 0.0f;
+    this->pos[2] = aux_z ? aux_z.as_float() : 0.0f;
+
+
+}
+
+void Light::draw(int i) {
+    glEnable(GL_LIGHT0+i);
+    glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
 }
 
 //-Models---------------------------------------------------------------------//
@@ -197,6 +222,22 @@ void Models::draw() {
     for(int i = 0; i<models.size();i++) {
         this->models[i]->draw();
     }
+}
+
+//-Lights----------------------------------------------------------------------//
+
+Lights::Lights(xml_node node) {
+    for(xml_node trans = node.first_child(); trans; trans = trans.next_sibling()) {
+        if(!strcmp(trans.name(),"light")) { this->vlights.push_back(new Light(trans)); }
+        else cout << "Erro no formato do xml, foi lido: " << trans.name() << endl; 
+    }
+}
+
+void Lights::draw(){
+    for(int i = 0; i<vlights.size(); i++){
+        this->vlights[i]->draw(i);
+    }
+    
 }
 
 //-Group----------------------------------------------------------------------//
@@ -242,6 +283,7 @@ Scene::Scene(const char* xml_file) {
     //cout << "parse de Scene comecou" << endl;
     xml_document doc;
     xml_parse_result result;
+    this->lights =  NULL;
 
     if( !(result = doc.load_file(xml_file)) ) {
         std::cout << "XML [" << xml_file << "] parsed with errors, attr value: [" << doc.child("node").attribute("attr").value() << "]\n";
@@ -250,10 +292,18 @@ Scene::Scene(const char* xml_file) {
     }
     xml_node models = doc.child("scene");
 
-    this->group = new Group(models.first_child());
+    for(xml_node trans = models.first_child(); trans; trans = trans.next_sibling()) {
+        if(!strncmp("lights", trans.name(), 6)) this->lights = new Lights(trans);
+        else if(!strncmp("group", trans.name(), 5)) this->group = new Group(trans);
+        //this->group = new Group(models.first_child());
+    }
     //cout << "parse de Scene acabou" << endl;
 }
 
 void Scene::draw() {
+    if(this->lights != NULL){
+        this->lights->draw();
+        glEnable(GL_LIGHTING);
+    }
     this->group->draw();
 }
