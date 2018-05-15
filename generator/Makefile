@@ -1,4 +1,4 @@
-CC=g++ -g
+CC=g++
 OU=-std=c++11
 PROJECT_NAME=generator
 

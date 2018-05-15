@@ -99,6 +99,14 @@
                 <rotate    angle="280" axisX="0" axisY="1" axisZ="0" />
                 <translate X="25.52" Y="0" Z="0" />
                 <scale     X="2.8" Y="2.8" Z="2.8" /> <!-- " 945% " -->
+                <group>
+                    <rotate    angle="40" axisX="0" axisY="0" axisZ="1" />
+                    <scale     X="1.1" Y="0.1" Z="1.1" /> <!-- " 945% " -->
+                    <color     R="255" G="255" B="100" />
+                    <models>
+                        <model file="torus.3d" />
+                    </models>
+                </group>
                 <color     R="224" G="196" B="34" />
                 <models>
                     <model file="sphere.3d" />
