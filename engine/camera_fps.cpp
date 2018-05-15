@@ -1,3 +1,4 @@
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #include "camera_fps.h"
 
 float px=0,py=0,pz=0, angCamFPS_h=0, angCamFPS_v=0, x_telaFPS,y_telaFPS,velocidade_FPS=1;

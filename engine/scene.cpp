@@ -4,19 +4,47 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string.h>
+#include <map>
+#include <stdio.h>
 
 extern int trajetorias;
+extern int loadTexture(string s);
+extern map<string,int> texturesId;
+
+
 
 //-Model----------------------------------------------------------------------//
+void getMat(xml_node node, string s, float **mat){
+
+    xml_attribute aux_r = node.attribute((s+"R").c_str());
+    xml_attribute aux_g = node.attribute((s+"G").c_str());
+    xml_attribute aux_b = node.attribute((s+"B").c_str());
+
+    if(aux_r && aux_g && aux_b){
+        *mat = new float[4];
+        (*mat)[0] = aux_r.as_float();
+        (*mat)[1] = aux_g.as_float();
+        (*mat)[2] = aux_b.as_float();
+        (*mat)[3] = 1.0f;
+    }
+    else *mat=NULL;
+}
 
 Model::Model(xml_node node) {
     FILE* file;
     int i, total;
     float x, y, z;
+    float *v, *n, *t;
+    this->texture = NULL;
 
     file = fopen(node.attribute("file").as_string(), "r");
+    if(node.attribute("texture")) this->texture = new string(node.attribute("texture").as_string());
+    if(this->texture) texturesId[*this->texture] = loadTexture(*this->texture);
+    getMat(node, "amb", &this->amb); 
+    getMat(node, "diff", &this->diff);
+    getMat(node, "spec", &this->spec);
+    getMat(node, "emi", &this->emi);
     
-    //strcpy((char*)this->file, node.attribute("file").as_string());
     if(!file) error("opening file");
     fscanf(file,"%d\n",&(this->N));
 
@@ -30,30 +58,63 @@ Model::Model(xml_node node) {
         pos[i] = total;
         total += len[i];
     }
-    this->arrayFloat = new float[total * 3];
-    this->arrayNormal= new float[total * 3];
-    while(fscanf(file,"%f:%f:%f\n",&x,&y,&z) != EOF) {
-        this->arrayFloat[this->index] = x;
-        this->arrayFloat[this->index+1] = y;
-        this->arrayFloat[this->index+2] = z;
-        fscanf(file,"%f:%f:%f\n",&x,&y,&z);
-        this->arrayNormal[this->index] = x;
-        this->arrayNormal[this->index+1] = y;
-        this->arrayNormal[this->index+2] = z;
 
-        this->index += 3;
+    v = new float[total * 3];
+    n = new float[total * 3];
+    t = new float[total * 2];
+
+    for(i=0; fscanf(file,"%f:%f:%f\n",&x,&y,&z) != EOF; i++) {
+        v[i*3 + 0] = x;
+        v[i*3 + 1] = y;
+        v[i*3 + 2] = z;
+
+        fscanf(file,"%f:%f:%f\n",&x,&y,&z);
+        n[i*3 + 0] = x;
+        n[i*3 + 1] = y;
+        n[i*3 + 2] = z;
+
+        fscanf(file,"%f:%f\n",&x,&y);
+        t[i*2 + 0] = x;
+        t[i*2 + 1] = y;
     }
+
+    glGenBuffers(1, &(this->vertexId));
+    glGenBuffers(1, &(this->normalId));
+    glGenBuffers(1, &(this->vertexTextureId));
+
+    glBindBuffer(GL_ARRAY_BUFFER, this->vertexId);
+    glBufferData(GL_ARRAY_BUFFER, i * 3 * sizeof(float), v, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, this->normalId);
+    glBufferData(GL_ARRAY_BUFFER, i * 3 * sizeof(float), n, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, this->vertexTextureId);
+    glBufferData(GL_ARRAY_BUFFER, i * 2 * sizeof(float), t, GL_STATIC_DRAW);
+
+    free(v); free(n); free(t);
 }
 
 void Model::draw() {
     int i, gl;
-    glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
-    glBufferData(GL_ARRAY_BUFFER, this->index * 3 * sizeof(float), this->arrayFloat, GL_STATIC_DRAW);
+    glPushAttrib(GL_LIGHTING_BIT);
+
+    if(this->amb)  glMaterialfv(GL_FRONT, GL_AMBIENT, this->amb);
+    if(this->diff) glMaterialfv(GL_FRONT, GL_DIFFUSE, this->diff);
+    if(this->spec) glMaterialfv(GL_FRONT, GL_SPECULAR, this->spec);
+    if(this->emi)  glMaterialfv(GL_FRONT, GL_EMISSION, this->emi); 
+
+    glBindBuffer(GL_ARRAY_BUFFER, this->vertexId);
     glVertexPointer(3,GL_FLOAT,0,0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, normalBuff[0]);
-    glBufferData(GL_ARRAY_BUFFER, this->index * 3 * sizeof(float), this->arrayNormal, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, this->normalId);
     glNormalPointer(GL_FLOAT,0,0);
+
+    if(this->texture){
+        glBindBuffer(GL_ARRAY_BUFFER, this->vertexTextureId);
+        glBindTexture(GL_TEXTURE_2D, texturesId[*this->texture]);
+    	glTexCoordPointer(2,GL_FLOAT,0,0);
+    }
+
     for(i=0; i<this->N; i++) {
         switch(this->typ[i]) {
             case 's' : gl = GL_TRIANGLE_STRIP;  break;
@@ -63,6 +124,9 @@ void Model::draw() {
         }
         glDrawArrays(gl, this->pos[i], this->len[i]);
     }
+
+    if(this->texture) glBindTexture(GL_TEXTURE_2D, 0);
+    glPopAttrib();
 }
 
 //-Translate------------------------------------------------------------------//
@@ -198,8 +262,8 @@ Light::Light(xml_node node) {
     this->pos[1] = aux_y ? aux_y.as_float() : 0.0f;
     this->pos[2] = aux_z ? aux_z.as_float() : 0.0f;
 
-
 }
+
 
 void Light::draw(int i) {
     glEnable(GL_LIGHT0+i);
@@ -234,10 +298,7 @@ Lights::Lights(xml_node node) {
 }
 
 void Lights::draw(){
-    for(int i = 0; i<vlights.size(); i++){
-        this->vlights[i]->draw(i);
-    }
-    
+    for(int i = 0; i<vlights.size(); i++) this->vlights[i]->draw(i);
 }
 
 //-Group----------------------------------------------------------------------//

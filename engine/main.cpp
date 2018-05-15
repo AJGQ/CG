@@ -4,6 +4,7 @@
 #include "scene.h"
 #include "camera_fps.h"
 #include "camera_explorador.h"
+#include <map>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -15,6 +16,9 @@
 #include <GL/glut.h>
 #endif
 
+#include <IL/il.h>
+
+
 #define _USE_MATH_DEFINES
 
 #include <math.h>
@@ -23,11 +27,8 @@ using namespace std;
 
 //-Globais---------------------------------------------------------------------//
 
-GLuint buffers[1];
-GLuint normalBuff[1];
-//float *arrayFloat=NULL;
+map<string,int> texturesId;
 
-//vector<const char*> fileNameModels;
 Scene* scene;
 
 //-Camera--------//
@@ -39,7 +40,6 @@ int tipo_camera=1;
 
 //-Display-------//
 int disMode = GL_FILL;
-//int disColor = 0; //white
 int axes = 0;
 int trajetorias = 1;
 
@@ -163,24 +163,89 @@ void renderScene(void) {
 
     if (axes) { drawAxes(); }
 
-    //
-    //float white[4] = {1.0f, 1.0f, 1.0f, 1.0f};
-    //glMaterialfv(GL_FRONT, GL_DIFFUSE, white);
-    //
-
-
-    //setColor();
     scene->draw();
     glutSwapBuffers();
 }
 
 //-----------------------------------------------------------------------------//
 
-int main(int argc, char** argv) {
+int loadTexture(std::string s) {
+
+	unsigned int t,tw,th;
+	unsigned char *texData;
+	unsigned int texID;
+
+	ilInit();
+	ilEnable(IL_ORIGIN_SET);
+	ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+	ilGenImages(1,&t);
+	ilBindImage(t);
+	ilLoadImage((ILstring)s.c_str());
+	tw = ilGetInteger(IL_IMAGE_WIDTH);
+	th = ilGetInteger(IL_IMAGE_HEIGHT);
+	ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+	texData = ilGetData();
+
+	glGenTextures(1,&texID);
+	
+	glBindTexture(GL_TEXTURE_2D,texID);
+	glTexParameteri(GL_TEXTURE_2D,	GL_TEXTURE_WRAP_S,		GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D,	GL_TEXTURE_WRAP_T,		GL_REPEAT);
+
+	glTexParameteri(GL_TEXTURE_2D,	GL_TEXTURE_MAG_FILTER,   	GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D,	GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tw, th, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	return texID;
+
+}
+void menu(){
     int Menu_Visual, Menu_Camera;
 
+    Menu_Visual=glutCreateMenu(menu_op);
+    glutAddMenuEntry("GL POINT",1);
+    glutAddMenuEntry("GL LINE",2);
+    glutAddMenuEntry("GL FILL",3);
+    glutAddMenuEntry("Mostra Eixos",6);
+    glutAddMenuEntry("Mostra Trajetorias",7);
+
+    Menu_Camera=glutCreateMenu(menu_op);
+    glutAddMenuEntry("Modo FPS",4);
+    glutAddMenuEntry("Modo Explorador",5);
+
+
+    glutCreateMenu(menu_op);
+    glutAddSubMenu("Visualizacao",Menu_Visual);
+    glutAddSubMenu("Camera",Menu_Camera);
+
+    //Activar pop-up Menu
+    glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+}
+
+void initGl(){
+    // OpenGL settings
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_RESCALE_NORMAL);
+    glEnable(GL_TEXTURE_2D);
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+}
+
+int main(int argc, char** argv) {
     if(argc < 2) error("missing xml file");
-    scene = new Scene(argv[1]);
+
+#ifndef __APPLE__
+    glewInit();
+#endif
 
     // init GLUT and the window
     glutInit(&argc, argv);
@@ -194,50 +259,16 @@ int main(int argc, char** argv) {
     glutReshapeFunc(changeSize);
 
     // Callback registration for keyboard and mouse processing
-
-    // Default camera
     glutKeyboardFunc(teclado_normal_explorador);
     glutSpecialFunc(teclado_especial_explorador);
     glutMouseFunc(rato_explorador);
     glutMotionFunc(mov_rato_explorador);
 
-    
-    // Menu
-        Menu_Visual=glutCreateMenu(menu_op);
-        glutAddMenuEntry("GL POINT",1);
-        glutAddMenuEntry("GL LINE",2);
-        glutAddMenuEntry("GL FILL",3);
-        glutAddMenuEntry("Mostra Eixos",6);
-        glutAddMenuEntry("Mostra Trajetorias",7);
-        
-        Menu_Camera=glutCreateMenu(menu_op);
-        glutAddMenuEntry("Modo FPS",4);
-        glutAddMenuEntry("Modo Explorador",5);
-
-         
-        glutCreateMenu(menu_op);
-        glutAddSubMenu("Visualizacao",Menu_Visual);
-        glutAddSubMenu("Camera",Menu_Camera);
-
-        //Activar pop-up Menu
-        glutAttachMenu(GLUT_RIGHT_BUTTON);
-
-    // OpenGL settings
-#ifndef __APPLE__
-    glewInit();
-#endif
-    glGenBuffers(1, buffers);
-    glGenBuffers(1, normalBuff);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_NORMAL_ARRAY);
-
-
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
-
-    glEnable(GL_RESCALE_NORMAL);
-
+    menu();
     spherical2Cartesian();
+    initGl();
+
+    scene = new Scene(argv[1]);
 
     // Enter GLUT's main cycle
     glutMainLoop();
