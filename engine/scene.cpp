@@ -223,8 +223,8 @@ Light::Light(xml_node node) {
         this->pos[5] = aux_py ? aux_py.as_float() : 0.0f;
         this->pos[6] = aux_pz ? aux_pz.as_float() : 0.0f;
 
-        this->pos[5] = aux_exp ? aux_exp.as_float() : 0.0f;
-        this->pos[6] = aux_cut ? aux_cut.as_float() : 0.0f;
+        this->pos[7] = aux_exp ? aux_exp.as_float() : 0.0f;
+        this->pos[8] = aux_cut ? aux_cut.as_float() : 0.0f;
       }
     }
 }
@@ -232,7 +232,7 @@ Light::Light(xml_node node) {
 void Light::draw(int i) {
     glEnable(GL_LIGHT0+i);
 
-    if (this->pos[3] != 2) { // PESSIMO SO PARA TESTE: 2 -> SPOT /
+    if (this->pos[3] != 2) { // PESSIMO SO PARA TESTE: 2 -> SPOT
       glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
     } else {
       glLightfv(GL_LIGHT0+i, GL_SPOT_DIRECTION, [this->pos[0], this->pos[1], this->pos[2], 0.0]);
