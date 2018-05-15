@@ -235,8 +235,18 @@ void Light::draw(int i) {
     if (this->pos[3] != 2) { // PESSIMO SO PARA TESTE: 2 -> SPOT
       glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
     } else {
-      glLightfv(GL_LIGHT0+i, GL_SPOT_DIRECTION, [this->pos[0], this->pos[1], this->pos[2], 0.0]);
-      glLightfv(GL_LIGHT0+i, GL_SPOT_POSITION,[this->pos[4], this->pos[5], this->pos[6], 1.0]);
+        GLfloat* spot_dir = (GLfloat*) malloc(4*sizeof(GLfloat));
+        GLfloat* spot_pos = (GLfloat*) malloc(4*sizeof(GLfloat));
+        spot_dir[0] = (GLfloat)this->pos[0];
+        spot_dir[1] = (GLfloat)this->pos[1];
+        spot_dir[2] = (GLfloat)this->pos[2];
+        spot_dir[3] = 0.0;
+        spot_pos[0] = (GLfloat)this->pos[4];
+        spot_pos[1] = (GLfloat)this->pos[5];
+        spot_pos[2] = (GLfloat)this->pos[6];
+        spot_pos[3] = 1.0;
+      glLightfv(GL_LIGHT0+i, GL_SPOT_DIRECTION, spot_dir);
+      glLightfv(GL_LIGHT0+i, GL_POSITION, spot_pos);
 
       glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, this->pos[7]);
       glLightf(GL_LIGHT0+i, GL_SPOT_CUTOFF, this->pos[8]);
