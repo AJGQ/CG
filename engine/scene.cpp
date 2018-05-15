@@ -15,7 +15,7 @@ Model::Model(xml_node node) {
     float x, y, z;
 
     file = fopen(node.attribute("file").as_string(), "r");
-    
+
     //strcpy((char*)this->file, node.attribute("file").as_string());
     if(!file) error("opening file");
     fscanf(file,"%d\n",&(this->N));
@@ -95,14 +95,14 @@ Translate::Translate(xml_node node) {
             error("O translate tem apenas nodes point");
         }
     }
-    
+
     //cout << "parse de Translate acabou" << endl;
 }
 
 void Translate::draw() {
     if (time == 0) {
         glTranslatef(this->x,this->y,this->z);
-    } else { 
+    } else {
         if(this->x != 0.0 || this->y != 0.0 || this->z != 0.0)
             glTranslatef(this->x,this->y,this->z);
         if(trajetorias)
@@ -127,7 +127,7 @@ Rotate::Rotate(xml_node node) {
     this->x     = aux_x     ? aux_x.as_float()     : 0.0f;
     this->y     = aux_y     ? aux_y.as_float()     : 0.0f;
     this->z     = aux_z     ? aux_z.as_float()     : 0.0f;
-        
+
     if(this->angle != 0.0 && this->time != 0.0){
         this->time  = (360.0/this->angle) * this->time;
         this->angle = 0.0;
@@ -184,26 +184,63 @@ void Color::draw() {
 }
 
 //-Light----------------------------------------------------------------------//
- 
+
 Light::Light(xml_node node) {
     xml_attribute aux_type = node.attribute("type");
-    xml_attribute aux_x = node.attribute("posX");
-    xml_attribute aux_y = node.attribute("posY");
-    xml_attribute aux_z = node.attribute("posZ");
 
-    if(!strncmp("POINT", aux_type.as_string(), 5)) this->pos[3] = 1;
-    else if(!strncmp("DIRECTIONAL", aux_type.as_string(), 11)) this->pos[3] = 0;  
+    xml_attribute aux_px = node.attribute("posX");
+    xml_attribute aux_py = node.attribute("posY");
+    xml_attribute aux_pz = node.attribute("posZ");
 
-    this->pos[0] = aux_x ? aux_x.as_float() : 0.0f;
-    this->pos[1] = aux_y ? aux_y.as_float() : 0.0f;
-    this->pos[2] = aux_z ? aux_z.as_float() : 0.0f;
+    xml_attribute aux_dx = node.attribute("dirX");
+    xml_attribute aux_dy = node.attribute("dirY");
+    xml_attribute aux_dz = node.attribute("dirZ");
+
+    xml_attribute aux_exp = node.attribute("pExp");
+    xml_attribute aux_cut = node.attribute("pCut");
 
 
+    if(!strncmp("POINT", aux_type.as_string(), 5)) {
+
+      this->pos[3] = 1;
+      this->pos[0] = aux_px ? aux_px.as_float() : 0.0f;
+      this->pos[1] = aux_py ? aux_py.as_float() : 0.0f;
+      this->pos[2] = aux_pz ? aux_pz.as_float() : 0.0f;
+
+    } else {
+
+      this->pos[0] = aux_dx ? aux_dx.as_float() : 0.0f;
+      this->pos[1] = aux_dy ? aux_dy.as_float() : 0.0f;
+      this->pos[2] = aux_dz ? aux_dz.as_float() : 0.0f;
+
+      if (!strncmp("DIRECTIONAL", aux_type.as_string(), 11)) {
+        this->pos[3] = 0;
+      }
+      else if(!strncmp("SPOT", aux_type.as_string(), 4)) {
+        this->pos[3] = 2;
+
+        this->pos[4] = aux_px ? aux_px.as_float() : 0.0f;
+        this->pos[5] = aux_py ? aux_py.as_float() : 0.0f;
+        this->pos[6] = aux_pz ? aux_pz.as_float() : 0.0f;
+
+        this->pos[5] = aux_exp ? aux_exp.as_float() : 0.0f;
+        this->pos[6] = aux_cut ? aux_cut.as_float() : 0.0f;
+      }
+    }
 }
 
 void Light::draw(int i) {
     glEnable(GL_LIGHT0+i);
-    glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
+
+    if (this->pos[3] != 2) { // PESSIMO SO PARA TESTE: 2 -> SPOT /
+      glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
+    } else {
+      glLightfv(GL_LIGHT0+i, GL_SPOT_DIRECTION, [this->pos[0], this->pos[1], this->pos[2], 1.0]);
+      glLightfv(GL_LIGHT0+i, GL_SPOT_POSITION,[this->pos[4], this->pos[5], this->pos[6], 0.0]);
+
+      glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, this->pos[5]);
+      glLightf(GL_LIGHT0+i, GL_SPOT_CUTOFF, this->pos[6]);
+    }
 }
 
 //-Models---------------------------------------------------------------------//
@@ -229,7 +266,7 @@ void Models::draw() {
 Lights::Lights(xml_node node) {
     for(xml_node trans = node.first_child(); trans; trans = trans.next_sibling()) {
         if(!strcmp(trans.name(),"light")) { this->vlights.push_back(new Light(trans)); }
-        else cout << "Erro no formato do xml, foi lido: " << trans.name() << endl; 
+        else cout << "Erro no formato do xml, foi lido: " << trans.name() << endl;
     }
 }
 
@@ -237,7 +274,7 @@ void Lights::draw(){
     for(int i = 0; i<vlights.size(); i++){
         this->vlights[i]->draw(i);
     }
-    
+
 }
 
 //-Group----------------------------------------------------------------------//
