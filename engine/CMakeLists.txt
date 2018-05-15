@@ -25,6 +25,10 @@ include_directories(${OpenGL_INCLUDE_DIRS})
 link_directories(${OpenGL_LIBRARY_DIRS})
 add_definitions(${OpenGL_DEFINITIONS})
 
+find_package(DevIL REQUIRED)
+link_libraries(${IL_LIBRARIES} )
+include_directories(ยง{IL_INCLUDE_DIR})
+
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 add_executable(${PROJECT_NAME} main.cpp scene.cpp catmull.cpp camera_explorador.cpp camera_fps.cpp)

@@ -18,8 +18,6 @@
 using namespace pugi;
 using namespace std;
 
-extern GLuint buffers[1];
-extern GLuint normalBuff[1];
 
 extern void error(const char *s);
 
@@ -31,12 +29,13 @@ class PhysicScene{
 
 class Model {
   public:
-    int N;
-    int index;
-    float *arrayFloat;
-    float *arrayNormal;
+    GLuint vertexId, normalId, vertexTextureId, textureId;
+    int N, index;
+    float *amb, *diff, *spec, *emi;
+    string *texture;
     int *pos, *len;
     char *typ;
+
     Model(xml_node);
     void draw();
 };
@@ -66,8 +65,10 @@ class Scale : public PhysicScene{
 
 class Light{
   public:
+    int id;
     int type;
-    float pos[4], diff[3], spec[3], amb[3];
+    float dir[4], pos[4], diff[4], spec[4], amb[4];
+    float *cutOff, *exponent;
     Light(xml_node);
     void draw(int);
 };

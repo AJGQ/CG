@@ -1,3 +1,4 @@
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #include "camera_explorador.h"
 
 float raio=20,angCam_h=0,angCam_v=0.5,angAux_h=0,angAux_v=0,x_tela,y_tela,look[3]={0,0,0},avanco=0.5;

@@ -8,17 +8,22 @@ extern FILE *outputFile;
 void createPlane(char **argv) {
     fprintf(outputFile,"1\n");              // num de arrays
     fprintf(outputFile,"s4\n");             // num vertices da fan do topo
+
     fprintf(outputFile,"-0.5:0:0.5\n");
     fprintf(outputFile,"0:1:0\n");
+    fprintf(outputFile,"0:1\n");
 
     fprintf(outputFile,"0.5:0:0.5\n");
     fprintf(outputFile,"0:1:0\n");
+    fprintf(outputFile,"1:1\n");
     
     fprintf(outputFile,"-0.5:0:-0.5\n");
     fprintf(outputFile,"0:1:0\n");
+    fprintf(outputFile,"0:0\n");
     
     fprintf(outputFile,"0.5:0:-0.5\n");
     fprintf(outputFile,"0:1:0\n");
+    fprintf(outputFile,"1:0\n");
 }
 
 //---------------------------//
@@ -43,18 +48,22 @@ void createBox(char **argv) {
         for(j=0; j<=d; j++) {
             fprintf(outputFile, "%f:%f:%f\n", j * dx-x/2.0 ,   i   * dy-y/2.0 , -z/2.0 );
             fprintf(outputFile, "0:0:-1\n"); 
+            fprintf(outputFile,"%f:%f\n", (float)i/d, (float)j/d);
 
             fprintf(outputFile, "%f:%f:%f\n", j * dx-x/2.0 , (i+1) * dy-y/2.0 , -z/2.0 );
             fprintf(outputFile, "0:0:-1\n"); 
+            fprintf(outputFile,"%f:%f\n", (float)(i+1)/d, (float)j/d);
         }
     }
     for(i=0; i<d; i++) {
         for(j=0; j<=d; j++) {
             fprintf(outputFile, "%f:%f:%f\n", j * dx-x/2.0 , (i+1) * dy-y/2.0 , z/2.0 );
             fprintf(outputFile, "0:0:1\n"); 
+            fprintf(outputFile,"%f:%f\n", (float)(i+1)/d, (float)j/d);
 
             fprintf(outputFile, "%f:%f:%f\n", j * dx-x/2.0 ,   i   * dy-y/2.0 , z/2.0 );
             fprintf(outputFile, "0:0:1\n"); 
+            fprintf(outputFile,"%f:%f\n", (float)i/d, (float)j/d);
         }
     }
 
@@ -64,18 +73,22 @@ void createBox(char **argv) {
         for(j=0; j<=d; j++) {
             fprintf(outputFile, "%f:%f:%f\n",   i   * dx-x/2.0 , -y/2.0 , j * dz - z/2.0  );
             fprintf(outputFile, "0:-1:0\n"); 
+            fprintf(outputFile,"%f:%f\n", (float)i/d, (float)j/d);
 
             fprintf(outputFile, "%f:%f:%f\n", (i+1) * dx-x/2.0 , -y/2.0 , j * dz - z/2.0  );
             fprintf(outputFile, "0:-1:0\n"); 
+            fprintf(outputFile,"%f:%f\n", (float)(i+1)/d, (float)j/d);
         }
     }
     for(i=0; i<d; i++) {
         for(j=0; j<=d; j++) {
             fprintf(outputFile, "%f:%f:%f\n", (i+1) * dx-x/2.0 , y/2.0 , j * dz - z/2.0  );
             fprintf(outputFile, "0:1:0\n"); 
+            fprintf(outputFile,"%f:%f\n", (float)(i+1)/d, (float)j/d);
 
             fprintf(outputFile, "%f:%f:%f\n",   i   * dx-x/2.0 , y/2.0 , j * dz - z/2.0  );
             fprintf(outputFile, "0:1:0\n"); 
+            fprintf(outputFile,"%f:%f\n", (float)i/d, (float)j/d);
         }
     }
 
@@ -85,18 +98,22 @@ void createBox(char **argv) {
         for(j=0; j<=d; j++) {
             fprintf(outputFile, "%f:%f:%f\n", -x/2.0 , (i+1) * dy-y/2.0 , j * dz - z/2.0  );
             fprintf(outputFile, "-1:0:0\n"); 
+            fprintf(outputFile,"%f:%f\n", (float)(i+1)/d, (float)j/d);
 
             fprintf(outputFile, "%f:%f:%f\n", -x/2.0 ,   i   * dy-y/2.0 , j * dz - z/2.0  );
             fprintf(outputFile, "-1:0:0\n"); 
+            fprintf(outputFile,"%f:%f\n", (float)i/d, (float)j/d);
         }
     }
     for(i=0; i<d; i++) {
         for(j=0; j<=d; j++) {
             fprintf(outputFile, "%f:%f:%f\n", x/2.0 ,   i   * dy-y/2.0 , j * dz - z/2.0  );
             fprintf(outputFile, "1:0:0\n"); 
+            fprintf(outputFile,"%f:%f\n", (float)i/d, (float)j/d);
 
             fprintf(outputFile, "%f:%f:%f\n", x/2.0 , (i+1) * dy-y/2.0 , j * dz - z/2.0  );
             fprintf(outputFile, "1:0:0\n"); 
+            fprintf(outputFile,"%f:%f\n", (float)(i+1)/d, (float)j/d);
         }
     }
 }
@@ -114,42 +131,9 @@ void createSphere(char **argv) {
     int i, j;
 
     fprintf(outputFile,"%d\n", stacks);
-    fprintf(outputFile,"f%d\n", slices+2);
-    fprintf(outputFile,"f%d\n", slices+2);
-    for(i=0; i<stacks-2; i++) { fprintf(outputFile , "s%d\n", 2*(slices+1)); }
+    for(i=0; i<stacks; i++) { fprintf(outputFile , "s%d\n", 2*(slices+1)); }
 
-    //-Base--------------------//
-
-    fprintf(outputFile, "0.0:%f:0.0\n", -radius);
-    fprintf(outputFile, "0.0:-1:0.0\n");
-    for(i=0; i<=slices; i++) {
-        fprintf(outputFile, "%f:%f:%f\n",
-                cosf(i * alpha * M_PI/180.0)*sinf( beta*M_PI/180.0 )*radius,
-                -cosf(beta*M_PI/180.0)*radius,
-                sin(i * alpha * M_PI/180.0)*sinf(beta*M_PI/180.0)*radius);
-        fprintf(outputFile, "%f:%f:%f\n",
-                cosf(i * alpha * M_PI/180.0)*sinf( beta*M_PI/180.0 ),
-                -cosf(beta*M_PI/180.0),
-                sin(i * alpha * M_PI/180.0)*sinf(beta*M_PI/180.0));
-    }
-    //-Topo--------------------//
-
-    fprintf(outputFile, "0.0:%f:0.0\n", radius); // vertice topo
-    fprintf(outputFile, "0.0:1:0.0\n"); // vertice topo
-    for(i=0; i<=slices; i++) {
-        fprintf(outputFile, "%f:%f:%f\n",
-                cosf(i * alpha * M_PI/180.0)*sinf(-beta*M_PI/180.0 )*radius,
-                cosf(beta*M_PI/180.0)*radius,
-                -sin(i * alpha * M_PI/180.0)*sinf(-beta*M_PI/180.0 )*radius);
-        fprintf(outputFile, "%f:%f:%f\n",
-                cosf(i * alpha * M_PI/180.0)*sinf(-beta*M_PI/180.0 ),
-                cosf(beta*M_PI/180.0),
-                -sin(i * alpha * M_PI/180.0)*sinf(-beta*M_PI/180.0 ));
-    }
-
-    //-Body--------------------//
-
-    for(j=1; j<stacks-1; j++) {
+    for(j=0; j<stacks; j++) {
         for(i=0; i<=slices; i++) {
             fprintf(outputFile,"%f:%f:%f\n",
                     cosf(i*alpha*M_PI/180.0)*sinf(beta*j*M_PI/180.0)*radius,
@@ -159,6 +143,10 @@ void createSphere(char **argv) {
                     cosf(i*alpha*M_PI/180.0)*sinf(beta*j*M_PI/180.0),
                     cosf(beta*j*M_PI/180.0),
                     -sinf(beta*j*M_PI/180.0)*sinf(i*alpha*M_PI/180.0));
+            fprintf(outputFile,"%f:%f\n",
+                    (float)i/stacks,
+                    (float)j/stacks);
+
 
             fprintf(outputFile,"%f:%f:%f\n",
                     cosf(i*alpha*M_PI/180.0)*sinf(beta*(j+1)*M_PI/180.0)*radius,
@@ -168,6 +156,9 @@ void createSphere(char **argv) {
                     cosf(i*alpha*M_PI/180.0)*sinf(beta*(j+1)*M_PI/180.0),
                     cosf(beta*(j+1)*M_PI/180.0),
                     -sinf(i*alpha*M_PI/180.0)*sinf(beta*(j+1)*M_PI/180.0));
+            fprintf(outputFile,"%f:%f\n",
+                    (float)i/stacks,
+                    (float)(j+1)/stacks);
         }
     }
 }
@@ -193,9 +184,11 @@ void createCone(char **argv) {
 
   fprintf(outputFile, "0.0:0.0:0.0\n"); // vertice da base
   fprintf(outputFile, "0.0:-1:0.0\n"); // vertice da base
+      fprintf(outputFile, "0.0:0.0\n");
   for(i=0; i<=slices; i++) {
       fprintf(outputFile, "%f:%f:%f\n", cosf(i * angle)*radius, 0.0, sinf(i * angle)*radius);
       fprintf(outputFile, "0:-1:0\n");
+      fprintf(outputFile, "0.0:0.0\n");
   }
 
   //-Body--------------------//
@@ -208,9 +201,11 @@ void createCone(char **argv) {
           hm = height * ((float)(j+1)/stacks);
           fprintf(outputFile, "%f:%f:%f\n", cosf(i * angle)*rm, hm, -sinf(i * angle)*rm);
           fprintf(outputFile, "%f:%f:%f\n", cosf(i * angle), normalY, -sinf(i * angle));         //normal
+          fprintf(outputFile, "%f:%f\n", (float)i/slices, (float)(j+1)/stacks);
 
           fprintf(outputFile, "%f:%f:%f\n", cosf(i * angle)*rM, hM, -sinf(i * angle)*rM);
           fprintf(outputFile, "%f:%f:%f\n", cosf(i * angle), normalY, -sinf(i * angle));         //normal
+          fprintf(outputFile, "%f:%f\n", (float)i/slices, (float)j/stacks);
       }
   }
 }
@@ -288,7 +283,9 @@ void createTorus(char **argv){
     for(int i = 0; i<Sl; i++){
         for(int j = 0; j<sl+1; j++){
             torusPoint(R,r,angle_a,angle_b,i  ,j  );
+            fprintf(outputFile, "%f:%f\n", (float)i/Sl, (float)j/sl);
             torusPoint(R,r,angle_a,angle_b,i+1,j  );
+            fprintf(outputFile, "%f:%f\n", (float)(i+1)/Sl, (float)j/sl);
         }
     }
 

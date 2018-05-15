@@ -1,3 +1,4 @@
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #include "catmull.h"
 
 #define POINT_COUNT 4
