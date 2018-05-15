@@ -251,12 +251,31 @@ void Color::draw() {
  
 Light::Light(xml_node node) {
     xml_attribute aux_type = node.attribute("type");
+
     xml_attribute aux_x = node.attribute("posX");
     xml_attribute aux_y = node.attribute("posY");
     xml_attribute aux_z = node.attribute("posZ");
 
+    xml_attribute aux_dx = node.attribute("dirX");
+    xml_attribute aux_dy = node.attribute("dirY");
+    xml_attribute aux_dz = node.attribute("dirZ");
+ 
+    xml_attribute aux_exp = node.attribute("pExp");
+    xml_attribute aux_cut = node.attribute("pCut");
+    this->type = 0;
+
     if(!strncmp("POINT", aux_type.as_string(), 5)) this->pos[3] = 1;
     else if(!strncmp("DIRECTIONAL", aux_type.as_string(), 11)) this->pos[3] = 0;  
+    else if(!strncmp("SPOT", aux_type.as_string(), 4)){
+        this->dir[0] = aux_dx ? aux_dx.as_float() : 0.0f;
+        this->dir[1] = aux_dy ? aux_dy.as_float() : 0.0f;
+        this->dir[2] = aux_dz ? aux_dz.as_float() : 0.0f;
+
+        this->cutOff   = aux_cut ? new float(aux_cut.as_float()) : NULL;
+        this->exponent = aux_exp ? new float(aux_exp.as_float()) : NULL;
+
+        this->type = 1;
+    }
 
     this->pos[0] = aux_x ? aux_x.as_float() : 0.0f;
     this->pos[1] = aux_y ? aux_y.as_float() : 0.0f;
@@ -268,6 +287,12 @@ Light::Light(xml_node node) {
 void Light::draw(int i) {
     glEnable(GL_LIGHT0+i);
     glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
+    if(this->type){
+        glLightfv(GL_LIGHT0+i, GL_SPOT_DIRECTION, this->dir);
+        if(this->cutOff)   glLightf(GL_LIGHT0+i, GL_SPOT_CUTOFF,   *(this->cutOff));
+        if(this->exponent) glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, *(this->exponent));
+    }
+
 }
 
 //-Models---------------------------------------------------------------------//

@@ -67,7 +67,8 @@ class Light{
   public:
     int id;
     int type;
-    float pos[4], diff[4], spec[4], amb[4];
+    float dir[4], pos[4], diff[4], spec[4], amb[4];
+    float *cutOff, *exponent;
     Light(xml_node);
     void draw(int);
 };
