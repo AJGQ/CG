@@ -184,11 +184,11 @@ void createCone(char **argv) {
 
   fprintf(outputFile, "0.0:0.0:0.0\n"); // vertice da base
   fprintf(outputFile, "0.0:-1:0.0\n"); // vertice da base
-      fprintf(outputFile, "0.0:0.0\n");
+      fprintf(outputFile, "0.5:0.5\n");
   for(i=0; i<=slices; i++) {
       fprintf(outputFile, "%f:%f:%f\n", cosf(i * angle)*radius, 0.0, sinf(i * angle)*radius);
       fprintf(outputFile, "0:-1:0\n");
-      fprintf(outputFile, "0.0:0.0\n");
+      fprintf(outputFile, "%f:%f\n", 0.5 + cosf(i * angle)/2, 0.5 + sinf(i * angle)/2);
   }
 
   //-Body--------------------//

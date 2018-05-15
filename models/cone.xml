@@ -1,12 +1,12 @@
 <scene>
     <lights>
-        <light type="DIRECTIONAL" posX="1" posY="" posZ="1" />
+        <light type="DIRECTIONAL" posX="1" posY="-1" posZ="1" />
     </lights>
     <group>
         <translate X="5" Y="0" Z="0" />
         <color R="195" G="19" B="19" />
         <models>
-	        <model file="cone.3d" />
+            <model file="cone.3d" texture="./textures/8k_earth_daymap.jpg" />
         </models>
     </group>
 </scene>

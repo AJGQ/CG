@@ -92,42 +92,55 @@ void multPointsVector(float* p, float* v, float* res){
     }
 }
 
-void getBezierPoint(float u, float v, float *patch, float *pos/*, float *deriv*/) {
+void getBezierPoint(float u, float v, float *patch, float *pos, float *deriv) {
+    float derivadas[2][4] = {{0,0,0,1},{0,0,0,1}};
     float M[4*4]= { -1,  3, -3, 1,
                      3, -6,  3, 0,
                     -3,  3,  0, 0,
                      1,  0,  0, 0      
                   };
-    float MT[4*4];
-    float A[4], B[4], C[4*4];
-    float U[4] = {u*u*u, u*u, u, 1};
-    float V[4] = {v*v*v, v*v, v, 1};
+    float MT[4*4];                      
+    float A[4], B[4], C[4*4];        float A1[4], B1[4], C1[4*4];     float A2[4], B2[4], C2[4*4];
+    float U[4] = {u*u*u, u*u, u, 1}; float U_[4] = {3*u*u, 2*u, 1, 0}; 
+    float V[4] = {v*v*v, v*v, v, 1}; float V_[4] = {3*u*u, 2*u, 1, 0};
+    
     transpose(M, MT);
-
-    // B(U,V) = U*M*P*MT*V
     multVectorMatrix(U, M, A);
     multMatrixVector(MT, V, B);
     multVectorPoints(A, patch, C);
     multPointsVector(C,B,pos);
-    //printf("%f %f %f %f\n", pos[0], pos[1], pos[2], pos[3]);
 
-    //multMatrixVector(patch, A, B);
-    //multMatrixVector(M ,B, C);
-    //multVectorMatrix(U, C, pos);
+    multVectorMatrix(U_, M, A1);
+    multMatrixVector(MT, V, B1);
+    multVectorPoints(A1, patch, C1);
+    multPointsVector(C1,B1,derivadas[0]);
+
+    multVectorMatrix(U, M, A2);
+    multMatrixVector(MT, V_, B2);
+    multVectorPoints(A2, patch, C2);
+    multPointsVector(C2,B2,derivadas[1]);
+
+
+    cross(derivadas[0], derivadas[1], deriv);
+    normalize(deriv);
 }
 
 void drawPatch(float* patch, int slices){
 
     int u, v;
     float step = 1.0/slices;
-    float vertex[4];
+    float vertex[4], normal[4];
     for(u=0; u<slices; u++){
         for(v=0; v<slices+1; v++){
-            getBezierPoint((u+1)*step,  v*step,  patch, vertex);
+            getBezierPoint((u+1)*step,  v*step,  patch, vertex, normal);
             fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
+            fprintf(outputFile, "%f:%f:%f\n",normal[0], normal[1], normal[2]);
+            fprintf(outputFile, "%f:%f\n", (float)(u+1)/slices, (float)v/slices);
             
-            getBezierPoint(u*step,      v*step,      patch, vertex);
+            getBezierPoint(u*step,      v*step,      patch, vertex, normal);
             fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
+            fprintf(outputFile, "%f:%f:%f\n",normal[0], normal[1], normal[2]);
+            fprintf(outputFile, "%f:%f\n", (float)u/slices, (float)v/slices);
             
             fflush(outputFile);
         }
@@ -180,8 +193,6 @@ void createBezier(char **argv) {
     vertexes = (float**)malloc(nVertex * sizeof(float*));
     for(i=0; i<nVertex; i++) readVertex(&vertexes[i]);
 
-    //printf("nPatch = %d;\nslices = %d;\n", nPatch, slices);
-
     fprintf(outputFile, "%d\n", nPatch*slices); 
     for(i = 0; i <  nPatch*slices; i++){
         fprintf(outputFile, "s%d\n", 2*(slices + 1));
@@ -189,9 +200,7 @@ void createBezier(char **argv) {
 
     for(i=0; i<nPatch; i++){
         getPatch(indexes[i], vertexes, patch); 
-    //fprintf(stderr, "before drawPatch\n");
-      drawPatch(patch, slices);
-    //fprintf(stderr, "after drawPatch\n");
+        drawPatch(patch, slices);
     }
 }
 
