@@ -238,8 +238,8 @@ void Light::draw(int i) {
       glLightfv(GL_LIGHT0+i, GL_SPOT_DIRECTION, [this->pos[0], this->pos[1], this->pos[2], 0.0]);
       glLightfv(GL_LIGHT0+i, GL_SPOT_POSITION,[this->pos[4], this->pos[5], this->pos[6], 1.0]);
 
-      glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, this->pos[5]);
-      glLightf(GL_LIGHT0+i, GL_SPOT_CUTOFF, this->pos[6]);
+      glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, this->pos[7]);
+      glLightf(GL_LIGHT0+i, GL_SPOT_CUTOFF, this->pos[8]);
     }
 }
 
