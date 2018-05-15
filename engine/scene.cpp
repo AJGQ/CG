@@ -38,10 +38,7 @@ Model::Model(xml_node node) {
     this->texture = NULL;
 
     file = fopen(node.attribute("file").as_string(), "r");
-<<<<<<< HEAD
 
-    //strcpy((char*)this->file, node.attribute("file").as_string());
-=======
     if(node.attribute("texture")) this->texture = new string(node.attribute("texture").as_string());
     if(this->texture) texturesId[*this->texture] = loadTexture(*this->texture);
     getMat(node, "amb", &this->amb); 
@@ -49,7 +46,6 @@ Model::Model(xml_node node) {
     getMat(node, "spec", &this->spec);
     getMat(node, "emi", &this->emi);
     
->>>>>>> 0ee8e0b82342d26fad32425470cd78028c4b0b19
     if(!file) error("opening file");
     fscanf(file,"%d\n",&(this->N));
 
@@ -256,22 +252,6 @@ void Color::draw() {
 
 Light::Light(xml_node node) {
     xml_attribute aux_type = node.attribute("type");
-<<<<<<< HEAD
-
-    xml_attribute aux_px = node.attribute("posX");
-    xml_attribute aux_py = node.attribute("posY");
-    xml_attribute aux_pz = node.attribute("posZ");
-
-    xml_attribute aux_dx = node.attribute("dirX");
-    xml_attribute aux_dy = node.attribute("dirY");
-    xml_attribute aux_dz = node.attribute("dirZ");
-
-    xml_attribute aux_exp = node.attribute("pExp");
-    xml_attribute aux_cut = node.attribute("pCut");
-
-
-    if(!strncmp("POINT", aux_type.as_string(), 5)) {
-=======
 
     xml_attribute aux_x = node.attribute("posX");
     xml_attribute aux_y = node.attribute("posY");
@@ -297,46 +277,21 @@ Light::Light(xml_node node) {
 
         this->type = 1;
     }
->>>>>>> 0ee8e0b82342d26fad32425470cd78028c4b0b19
 
-      this->pos[3] = 1;
-      this->pos[0] = aux_px ? aux_px.as_float() : 0.0f;
-      this->pos[1] = aux_py ? aux_py.as_float() : 0.0f;
-      this->pos[2] = aux_pz ? aux_pz.as_float() : 0.0f;
+    this->pos[0] = aux_x ? aux_x.as_float() : 0.0f;
+    this->pos[1] = aux_y ? aux_y.as_float() : 0.0f;
+    this->pos[2] = aux_z ? aux_z.as_float() : 0.0f;
+    this->pos[3] = 1;
 
-<<<<<<< HEAD
-    } else {
-
-      this->pos[0] = aux_dx ? aux_dx.as_float() : 0.0f;
-      this->pos[1] = aux_dy ? aux_dy.as_float() : 0.0f;
-      this->pos[2] = aux_dz ? aux_dz.as_float() : 0.0f;
-
-      if (!strncmp("DIRECTIONAL", aux_type.as_string(), 11)) {
-        this->pos[3] = 0;
-      }
-      else if(!strncmp("SPOT", aux_type.as_string(), 4)) {
-        this->pos[3] = 2;
-
-        this->pos[4] = aux_px ? aux_px.as_float() : 0.0f;
-        this->pos[5] = aux_py ? aux_py.as_float() : 0.0f;
-        this->pos[6] = aux_pz ? aux_pz.as_float() : 0.0f;
-
-        this->pos[7] = aux_exp ? aux_exp.as_float() : 0.0f;
-        this->pos[8] = aux_cut ? aux_cut.as_float() : 0.0f;
-      }
-    }
-=======
->>>>>>> 0ee8e0b82342d26fad32425470cd78028c4b0b19
 }
 
 
 void Light::draw(int i) {
     glEnable(GL_LIGHT0+i);
-<<<<<<< HEAD
 
     if (this->pos[3] != 2) { // PESSIMO SO PARA TESTE: 2 -> SPOT
       glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
-    } else {
+    } else if(this->type){
         GLfloat* spot_dir = (GLfloat*) malloc(4*sizeof(GLfloat));
         GLfloat* spot_pos = (GLfloat*) malloc(4*sizeof(GLfloat));
         spot_dir[0] = (GLfloat)this->pos[0];
@@ -347,21 +302,14 @@ void Light::draw(int i) {
         spot_pos[1] = (GLfloat)this->pos[5];
         spot_pos[2] = (GLfloat)this->pos[6];
         spot_pos[3] = 1.0;
-      glLightfv(GL_LIGHT0+i, GL_SPOT_DIRECTION, spot_dir);
-      glLightfv(GL_LIGHT0+i, GL_POSITION, spot_pos);
 
-      glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, this->pos[7]);
-      glLightf(GL_LIGHT0+i, GL_SPOT_CUTOFF, this->pos[8]);
-    }
-=======
-    glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
-    if(this->type){
-        glLightfv(GL_LIGHT0+i, GL_SPOT_DIRECTION, this->dir);
+        glLightfv(GL_LIGHT0+i, GL_SPOT_DIRECTION, spot_dir);
+        glLightfv(GL_LIGHT0+i, GL_POSITION, spot_pos);
         if(this->cutOff)   glLightf(GL_LIGHT0+i, GL_SPOT_CUTOFF,   *(this->cutOff));
         if(this->exponent) glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, *(this->exponent));
+        
     }
 
->>>>>>> 0ee8e0b82342d26fad32425470cd78028c4b0b19
 }
 
 //-Models---------------------------------------------------------------------//
@@ -392,14 +340,9 @@ Lights::Lights(xml_node node) {
 }
 
 void Lights::draw(){
-<<<<<<< HEAD
     for(int i = 0; i<vlights.size(); i++){
         this->vlights[i]->draw(i);
     }
-
-=======
-    for(int i = 0; i<vlights.size(); i++) this->vlights[i]->draw(i);
->>>>>>> 0ee8e0b82342d26fad32425470cd78028c4b0b19
 }
 
 //-Group----------------------------------------------------------------------//
