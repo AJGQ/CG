@@ -1,7 +1,16 @@
 <scene>
+    <!--
+    <group>
+        <scale X="100" Y="100" Z="100" />
+        <models>
+            <model file="inv_box.3d" texture="stars_milky_way.jpg" />
+        </models>
+    </group>
+     -->
     <lights>
         <light type="POINT" posX="0" posY="0" posZ="0" />
     </lights>
+
     <group> <!-- " Terra.Scale = 1" -->
         <group> <!-- "Sol" -->
             <translate X="0" Y="0" Z="0" />
