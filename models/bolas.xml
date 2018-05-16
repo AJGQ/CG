@@ -5,13 +5,13 @@
     <group>
         <translate X="5" Y="0" Z="0" />
         <models>
-            <model file="sphere.3d" texture="./textures/8k_earth_daymap.jpg" />
+            <model file="sphere.3d" texture="./textures/test.jpg" />
         </models>
         <group>
             <translate X="-5" Y="0" Z="0" />
             <scale X="2" Y="2" Z="2" />
             <models>
-                <model file="sphere.3d" texture="./textures/2k_neptune.jpg" emiR="1" emiG="1" emiB="1" />
+                <model file="sphere.3d" texture="./textures/test.jpg" emiR="1" emiG="1" emiB="1" />
             </models>
         </group>
     </group>

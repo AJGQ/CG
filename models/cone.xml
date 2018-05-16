@@ -6,8 +6,7 @@
         <translate X="5" Y="0" Z="0" />
         <color R="195" G="19" B="19" />
         <models>
-            <model file="cone.3d" texture="./textures/8k_earth_daymap.jpg" />
+            <model file="cone.3d" texture="./textures/test.jpg" />
         </models>
     </group>
 </scene>
-

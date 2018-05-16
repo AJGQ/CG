@@ -6,9 +6,7 @@
         <translate X="0" Y="0" Z="0" />
         <scale X="5" Y="5" Z="5" />
         <models>
-            <model file="teapot.3d" texture="./textures/8k_mars.jpg"/>
+            <model file="teapot.3d" texture="./textures/test.jpg"/>
         </models>
     </group>
 </scene>
-
-
