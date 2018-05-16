@@ -7,7 +7,7 @@
                 <translate X="0" Y="6.5" Z="0" />
                 <color     R="247" G="115" B="12" />
                 <models>
-                    <model file="N64.3d" />
+                    <model file="cone.3d" />
                 </models>
             </group>
             <group> <!-- "Mercury" -->

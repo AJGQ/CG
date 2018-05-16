@@ -87,8 +87,8 @@ void getGlobalCatmullRomPoint(std::vector<float*> p, float gt, float *pos, float
 void renderCatmullRomCurve(std::vector<float*> p) {
     glBegin(GL_LINE_LOOP);
     float t;
-    float pos[3];
-    float deriv[3];
+    float pos[4];
+    float deriv[4];
     for(int i= 0; i<TOTAL_POINTS; i++){
         t = ((float)i)/TOTAL_POINTS;
         getGlobalCatmullRomPoint(p, t, pos, deriv);

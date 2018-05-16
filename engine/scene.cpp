@@ -170,8 +170,9 @@ void Translate::draw() {
     } else {
         if(this->x != 0.0 || this->y != 0.0 || this->z != 0.0)
             glTranslatef(this->x,this->y,this->z);
-        if(trajetorias)
+        if(trajetorias){
             renderCatmullRomCurve(this->points);
+        }
 
         startPath(this->points, this->time);
     }
@@ -265,31 +266,37 @@ Light::Light(xml_node node) {
     xml_attribute aux_cut = node.attribute("pCut");
     this->type = 0;
 
+    this->pos[0] = aux_x ? aux_x.as_float() : 0.0f;
+    this->pos[1] = aux_y ? aux_y.as_float() : 0.0f;
+    this->pos[2] = aux_z ? aux_z.as_float() : 0.0f;
+
     if(!strncmp("POINT", aux_type.as_string(), 5)) this->pos[3] = 1;
     else if(!strncmp("DIRECTIONAL", aux_type.as_string(), 11)) this->pos[3] = 0;  
     else if(!strncmp("SPOT", aux_type.as_string(), 4)){
         this->dir[0] = aux_dx ? aux_dx.as_float() : 0.0f;
         this->dir[1] = aux_dy ? aux_dy.as_float() : 0.0f;
         this->dir[2] = aux_dz ? aux_dz.as_float() : 0.0f;
+        this->dir[3] = 0.0f;
 
         this->cutOff   = aux_cut ? new float(aux_cut.as_float()) : NULL;
         this->exponent = aux_exp ? new float(aux_exp.as_float()) : NULL;
 
         this->type = 1;
     }
-
-    this->pos[0] = aux_x ? aux_x.as_float() : 0.0f;
-    this->pos[1] = aux_y ? aux_y.as_float() : 0.0f;
-    this->pos[2] = aux_z ? aux_z.as_float() : 0.0f;
-    this->pos[3] = 1;
-
 }
 
 
 void Light::draw(int i) {
     glEnable(GL_LIGHT0+i);
 
-    if (this->pos[3] != 2) { // PESSIMO SO PARA TESTE: 2 -> SPOT
+    glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
+    if(this->type){
+        glLightfv(GL_LIGHT0+i, GL_SPOT_DIRECTION, this->dir);
+        if(this->cutOff)   glLightf(GL_LIGHT0+i, GL_SPOT_CUTOFF,   *(this->cutOff));
+        if(this->exponent) glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, *(this->exponent));
+    }
+
+    /*if (this->pos[3] != 2) { // PESSIMO SO PARA TESTE: 2 -> SPOT
       glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
     } else if(this->type){
         GLfloat* spot_dir = (GLfloat*) malloc(4*sizeof(GLfloat));
@@ -309,7 +316,7 @@ void Light::draw(int i) {
         if(this->exponent) glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, *(this->exponent));
         
     }
-
+*/
 }
 
 //-Models---------------------------------------------------------------------//
