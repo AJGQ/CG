@@ -1,0 +1,567 @@
+<scene>
+    <group>
+        <color R="195" G="19" B="19" />
+        <translate X="-1" Y="-1" Z="-1"/>
+        <translate X="1" Y="-1" Z="0"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="-5" Z="0"/>
+        <translate X="1" Y="-1" Z="0"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="-5" Z="0"/>
+        <translate X="1" Y="-1" Z="0"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="-5" Z="0"/>
+        <translate X="1" Y="-1" Z="0"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="-5" Z="0"/>
+        <translate X="1" Y="-1" Z="0"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="1" Z="-1"/>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="1"/>
+        <models>
+        	<model file="N64.3d" />
+        </models>
+        <translate X="0" Y="0" Z="-5"/>
+        <translate X="0" Y="-5" Z="0"/>
+        <translate X="-5" Y="0" Z="0"/>
+    </group>
+</scene>
