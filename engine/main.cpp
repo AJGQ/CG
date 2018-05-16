@@ -243,16 +243,16 @@ void initGl(){
 int main(int argc, char** argv) {
     if(argc < 2) error("missing xml file");
 
-#ifndef __APPLE__
-    glewInit();
-#endif
-
     // init GLUT and the window
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DEPTH|GLUT_DOUBLE|GLUT_RGBA);
     glutInitWindowPosition(100,100);
     glutInitWindowSize(800,800);
     glutCreateWindow("Um Belo Trabalho");
+
+#ifndef __APPLE__
+    glewInit();
+#endif
 
     // Required callback registry
     glutDisplayFunc(renderScene);
