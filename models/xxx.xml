@@ -21,7 +21,7 @@
                 <scale     X="0.38" Y="0.38" Z="0.38" /> <!-- " 38% " -->
                 <color     R="250" G="248" B="242" />
                 <models>
-                    <model file="sphere.3d" texture="mercury.jpg" />
+                    <model file="sphere.3d" texture="./textures/mercury.jpg" />
                 </models>
             </group>
             <group> <!-- "Venus" -->
@@ -31,7 +31,7 @@
                 <scale     X="0.95" Y="0.95" Z="0.95" /> <!-- " 95% " -->
                 <color     R="255" G="255" B="242" />
                 <models>
-                    <model file="sphere.3d" texture="venus_atmosphere.jpg" />
+                    <model file="sphere.3d" texture="./textures/venus_atmosphere.jpg" />
                 </models>
             </group>
             <group> <!-- "Earth" -->
@@ -44,13 +44,13 @@
                     <scale     X="0.27" Y="0.27" Z="0.27" /> <!-- " 27% " -->
                     <color     R="254" G="252" B="215" />
                     <models>
-                        <model file="sphere.3d" texture="moon.jpg" />
+                        <model file="sphere.3d" texture="./textures/moon.jpg" />
                     </models>
                 </group>
                 <scale     X="1" Y="1" Z="1" /> <!-- " 100% " -->
                 <color     R="11" G="92" B="227" />
                 <models>
-                    <model file="sphere.3d" texture="earth_daymap.jpg" />
+                    <model file="sphere.3d" texture="./textures/earth_daymap.jpg" />
                 </models>
             </group>
             <group> <!-- "Mars" -->
@@ -60,7 +60,7 @@
                 <scale     X="0.53" Y="0.53" Z="0.53" /> <!-- " 53% " -->
                 <color     R="240" G="198" B="29" />
                 <models>
-                    <model file="sphere.3d" texture="mars.jpg" />
+                    <model file="sphere.3d" texture="./textures/mars.jpg" />
                 </models>
             </group>
             <group> <!-- "Jupiter" -->
@@ -74,7 +74,7 @@
                     <scale     X="0.1" Y="0.1" Z="0.1" />
                     <color     R="100" G="100" B="100" />
                     <models>
-                        <model file="sphere.3d" texture="moon.jpg" />
+                        <model file="sphere.3d" texture="./textures/moon.jpg" />
                     </models>
                 </group>
                 <group> <!-- "moon 2" -->
@@ -84,7 +84,7 @@
                     <scale     X="0.3" Y="0.2" Z="0.3" />
                     <color     R="255" G="200" B="200" />
                     <models>
-                        <model file="sphere.3d" texture="moon.jpg" />
+                        <model file="sphere.3d" texture="./textures/moon.jpg" />
                     </models>
                 </group>
                 <group> <!-- "moon 3" -->
@@ -94,13 +94,13 @@
                     <scale     X="0.2" Y="0.2" Z="0.2" />
                     <color     R="253" G="255" B="200" />
                     <models>
-                        <model file="sphere.3d" texture="moon.jpg" />
+                        <model file="sphere.3d" texture="./textures/moon.jpg" />
                     </models>
                 </group>
                 <scale     X="3" Y="3" Z="3" /> <!-- " 1120% " -->
                 <color     R="253" G="199" B="145" />
                 <models>
-                    <model file="sphere.3d" texture="jupiter.jpg" />
+                    <model file="sphere.3d" texture="./textures/jupiter.jpg" />
                 </models>
             </group>
             <group> <!-- "Saturn" -->
@@ -113,12 +113,12 @@
                     <scale     X="1.1" Y="0.1" Z="1.1" /> <!-- " 945% " -->
                     <color     R="255" G="255" B="100" />
                     <models>
-                        <model file="torus.3d" texture="saturn_ring_alpha.jpg" />
+                        <model file="torus.3d" texture="./textures/saturn_ring_alpha.jpg" />
                     </models>
                 </group>
                 <color     R="224" G="196" B="34" />
                 <models>
-                    <model file="sphere.3d" texture="saturn.jpg" />
+                    <model file="sphere.3d" texture="./textures/saturn.jpg" />
                 </models>
             </group>
             <group> <!-- "Uranus" -->
@@ -128,7 +128,7 @@
                 <scale     X="1.8" Y="1.8" Z="1.8" /> <!-- " 400% " -->
                 <color     R="220" G="241" B="245" />
                 <models>
-                    <model file="sphere.3d" texture="uranus.jpg" />
+                    <model file="sphere.3d" texture="./textures/uranus.jpg" />
                 </models>
             </group>
             <group> <!-- "Neptune" -->
@@ -138,7 +138,7 @@
                 <scale     X="1.4" Y="1.4" Z="1.4" /> <!-- " 388%  " -->
                 <color     R="57" G="182" B="247" />
                 <models>
-                    <model file="sphere.3d" texture="neptune.jpg" />
+                    <model file="sphere.3d" texture="./textures/neptune.jpg" />
                 </models>
             </group>
             <group> <!-- "Pluto" -->
@@ -148,13 +148,13 @@
                 <scale     X="0.2" Y="0.2" Z="0.2" /> <!-- " 20% " -->
                 <color     R="221" G="196" B="175" />
                 <models>
-                    <model file="sphere.3d" texture="ceres_fictional.jpg" />
+                    <model file="sphere.3d" texture="./textures/ceres_fictional.jpg" />
                 </models>
             </group>
             <scale     X="5" Y="5" Z="5" /> <!-- " 10900% " -->
             <color     R="247" G="115" B="12" />
             <models>
-                <model file="sphere.3d" texture="sun.jpg" />
+                <model file="sphere.3d" texture="./textures/sun.jpg" />
             </models>
         </group>
     </group>
