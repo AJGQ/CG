@@ -7,8 +7,8 @@
 #include <stdio.h>
 
 void createPlane    (char **argv);
-void createBox      (char **argv);
-void createSphere   (char **argv);
+void createBox      (char **argv, int inv = 1);
+void createSphere   (char **argv, int inv = 1);
 void createCone     (char **argv);
 void createCylinder (char **argv);
 

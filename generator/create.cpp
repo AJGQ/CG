@@ -28,7 +28,7 @@ void createPlane(char **argv) {
 
 //---------------------------//
 
-void createBox(char **argv) {
+void createBox(char **argv, int inv) {
     const float x = atof(argv[2]);
     const float y = atof(argv[3]);
     const float z = atof(argv[4]);
@@ -47,22 +47,22 @@ void createBox(char **argv) {
     for(i=0; i<d; i++) {
         for(j=0; j<=d; j++) {
             fprintf(outputFile, "%f:%f:%f\n", j * dx-x/2.0 ,   i   * dy-y/2.0 , -z/2.0 );
-            fprintf(outputFile, "0:0:-1\n"); 
+            fprintf(outputFile, "0:0:-%d\n",inv); 
             fprintf(outputFile,"%f:%f\n", (float)i/d, (float)j/d);
 
             fprintf(outputFile, "%f:%f:%f\n", j * dx-x/2.0 , (i+1) * dy-y/2.0 , -z/2.0 );
-            fprintf(outputFile, "0:0:-1\n"); 
+            fprintf(outputFile, "0:0:-%d\n",inv); 
             fprintf(outputFile,"%f:%f\n", (float)(i+1)/d, (float)j/d);
         }
     }
     for(i=0; i<d; i++) {
         for(j=0; j<=d; j++) {
             fprintf(outputFile, "%f:%f:%f\n", j * dx-x/2.0 , (i+1) * dy-y/2.0 , z/2.0 );
-            fprintf(outputFile, "0:0:1\n"); 
+            fprintf(outputFile, "0:0:%d\n",inv); 
             fprintf(outputFile,"%f:%f\n", (float)(i+1)/d, (float)j/d);
 
             fprintf(outputFile, "%f:%f:%f\n", j * dx-x/2.0 ,   i   * dy-y/2.0 , z/2.0 );
-            fprintf(outputFile, "0:0:1\n"); 
+            fprintf(outputFile, "0:0:%d\n",inv); 
             fprintf(outputFile,"%f:%f\n", (float)i/d, (float)j/d);
         }
     }
@@ -72,22 +72,22 @@ void createBox(char **argv) {
     for(i=0; i<d; i++) {
         for(j=0; j<=d; j++) {
             fprintf(outputFile, "%f:%f:%f\n",   i   * dx-x/2.0 , -y/2.0 , j * dz - z/2.0  );
-            fprintf(outputFile, "0:-1:0\n"); 
+            fprintf(outputFile, "0:-%d:0\n", inv); 
             fprintf(outputFile,"%f:%f\n", (float)i/d, (float)j/d);
 
             fprintf(outputFile, "%f:%f:%f\n", (i+1) * dx-x/2.0 , -y/2.0 , j * dz - z/2.0  );
-            fprintf(outputFile, "0:-1:0\n"); 
+            fprintf(outputFile, "0:-%d:0\n", inv); 
             fprintf(outputFile,"%f:%f\n", (float)(i+1)/d, (float)j/d);
         }
     }
     for(i=0; i<d; i++) {
         for(j=0; j<=d; j++) {
             fprintf(outputFile, "%f:%f:%f\n", (i+1) * dx-x/2.0 , y/2.0 , j * dz - z/2.0  );
-            fprintf(outputFile, "0:1:0\n"); 
+            fprintf(outputFile, "0:%d:0\n", inv); 
             fprintf(outputFile,"%f:%f\n", (float)(i+1)/d, (float)j/d);
 
             fprintf(outputFile, "%f:%f:%f\n",   i   * dx-x/2.0 , y/2.0 , j * dz - z/2.0  );
-            fprintf(outputFile, "0:1:0\n"); 
+            fprintf(outputFile, "0:%d:0\n", inv); 
             fprintf(outputFile,"%f:%f\n", (float)i/d, (float)j/d);
         }
     }
@@ -97,22 +97,22 @@ void createBox(char **argv) {
     for(i=0; i<d; i++) {
         for(j=0; j<=d; j++) {
             fprintf(outputFile, "%f:%f:%f\n", -x/2.0 , (i+1) * dy-y/2.0 , j * dz - z/2.0  );
-            fprintf(outputFile, "-1:0:0\n"); 
+            fprintf(outputFile, "-%d:0:0\n",inv); 
             fprintf(outputFile,"%f:%f\n", (float)(i+1)/d, (float)j/d);
 
             fprintf(outputFile, "%f:%f:%f\n", -x/2.0 ,   i   * dy-y/2.0 , j * dz - z/2.0  );
-            fprintf(outputFile, "-1:0:0\n"); 
+            fprintf(outputFile, "-%d:0:0\n",inv); 
             fprintf(outputFile,"%f:%f\n", (float)i/d, (float)j/d);
         }
     }
     for(i=0; i<d; i++) {
         for(j=0; j<=d; j++) {
             fprintf(outputFile, "%f:%f:%f\n", x/2.0 ,   i   * dy-y/2.0 , j * dz - z/2.0  );
-            fprintf(outputFile, "1:0:0\n"); 
+            fprintf(outputFile, "%d:0:0\n",inv); 
             fprintf(outputFile,"%f:%f\n", (float)i/d, (float)j/d);
 
             fprintf(outputFile, "%f:%f:%f\n", x/2.0 , (i+1) * dy-y/2.0 , j * dz - z/2.0  );
-            fprintf(outputFile, "1:0:0\n"); 
+            fprintf(outputFile, "%d:0:0\n",inv); 
             fprintf(outputFile,"%f:%f\n", (float)(i+1)/d, (float)j/d);
         }
     }
@@ -120,7 +120,7 @@ void createBox(char **argv) {
 
 //-----------------------------------------------------------------------------//
 
-void createSphere(char **argv) {
+void createSphere(char **argv, int inv) {
 
     const float radius = atof(argv[2]);
     const int   slices = atof(argv[3]);
@@ -140,9 +140,9 @@ void createSphere(char **argv) {
                     cosf(beta*j*M_PI/180.0)*radius,
                     -sinf(beta*j*M_PI/180.0)*sinf(i*alpha*M_PI/180.0)*radius);
             fprintf(outputFile,"%f:%f:%f\n",
-                    cosf(i*alpha*M_PI/180.0)*sinf(beta*j*M_PI/180.0),
-                    cosf(beta*j*M_PI/180.0),
-                    -sinf(beta*j*M_PI/180.0)*sinf(i*alpha*M_PI/180.0));
+                    cosf(i*alpha*M_PI/180.0)*sinf(beta*j*M_PI/180.0)*inv,
+                    cosf(beta*j*M_PI/180.0)*inv,
+                    -sinf(beta*j*M_PI/180.0)*sinf(i*alpha*M_PI/180.0)*inv);
             fprintf(outputFile,"%f:%f\n",
                     (float)i/stacks,
                     (float)j/stacks);
@@ -153,9 +153,9 @@ void createSphere(char **argv) {
                     cosf(beta*(j+1)*M_PI/180.0)*radius,
                     -sinf(i*alpha*M_PI/180.0)*sinf(beta*(j+1)*M_PI/180.0)*radius);
             fprintf(outputFile,"%f:%f:%f\n",
-                    cosf(i*alpha*M_PI/180.0)*sinf(beta*(j+1)*M_PI/180.0),
-                    cosf(beta*(j+1)*M_PI/180.0),
-                    -sinf(i*alpha*M_PI/180.0)*sinf(beta*(j+1)*M_PI/180.0));
+                    cosf(i*alpha*M_PI/180.0)*sinf(beta*(j+1)*M_PI/180.0)*inv,
+                    cosf(beta*(j+1)*M_PI/180.0)*inv,
+                    -sinf(i*alpha*M_PI/180.0)*sinf(beta*(j+1)*M_PI/180.0)*inv);
             fprintf(outputFile,"%f:%f\n",
                     (float)i/stacks,
                     (float)(j+1)/stacks);
