@@ -9,6 +9,7 @@
      -->
     <lights>
         <light type="POINT" posX="0" posY="0" posZ="0" />
+        <light type="AMBIENT" posX="0.2" posY="0.2" posZ="0.2" />
     </lights>
 
     <group> <!-- " Terra.Scale = 1" -->
@@ -154,7 +155,7 @@
             <scale     X="5" Y="5" Z="5" /> <!-- " 10900% " -->
             <color     R="247" G="115" B="12" />
             <models>
-                <model file="sphere.3d" texture="./textures/sun.jpg" />
+                <model file="sphere.3d" texture="./textures/sun.jpg" emiR="1" emiG="1" emiB="1" />
             </models>
         </group>
     </group>
