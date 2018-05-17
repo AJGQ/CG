@@ -14,7 +14,7 @@ extern map<string,int> texturesId;
 
 
 //-Model----------------------------------------------------------------------//
-void getMat(xml_node node, string s, float **mat){
+void getLightComponent(xml_node node, string s, float **mat){
 
     xml_attribute aux_r = node.attribute((s+"R").c_str());
     xml_attribute aux_g = node.attribute((s+"G").c_str());
@@ -22,9 +22,9 @@ void getMat(xml_node node, string s, float **mat){
 
     if(aux_r && aux_g && aux_b){
         *mat = new float[4];
-        (*mat)[0] = aux_r.as_float();
-        (*mat)[1] = aux_g.as_float();
-        (*mat)[2] = aux_b.as_float();
+        (*mat)[0] = aux_r ? aux_r.as_float() : 0.0f;
+        (*mat)[1] = aux_g ? aux_g.as_float() : 0.0f;
+        (*mat)[2] = aux_b ? aux_b.as_float() : 0.0f;
         (*mat)[3] = 1.0f;
     }
     else *mat=NULL;
@@ -41,10 +41,10 @@ Model::Model(xml_node node) {
 
     if(node.attribute("texture")) this->texture = new string(node.attribute("texture").as_string());
     if(this->texture) texturesId[*this->texture] = loadTexture(*this->texture);
-    getMat(node, "amb", &this->amb); 
-    getMat(node, "diff", &this->diff);
-    getMat(node, "spec", &this->spec);
-    getMat(node, "emi", &this->emi);
+    getLightComponent(node, "amb", &this->amb); 
+    getLightComponent(node, "diff", &this->diff);
+    getLightComponent(node, "spec", &this->spec);
+    getLightComponent(node, "emi", &this->emi);
     
     if(!file) error("opening file");
     fscanf(file,"%d\n",&(this->N));
@@ -264,7 +264,7 @@ Light::Light(xml_node node) {
  
     xml_attribute aux_exp = node.attribute("pExp");
     xml_attribute aux_cut = node.attribute("pCut");
-    this->type = 0;
+    this->dir = NULL;
 
     this->pos[0] = aux_x ? aux_x.as_float() : 0.0f;
     this->pos[1] = aux_y ? aux_y.as_float() : 0.0f;
@@ -273,6 +273,7 @@ Light::Light(xml_node node) {
     if(!strncmp("POINT", aux_type.as_string(), 5)) this->pos[3] = 1;
     else if(!strncmp("DIRECTIONAL", aux_type.as_string(), 11)) this->pos[3] = 0;  
     else if(!strncmp("SPOT", aux_type.as_string(), 4)){
+        this->dir = new float[4];
         this->dir[0] = aux_dx ? aux_dx.as_float() : 0.0f;
         this->dir[1] = aux_dy ? aux_dy.as_float() : 0.0f;
         this->dir[2] = aux_dz ? aux_dz.as_float() : 0.0f;
@@ -280,9 +281,11 @@ Light::Light(xml_node node) {
 
         this->cutOff   = aux_cut ? new float(aux_cut.as_float()) : NULL;
         this->exponent = aux_exp ? new float(aux_exp.as_float()) : NULL;
-
-        this->type = 1;
     }
+    getLightComponent(node, "amb", &this->amb); 
+    getLightComponent(node, "diff", &this->diff);
+    getLightComponent(node, "spec", &this->spec);
+    getLightComponent(node, "emi", &this->emi);
 }
 
 
@@ -290,11 +293,16 @@ void Light::draw(int i) {
     glEnable(GL_LIGHT0+i);
 
     glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
-    if(this->type){
+    if(this->dir){
         glLightfv(GL_LIGHT0+i, GL_SPOT_DIRECTION, this->dir);
         if(this->cutOff)   glLightf(GL_LIGHT0+i, GL_SPOT_CUTOFF,   *(this->cutOff));
         if(this->exponent) glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, *(this->exponent));
     }
+
+    if(this->amb)  glLightfv(GL_LIGHT0+i, GL_AMBIENT, this->amb);
+    if(this->diff) glLightfv(GL_LIGHT0+i, GL_DIFFUSE, this->diff);
+    if(this->spec) glLightfv(GL_LIGHT0+i, GL_SPECULAR, this->spec);
+    if(this->emi)  glLightfv(GL_LIGHT0+i, GL_EMISSION, this->emi); 
 
     /*if (this->pos[3] != 2) { // PESSIMO SO PARA TESTE: 2 -> SPOT
       glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);

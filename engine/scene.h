@@ -65,9 +65,7 @@ class Scale : public PhysicScene{
 
 class Light{
   public:
-    int id;
-    int type;
-    float dir[4], pos[4], diff[4], spec[4], amb[4];
+    float pos[4], *dir, *diff, *spec, *amb, *emi;
     float *cutOff, *exponent;
     Light(xml_node);
     void draw(int);

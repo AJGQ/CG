@@ -1,6 +1,6 @@
 <scene>
     <lights>
-        <light type="POINT" posX="0" posY="0" posZ="0" />
+        <light type="POINT" posX="0" posY="0" posZ="0" diffR="1" diffG="0" diffB="0"/>
     </lights>
     <group> <!-- " Terra.Scale = 1" -->
         <group> <!-- "Sol" -->
@@ -163,7 +163,7 @@
             <scale     X="5" Y="5" Z="5" /> <!-- " 10900% " -->
             <color     R="247" G="115" B="12" />
             <models>
-                <model file="sphere.3d" />
+                <model file="sphere.3d" emiR="1" emiG="0" emiB="0"/>
             </models>
         </group>
     </group>

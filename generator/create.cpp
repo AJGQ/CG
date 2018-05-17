@@ -236,7 +236,7 @@ void createSphere(char **argv) {
                     -sinf(beta*j*M_PI/180.0)*sinf(i*alpha*M_PI/180.0));
             fprintf(outputFile,"%f:%f\n",
                     (float)i/stacks,
-                    (float)j/stacks);
+                    -(float)j/stacks);
 
 
             fprintf(outputFile,"%f:%f:%f\n",
@@ -249,7 +249,7 @@ void createSphere(char **argv) {
                     -sinf(i*alpha*M_PI/180.0)*sinf(beta*(j+1)*M_PI/180.0));
             fprintf(outputFile,"%f:%f\n",
                     (float)i/stacks,
-                    (float)(j+1)/stacks);
+                    -(float)(j+1)/stacks);
         }
     }
 }
