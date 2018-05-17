@@ -41,11 +41,11 @@ Model::Model(xml_node node) {
 
     if(node.attribute("texture")) this->texture = new string(node.attribute("texture").as_string());
     if(this->texture) texturesId[*this->texture] = loadTexture(*this->texture);
-    getMat(node, "amb", &this->amb);
+    getMat(node, "amb", &this->amb); 
     getMat(node, "diff", &this->diff);
     getMat(node, "spec", &this->spec);
     getMat(node, "emi", &this->emi);
-
+    
     if(!file) error("opening file");
     fscanf(file,"%d\n",&(this->N));
 
@@ -102,7 +102,7 @@ void Model::draw() {
     if(this->amb)  glMaterialfv(GL_FRONT, GL_AMBIENT, this->amb);
     if(this->diff) glMaterialfv(GL_FRONT, GL_DIFFUSE, this->diff);
     if(this->spec) glMaterialfv(GL_FRONT, GL_SPECULAR, this->spec);
-    if(this->emi)  glMaterialfv(GL_FRONT, GL_EMISSION, this->emi);
+    if(this->emi)  glMaterialfv(GL_FRONT, GL_EMISSION, this->emi); 
 
     glBindBuffer(GL_ARRAY_BUFFER, this->vertexId);
     glVertexPointer(3,GL_FLOAT,0,0);
@@ -261,7 +261,7 @@ Light::Light(xml_node node) {
     xml_attribute aux_dx = node.attribute("dirX");
     xml_attribute aux_dy = node.attribute("dirY");
     xml_attribute aux_dz = node.attribute("dirZ");
-
+ 
     xml_attribute aux_exp = node.attribute("pExp");
     xml_attribute aux_cut = node.attribute("pCut");
     this->type = 0;
@@ -271,9 +271,8 @@ Light::Light(xml_node node) {
     this->pos[2] = aux_z ? aux_z.as_float() : 0.0f;
 
     if(!strncmp("POINT", aux_type.as_string(), 5)) this->pos[3] = 1;
-    else if(!strncmp("DIRECTIONAL", aux_type.as_string(), 11)) this->pos[3] = 0;
-    else if(!strncmp("SPOT", aux_type.as_string(), 4)) {
-
+    else if(!strncmp("DIRECTIONAL", aux_type.as_string(), 11)) this->pos[3] = 0;  
+    else if(!strncmp("SPOT", aux_type.as_string(), 4)){
         this->dir[0] = aux_dx ? aux_dx.as_float() : 0.0f;
         this->dir[1] = aux_dy ? aux_dy.as_float() : 0.0f;
         this->dir[2] = aux_dz ? aux_dz.as_float() : 0.0f;
@@ -284,22 +283,17 @@ Light::Light(xml_node node) {
 
         this->type = 1;
     }
-    else if(!strncmp("AMBIENT", aux_type.as_string(), 7)) {
-        this->pos[3] = 1;
-        this->type = 2;
-    }
 }
+
 
 void Light::draw(int i) {
     glEnable(GL_LIGHT0+i);
 
-    if(this->type <= 1) {
     glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
+    if(this->type){
         glLightfv(GL_LIGHT0+i, GL_SPOT_DIRECTION, this->dir);
         if(this->cutOff)   glLightf(GL_LIGHT0+i, GL_SPOT_CUTOFF,   *(this->cutOff));
         if(this->exponent) glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, *(this->exponent));
-    } else if (this->type == 2) {
-        glLightf(GL_LIGHT0+i, GL_AMBIENT, this->pos);
     }
 
     /*if (this->pos[3] != 2) { // PESSIMO SO PARA TESTE: 2 -> SPOT
@@ -320,7 +314,7 @@ void Light::draw(int i) {
         glLightfv(GL_LIGHT0+i, GL_POSITION, spot_pos);
         if(this->cutOff)   glLightf(GL_LIGHT0+i, GL_SPOT_CUTOFF,   *(this->cutOff));
         if(this->exponent) glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, *(this->exponent));
-
+        
     }
 */
 }
