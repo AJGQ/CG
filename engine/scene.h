@@ -23,7 +23,6 @@ extern void error(const char *s);
 
 class PhysicScene{
   public:
-    //virtual ~PhysicScene() = 0;
     virtual void draw() = 0;
 };
 

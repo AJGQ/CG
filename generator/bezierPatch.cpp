@@ -100,9 +100,9 @@ void getBezierPoint(float u, float v, float *patch, float *pos, float *deriv) {
                      1,  0,  0, 0      
                   };
     float MT[4*4];                      
-    float A[4], B[4], C[4*4];        float A1[4], B1[4], C1[4*4];     float A2[4], B2[4], C2[4*4];
-    float U[4] = {u*u*u, u*u, u, 1}; float U_[4] = {3*u*u, 2*u, 1, 0}; 
-    float V[4] = {v*v*v, v*v, v, 1}; float V_[4] = {3*u*u, 2*u, 1, 0};
+    float A[4], B[4], C[4*4],        A1[4], B1[4], C1[4*4],     A2[4], B2[4], C2[4*4];
+    float U[4] = {u*u*u, u*u, u, 1}, U_[4] = {3*u*u, 2*u, 1, 0}; 
+    float V[4] = {v*v*v, v*v, v, 1}, V_[4] = {3*u*u, 2*u, 1, 0};
     
     transpose(M, MT);
     multVectorMatrix(U, M, A);
@@ -121,7 +121,7 @@ void getBezierPoint(float u, float v, float *patch, float *pos, float *deriv) {
     multPointsVector(C2,B2,derivadas[1]);
 
 
-    cross(derivadas[0], derivadas[1], deriv);
+    cross(derivadas[1], derivadas[0], deriv);
     normalize(deriv);
 }
 
@@ -135,17 +135,16 @@ void drawPatch(float* patch, int slices){
             getBezierPoint((u+1)*step,  v*step,  patch, vertex, normal);
             fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
             fprintf(outputFile, "%f:%f:%f\n",normal[0], normal[1], normal[2]);
-            fprintf(outputFile, "%f:%f\n", (float)(u+1)/slices, (float)v/slices);
+            fprintf(outputFile, "%f:%f\n", ((float)(u+1))/slices, ((float)v)/slices);
             
             getBezierPoint(u*step,      v*step,      patch, vertex, normal);
             fprintf(outputFile, "%f:%f:%f\n",vertex[0], vertex[1], vertex[2]);
             fprintf(outputFile, "%f:%f:%f\n",normal[0], normal[1], normal[2]);
-            fprintf(outputFile, "%f:%f\n", (float)u/slices, (float)v/slices);
+            fprintf(outputFile, "%f:%f\n", ((float)u)/slices, ((float)v)/slices);
             
             fflush(outputFile);
         }
     }
-    //fprintf(stderr, "exit drawPatch\n");
     
 }
 
@@ -154,10 +153,8 @@ void getPatch(int* indexes, float** vertexes, float* res){
     for(i=0; i<16; i++){
         for(j=0; j<3; j++){
             res[j + i*4] = vertexes[indexes[i]][j];
-            //fprintf(stderr, "%f, ", res[j+ i*4]);
         }
         res[j + i*4] = 1.0;
-        //fprintf(stderr, "%f\n", res[j+ i*4]);
     }
 }
 
