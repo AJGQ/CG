@@ -1,10 +1,559 @@
 <scene>
+    <lights>
+        <light type="DIRECTIONAL" posX="1" pozY="1" posZ="1" ambR="0.8" ambG="1" ambB="1" />
+    </lights>
     <group>
         <translate X="0" Y="0" Z="0" />
-        <color R="195" G="19" B="19" />
-        <models>
-		    <model file="cylinder.3d" />
-        </models>
+        <group>
+            <translate X="0" Y="0" Z="0" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="5" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="10" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="15" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="20" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="25" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="30" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="35" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="40" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="45" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <translate X="5" Y="0" Z="0" />
+        <group>
+            <translate X="0" Y="0" Z="0" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="5" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="10" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="15" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="20" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="25" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="30" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="35" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="40" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="45" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <translate X="5" Y="0" Z="0" />
+        <group>
+            <translate X="0" Y="0" Z="0" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="5" />
+
+
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="10" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="15" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="20" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="25" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="30" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="35" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="40" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="45" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <translate X="5" Y="0" Z="0" />
+        <group>
+            <translate X="0" Y="0" Z="0" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="5" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="10" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="15" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="20" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="25" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="30" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="35" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="40" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="45" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <translate X="5" Y="0" Z="0" />
+        <group>
+            <translate X="0" Y="0" Z="0" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="5" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="10" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="15" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="20" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="25" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="30" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="35" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="40" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="45" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <translate X="5" Y="0" Z="0" />
+        <group>
+            <translate X="0" Y="0" Z="0" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="5" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="10" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="15" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="20" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="25" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="30" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="35" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="40" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="45" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <translate X="5" Y="0" Z="0" />
+        <group>
+            <translate X="0" Y="0" Z="0" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="5" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="10" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="15" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="20" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="25" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="30" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="35" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="40" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="45" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <translate X="5" Y="0" Z="0" />
+        <group>
+            <translate X="0" Y="0" Z="0" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="5" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="10" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="15" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="20" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="25" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="30" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="35" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="40" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="45" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <translate X="5" Y="0" Z="0" />
+        <group>
+            <translate X="0" Y="0" Z="0" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="5" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="10" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="15" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="20" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="25" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="30" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="35" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="40" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
+        <group>
+            <translate X="0" Y="0" Z="45" />
+            <models>
+                <model file="cylinder.3d" texture="./textures/Oil_Drum001h.jpg"/>
+            </models>
+        </group>
     </group>
 </scene>
 

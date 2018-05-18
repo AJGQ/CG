@@ -353,6 +353,10 @@ void createCylinder(char **argv) {
     const int stacks = atof(argv[5]);
     const float angle = 2*M_PI/slices;
     const float h = height/stacks;
+    const float cxd = 0.4375;
+    const float cxe = 0.8125;
+    const float cy = 0.1875;
+    const float radiusT = 0.1875;
 
     int i, j;
 
@@ -364,17 +368,21 @@ void createCylinder(char **argv) {
     //-Base--------------------//
     fprintf(outputFile, "0.0:%f:0.0\n", -height/2); // vertice da base
     fprintf(outputFile, "0.0:-1:0.0\n");
+    fprintf(outputFile, "%f:%f\n", cxe, cy);
     for(i=0; i<=slices; i++) {
         fprintf(outputFile, "%f:%f:%f\n", cos(i * angle)*radius, -height/2.0 , sin(i * angle)*radius);
         fprintf(outputFile, "0.0:-1:0.0\n");
+        fprintf(outputFile, "%f:%f\n", cxe + cos(i*angle)*radiusT, cy + sin(i*angle)*radiusT);
     }
 
     //-Topo--------------------//
     fprintf(outputFile, "0.0:%f:0.0\n", height/2); // vertice topo
     fprintf(outputFile, "0.0:1:0.0\n");
+    fprintf(outputFile, "%f:%f\n", cxd, cy);
     for(i=0; i<=slices; i++) {
         fprintf(outputFile, "%f:%f:%f\n", cos(i * angle)*radius, height/2.0, -sin(i * angle)*radius);
         fprintf(outputFile, "0.0:1:0.0\n");
+        fprintf(outputFile, "%f:%f\n", cxd + cos(i*angle)*radiusT, cy + sin(i*angle)*radiusT);
     }
 
     //-Body--------------------//
@@ -382,9 +390,11 @@ void createCylinder(char **argv) {
         for(i=0; i<=slices+1; i++) {
             fprintf(outputFile, "%f:%f:%f\n", cos(i * angle)*radius,   j   * h -height/2.0 , sin(i * angle)*radius);
             fprintf(outputFile, "%f:%f:%f\n", cos(i * angle),   j   * h -height/2.0 , sin(i * angle));
+            fprintf(outputFile, "%f:%f\n", -(float)i/(slices+1), 2*cy + (float)( j*(1.0f-2*cy)/stacks));
 
             fprintf(outputFile, "%f:%f:%f\n", cos(i * angle)*radius, (j+1) * h -height/2.0 , sin(i * angle)*radius);
             fprintf(outputFile, "%f:%f:%f\n", cos(i * angle),   j   * h -height/2.0 , sin(i * angle));
+            fprintf(outputFile, "%f:%f\n", -(float)i/(slices+1), 2*cy + (float)( (j+1)*(1.0f-2*cy) /stacks));
         }
     }
 }
