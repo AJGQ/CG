@@ -3,7 +3,7 @@
         <group>
             <scale  X="5" Y="5" Z="5" />
             <models>
-                <model file="inv_box.3d" />
+                <model file="inv_box.3d" texture="./textures/concrete.jpg"/>
             </models>
         </group>
         <group>
