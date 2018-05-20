@@ -41,11 +41,11 @@ Model::Model(xml_node node) {
 
     if(node.attribute("texture")) this->texture = new string(node.attribute("texture").as_string());
     if(this->texture) texturesId[*this->texture] = loadTexture(*this->texture);
-    getLightComponent(node, "amb", &this->amb); 
+    getLightComponent(node, "amb", &this->amb);
     getLightComponent(node, "diff", &this->diff);
     getLightComponent(node, "spec", &this->spec);
     getLightComponent(node, "emi", &this->emi);
-    
+
     if(!file) error("opening file");
     fscanf(file,"%d\n",&(this->N));
 
@@ -99,10 +99,10 @@ void Model::draw() {
     int i, gl;
     glPushAttrib(GL_LIGHTING_BIT);
 
-    if(this->amb)  glMaterialfv(GL_FRONT, GL_AMBIENT, this->amb);
-    if(this->diff) glMaterialfv(GL_FRONT, GL_DIFFUSE, this->diff);
+    if(this->amb)  glMaterialfv(GL_FRONT, GL_AMBIENT,  this->amb );
+    if(this->diff) glMaterialfv(GL_FRONT, GL_DIFFUSE,  this->diff);
     if(this->spec) glMaterialfv(GL_FRONT, GL_SPECULAR, this->spec);
-    if(this->emi)  glMaterialfv(GL_FRONT, GL_EMISSION, this->emi); 
+    if(this->emi)  glMaterialfv(GL_FRONT, GL_EMISSION, this->emi );
 
     glBindBuffer(GL_ARRAY_BUFFER, this->vertexId);
     glVertexPointer(3,GL_FLOAT,0,0);
@@ -113,7 +113,7 @@ void Model::draw() {
     if(this->texture){
         glBindBuffer(GL_ARRAY_BUFFER, this->vertexTextureId);
         glBindTexture(GL_TEXTURE_2D, texturesId[*this->texture]);
-    	glTexCoordPointer(2,GL_FLOAT,0,0);
+    	  glTexCoordPointer(2,GL_FLOAT,0,0);
     }
 
     for(i=0; i<this->N; i++) {
@@ -261,7 +261,7 @@ Light::Light(xml_node node) {
     xml_attribute aux_dx = node.attribute("dirX");
     xml_attribute aux_dy = node.attribute("dirY");
     xml_attribute aux_dz = node.attribute("dirZ");
- 
+
     xml_attribute aux_exp = node.attribute("pExp");
     xml_attribute aux_cut = node.attribute("pCut");
     this->dir = NULL;
@@ -271,7 +271,7 @@ Light::Light(xml_node node) {
     this->pos[2] = aux_z ? aux_z.as_float() : 0.0f;
 
     if(!strncmp("POINT", aux_type.as_string(), 5)) this->pos[3] = 1;
-    else if(!strncmp("DIRECTIONAL", aux_type.as_string(), 11)) this->pos[3] = 0;  
+    else if(!strncmp("DIRECTIONAL", aux_type.as_string(), 11)) this->pos[3] = 0;
     else if(!strncmp("SPOT", aux_type.as_string(), 4)){
         this->dir = new float[4];
         this->dir[0] = aux_dx ? aux_dx.as_float() : 0.0f;
@@ -282,7 +282,7 @@ Light::Light(xml_node node) {
         this->cutOff   = aux_cut ? new float(aux_cut.as_float()) : NULL;
         this->exponent = aux_exp ? new float(aux_exp.as_float()) : NULL;
     }
-    getLightComponent(node, "amb", &this->amb); 
+    getLightComponent(node, "amb", &this->amb);
     getLightComponent(node, "diff", &this->diff);
     getLightComponent(node, "spec", &this->spec);
     getLightComponent(node, "emi", &this->emi);
@@ -302,7 +302,7 @@ void Light::draw(int i) {
     if(this->amb)  glLightfv(GL_LIGHT0+i, GL_AMBIENT, this->amb);
     if(this->diff) glLightfv(GL_LIGHT0+i, GL_DIFFUSE, this->diff);
     if(this->spec) glLightfv(GL_LIGHT0+i, GL_SPECULAR, this->spec);
-    if(this->emi)  glLightfv(GL_LIGHT0+i, GL_EMISSION, this->emi); 
+    if(this->emi)  glLightfv(GL_LIGHT0+i, GL_EMISSION, this->emi);
 
     /*if (this->pos[3] != 2) { // PESSIMO SO PARA TESTE: 2 -> SPOT
       glLightfv(GL_LIGHT0+i, GL_POSITION, this->pos);
@@ -322,7 +322,7 @@ void Light::draw(int i) {
         glLightfv(GL_LIGHT0+i, GL_POSITION, spot_pos);
         if(this->cutOff)   glLightf(GL_LIGHT0+i, GL_SPOT_CUTOFF,   *(this->cutOff));
         if(this->exponent) glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, *(this->exponent));
-        
+
     }
 */
 }

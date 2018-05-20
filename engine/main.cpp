@@ -42,6 +42,7 @@ int tipo_camera=1;
 int disMode = GL_FILL;
 int axes = 0;
 int trajetorias = 1;
+int vFBox = 0;
 
 //-FPS Counter---//
 int frame = 0;
@@ -123,7 +124,7 @@ void menu_op(int op){ // unsigned char op, int xx, int yy
             glutSpecialFunc(teclado_especial_fps);
             glutMouseFunc(rato_fps);
             glutMotionFunc(mov_rato_fps);
-            tipo_camera = 2; 
+            tipo_camera = 2;
             break;
 
         case 5: //modo explorador
@@ -131,7 +132,7 @@ void menu_op(int op){ // unsigned char op, int xx, int yy
             glutSpecialFunc(teclado_especial_explorador);
             glutMouseFunc(rato_explorador);
             glutMotionFunc(mov_rato_explorador);
-            tipo_camera = 1; 
+            tipo_camera = 1;
             break;
 
         case 6: axes = 1 - axes; break;
@@ -187,14 +188,14 @@ int loadTexture(std::string s) {
 	texData = ilGetData();
 
 	glGenTextures(1,&texID);
-	
+
 	glBindTexture(GL_TEXTURE_2D,texID);
 	glTexParameteri(GL_TEXTURE_2D,	GL_TEXTURE_WRAP_S,		GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D,	GL_TEXTURE_WRAP_T,		GL_REPEAT);
 
 	glTexParameteri(GL_TEXTURE_2D,	GL_TEXTURE_MAG_FILTER,   	GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D,	GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		
+
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tw, th, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
