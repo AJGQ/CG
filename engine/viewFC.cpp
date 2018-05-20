@@ -9,11 +9,8 @@ boolean tP(float x, float y, float z){
     lz= A[2]*x + A[6]*y + A[10]*z + A[14]*w;
     lw= A[3]*x + A[7]*y + A[11]*z + A[15]*w;
 
-    if (lx <- lw || lx > lw) return true;
-    if (ly <- lw || ly > lw) return true;
-    if (lz <- lw || lz > lw) return true;
-
-    return false;
+    if ((lx <- lw || lx > lw) || (ly <- lw || ly > lw) || (lz <- lw || lz > lw)) return false;
+    else { return true; }
 }
 
 
