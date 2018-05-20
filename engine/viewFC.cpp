@@ -1,7 +1,7 @@
 
 float M[16],P[16],A[16];
 
-int tP(float x, float y, float z){
+boolean tP(float x, float y, float z){
     float lx, ly, lz, lw, w=1;
 
     lx= A[0]*x + A[4]*y + A[8]*z  + A[12]*w;
@@ -9,26 +9,26 @@ int tP(float x, float y, float z){
     lz= A[2]*x + A[6]*y + A[10]*z + A[14]*w;
     lw= A[3]*x + A[7]*y + A[11]*z + A[15]*w;
 
-    if (lx <- lw || lx > lw) return 0;
-    if (ly <- lw || ly > lw) return 0;
-    if (lz <- lw || lz > lw) return 0;
+    if (lx <- lw || lx > lw) return true;
+    if (ly <- lw || ly > lw) return true;
+    if (lz <- lw || lz > lw) return true;
 
-    return 1;
+    return false;
 }
 
 
-int testBox(float maxX, float minX, float maxY, float minY, float maxZ, float minZ){
+boolean testBox(float maxX, float minX, float maxY, float minY, float maxZ, float minZ){
 
-    if ( tP(minX, minY, minZ) == 1) { return 1; }
-    if ( tP(minX, minY, maxZ) == 1) { return 1; }
-    if ( tP(minX, maxY, minZ) == 1) { return 1; }
-    if ( tP(minX, maxY, maxZ) == 1) { return 1; }
-    if ( tP(maxX, minY, minZ) == 1) { return 1; }
-    if ( tP(maxX, minY, maxZ) == 1) { return 1; }
-    if ( tP(maxX, maxY, minZ) == 1) { return 1; }
-    if ( tP(maxX, maxY, maxZ) == 1) { return 1; }
+    if ( tP(minX, minY, minZ) ) { return true; }
+    if ( tP(minX, minY, maxZ) ) { return true; }
+    if ( tP(minX, maxY, minZ) ) { return true; }
+    if ( tP(minX, maxY, maxZ) ) { return true; }
+    if ( tP(maxX, minY, minZ) ) { return true; }
+    if ( tP(maxX, minY, maxZ) ) { return true; }
+    if ( tP(maxX, maxY, minZ) ) { return true; }
+    if ( tP(maxX, maxY, maxZ) ) { return true; }
 
-    return 0;
+    return false;
 }
 
 void drawBox(float maxX, float minX, float maxY, float minY, float maxZ, float minZ){
