@@ -4,16 +4,34 @@
     <group>
         <group>
             <rotate time="5" axisY="1"/>
-            <translate X="12"/>
             <lights>
-                <light type="SPOT" posX="0" posY="0" posZ="0" dirX="-1" dirY="-1" dirZ="0" pExp="90" pcut="60" />
-                <light type="SPOT" posX="0" posY="0" posZ="0" dirX="-1" dirY="1" dirZ="0" pExp="90" pcut="60" />
-                <light type="SPOT" posX="0" posY="0" posZ="0" dirX="1" dirY="-1" dirZ="0" pExp="90" pcut="60" />
-                <light type="SPOT" posX="0" posY="0" posZ="0" dirX="1" dirY="1" dirZ="0" pExp="90" pcut="60" />
+                <light type="POINT" posX="0" posY="0" posZ="0" 
+                    ambR="0.5" ambG="0.5" ambB="0.5"
+                    diffR="0" diffG="0" diffB="0"/>
+                <light type="SPOT" posX="0" posY="0" posZ="0" 
+                    dirX="1" dirY="-1" dirZ="-1"
+                    diffR="1" diffG="0" diffB="0"
+                    pExp="2" pCut="30" />
+                <light type="SPOT" posX="0" posY="0" posZ="0" 
+                    dirX="1" dirY="-1" dirZ="1"
+                    diffR="0" diffG="1" diffB="0"
+                    pExp="2" pCut="30" />
+                <light type="SPOT" posX="0" posY="0" posZ="0" 
+                    dirX="-1" dirY="-1" dirZ="-1"
+                    diffR="0" diffG="0" diffB="1"
+                    pExp="2" pCut="30" />
+                <light type="SPOT" posX="0" posY="0" posZ="0" 
+                    dirX="-1" dirY="-1" dirZ="1"
+                    diffR="1" diffG="1" diffB="0"
+                    pExp="2" pCut="30" />
             </lights>
+
+            <models>
+                <model file="sphere.3d" texture="./textures/test.jpg"/>
+            </models>
         </group>
         <group>
-            <scale  X="20" Y="20" Z="20" />
+            <scale  X="50" Y="50" Z="50" />
             <models>
                 <model file="inv_box.3d" texture="./textures/concrete.jpg"/>
             </models>
