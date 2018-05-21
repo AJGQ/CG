@@ -1,38 +1,37 @@
 <scene>
-    <lights>
-        <light type="POINT" posX="0" posY="0" posZ="0" ambR="0.2" ambG="0.2" ambB="0.2" />
-    </lights>
     <group> <!-- " Terra.Scale = 1" -->
-        <group>
-            <scale X="100" Y="100" Z="100" />
-            <models>
-                <model file="inv_sphere.3d" texture="./textures/stars_milky_way.jpg" text="Milky Way" />
-            </models>
-        </group>
         <group> <!-- "Sol" -->
             <translate X="0" Y="0" Z="0" />
+            <group>
+                <rotate    time = "5" axisX = "0" axisY = "1" axisZ = "0"/>
+                <translate X="0" Y="6.5" Z="0" />
+                <color     R="247" G="115" B="12" />
+                <models>
+                    <model file="cone.3d" />
+                </models>
+            </group>
             <group> <!-- "Mercury" -->
-                <rotate    time = "3" axisX = "0" axisY = "1" axisZ = "0" />
+                <rotate    time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="45" axisX="0" axisY="1" axisZ="0" />
                 <translate X="6.38" Y="0" Z="0" />
                 <scale     X="0.38" Y="0.38" Z="0.38" /> <!-- " 38% " -->
                 <color     R="250" G="248" B="242" />
                 <models>
-                    <model file="sphere.3d" texture="./textures/mercury.jpg" text="Mercury" />
+                    <model file="sphere.3d" />
                 </models>
             </group>
             <group> <!-- "Venus" -->
-                <rotate    time = "6" axisX = "0" axisY = "1" axisZ = "0" />
+                <rotate    time = "6" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="180" axisX="0" axisY="1" axisZ="0" />
                 <translate X="8.71" Y="0" Z="0" />
                 <scale     X="0.95" Y="0.95" Z="0.95" /> <!-- " 95% " -->
                 <color     R="255" G="255" B="242" />
                 <models>
-                    <model file="sphere.3d" texture="./textures/venus_atmosphere.jpg" text="Venus" />
+                    <model file="sphere.3d" />
                 </models>
             </group>
             <group> <!-- "Earth" -->
-                <rotate    time = "4" axisX = "0" axisY = "1" axisZ = "0" />
+                <rotate    time = "4" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="230" axisX="0" axisY="1" axisZ="0" />
                 <translate X="11.66" Y="0" Z="0" />
                 <group> <!-- "Moon" -->
@@ -41,67 +40,67 @@
                     <scale     X="0.27" Y="0.27" Z="0.27" /> <!-- " 27% " -->
                     <color     R="254" G="252" B="215" />
                     <models>
-                        <model file="sphere.3d" texture="./textures/moon.jpg" text="Moon" />
+                        <model file="sphere.3d" />
                     </models>
                 </group>
                 <scale     X="1" Y="1" Z="1" /> <!-- " 100% " -->
                 <color     R="11" G="92" B="227" />
                 <models>
-                    <model file="sphere.3d" texture="./textures/earth_daymap.jpg" text="Earth" />
+                    <model file="sphere.3d" />
                 </models>
             </group>
             <group> <!-- "Mars" -->
-                <rotate    time = "2" axisX = "0" axisY = "1" axisZ = "0" />
+                <rotate    time = "2" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="150" axisX="0" axisY="1" axisZ="0" />
                 <translate X="14.19" Y="0" Z="0" />
                 <scale     X="0.53" Y="0.53" Z="0.53" /> <!-- " 53% " -->
                 <color     R="240" G="198" B="29" />
                 <models>
-                    <model file="sphere.3d" texture="./textures/mars.jpg" text="Mars" />
+                    <model file="sphere.3d" />
                 </models>
             </group>
             <group> <!-- "Jupiter" -->
-                <rotate    time = "8" axisX = "0" axisY = "1" axisZ = "0" />
+                <rotate    time = "8" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="200" axisX="0" axisY="1" axisZ="0" />
                 <translate X="18.72" Y="0" Z="0" />
                 <group> <!-- "moon 1" -->
-                    <rotate    time = "5" axisX = "0" axisY = "1" axisZ = "0" />
+                    <rotate    time = "5" axisX = "0" axisY = "1" axisZ = "0"/>
                     <rotate    angle="40" axisX="0" axisY="1" axisZ="0" />
                     <translate X="4" Y="0" Z="0" />
                     <scale     X="0.1" Y="0.1" Z="0.1" />
                     <color     R="100" G="100" B="100" />
                     <models>
-                        <model file="sphere.3d" texture="./textures/moon.jpg" text="Jupiter Moon 1" />
+                        <model file="sphere.3d" />
                     </models>
                 </group>
                 <group> <!-- "moon 2" -->
-                    <rotate    time = "3" axisX = "0" axisY = "1" axisZ = "0" />
+                    <rotate    time = "3" axisX = "0" axisY = "1" axisZ = "0"/>
                     <rotate    angle="140" axisX="0" axisY="1" axisZ="0" />
                     <translate X="4.5" Y="0" Z="0" />
                     <scale     X="0.3" Y="0.2" Z="0.3" />
                     <color     R="255" G="200" B="200" />
                     <models>
-                        <model file="sphere.3d" texture="./textures/moon.jpg" text="Jupiter Moon 2" />
+                        <model file="sphere.3d" />
                     </models>
                 </group>
                 <group> <!-- "moon 3" -->
-                    <rotate    time = "4" axisX = "0" axisY = "1" axisZ = "0" />
+                    <rotate    time = "4" axisX = "0" axisY = "1" axisZ = "0"/>
                     <rotate    angle="210" axisX="0" axisY="1" axisZ="0" />
                     <translate X="4.1" Y="0" Z="0" />
                     <scale     X="0.2" Y="0.2" Z="0.2" />
                     <color     R="253" G="255" B="200" />
                     <models>
-                        <model file="sphere.3d" texture="./textures/moon.jpg" text="Jupiter Moon 3" />
+                        <model file="sphere.3d" />
                     </models>
                 </group>
                 <scale     X="3" Y="3" Z="3" /> <!-- " 1120% " -->
                 <color     R="253" G="199" B="145" />
                 <models>
-                    <model file="sphere.3d" texture="./textures/jupiter.jpg" text="Jupiter" />
+                    <model file="sphere.3d" />
                 </models>
             </group>
             <group> <!-- "Saturn" -->
-                <rotate    time = "10" axisX = "0" axisY = "1" axisZ = "0" />
+                <rotate    time = "10" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="280" axisX="0" axisY="1" axisZ="0" />
                 <translate X="25.52" Y="0" Z="0" />
                 <scale     X="2.8" Y="2.8" Z="2.8" /> <!-- " 945% " -->
@@ -110,48 +109,66 @@
                     <scale     X="1.1" Y="0.1" Z="1.1" /> <!-- " 945% " -->
                     <color     R="255" G="255" B="100" />
                     <models>
-                        <model file="torus.3d" texture="./textures/saturn_ring_alpha.jpg" text="Saturn Ring" />
+                        <model file="torus.3d" />
                     </models>
                 </group>
                 <color     R="224" G="196" B="34" />
                 <models>
-                    <model file="sphere.3d" texture="./textures/saturn.jpg" text="Saturn" />
+                    <model file="sphere.3d" />
                 </models>
             </group>
             <group> <!-- "Uranus" -->
-                <rotate    time = "9" axisX = "0" axisY = "1" axisZ = "0" />
+                <rotate    time = "9" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="310" axisX="0" axisY="1" axisZ="0" />
                 <translate X="31.12" Y="0" Z="0" />
                 <scale     X="1.8" Y="1.8" Z="1.8" /> <!-- " 400% " -->
                 <color     R="220" G="241" B="245" />
                 <models>
-                    <model file="sphere.3d" texture="./textures/uranus.jpg" text="Uranus" />
+                    <model file="sphere.3d" />
                 </models>
             </group>
             <group> <!-- "Neptune" -->
-                <rotate    time = "11" axisX = "0" axisY = "1" axisZ = "0" />
+                <rotate    time = "11" axisX = "0" axisY = "1" axisZ = "0"/>
                 <rotate    angle="10" axisX="0" axisY="1" axisZ="0" />
                 <translate X="35.32" Y="0" Z="0" />
                 <scale     X="1.4" Y="1.4" Z="1.4" /> <!-- " 388%  " -->
                 <color     R="57" G="182" B="247" />
                 <models>
-                    <model file="sphere.3d" texture="./textures/neptune.jpg" text="Neptune"/>
+                    <model file="sphere.3d" />
                 </models>
             </group>
             <group> <!-- "Pluto" -->
-                <rotate    time = "12" axisX = "0" axisY = "1" axisZ = "1" />
+                <rotate    time = "12" axisX = "0" axisY = "1" axisZ = "1"/>
                 <rotate    angle="50" axisX="0" axisY="1" axisZ="1" />
                 <translate X="37.92" Y="0" Z="0" />
                 <scale     X="0.2" Y="0.2" Z="0.2" /> <!-- " 20% " -->
                 <color     R="221" G="196" B="175" />
                 <models>
-                    <model file="sphere.3d" texture="./textures/ceres_fictional.jpg" text="Pluto"/>
+                    <model file="sphere.3d" />
+                </models>
+            </group>
+            <group> <!-- "Comet" -->
+                <color     R="102" G="102" B="120" />
+                <translate time="15" X="-40" Y="-10" Z="7" >
+                    <point X="45"  Y="0"   Z="-10" />
+                    <point X="45"  Y="45"  Z="0" />
+                    <point X="0"   Y="60"  Z="10" />
+                    <point X="-10" Y="25"  Z="15" />
+                    <point X="0"   Y="0"   Z="25" />
+                    <point X="25"  Y="-25" Z="5" />
+                    <point X="-40" Y="20"  Z="-5" />
+                    <point X="-80" Y="0"   Z="-15" />
+                </translate>
+                <rotate    angle="270" axisX="1" axisY="0" axisZ="0" />
+                <scale     X="0.5" Y="0.5" Z="0.5" /> <!-- " 10900% " -->
+                <models>
+                  <model file="teapot.3d" />
                 </models>
             </group>
             <scale     X="5" Y="5" Z="5" /> <!-- " 10900% " -->
             <color     R="247" G="115" B="12" />
             <models>
-                <model file="sphere.3d" texture="./textures/sun.jpg" emiR="1" emiG="1" emiB="1" text="Sun - You are going blind..."/>
+                <model file="sphere.3d" />
             </models>
         </group>
     </group>

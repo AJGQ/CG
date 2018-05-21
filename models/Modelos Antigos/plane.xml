@@ -1,7 +1,11 @@
 <scene>
     <group>
+        <translate X="5" Y="0" Z="0" />
+        <color R="195" G="19" B="19" />
         <models>
             <model file="plane.3d" />
         </models>
     </group>
 </scene>
+
+

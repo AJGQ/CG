@@ -5,27 +5,27 @@
         <group>
             <rotate time="5" axisY="1"/>
             <lights>
-                <light type="POINT" posX="0" posY="0" posZ="0"
+                <light type="POINT" posX="0" posY="0" posZ="0" 
                     ambR="0.5" ambG="0.5" ambB="0.5"
-                    diffR="0"  diffG="0"  diffB="0"/>
-                <light type="SPOT" posX="0" posY="0" posZ="0"
-                    dirX="1"  dirY="-1" dirZ="-1"
+                    diffR="0" diffG="0" diffB="0"/>
+                <light type="SPOT" posX="0" posY="0" posZ="0" 
+                    dirX="1" dirY="-1" dirZ="-1"
                     diffR="1" diffG="0" diffB="0"
-                    pExp="2"  pCut="30" />
-                <light type="SPOT" posX="0" posY="0" posZ="0"
-                    dirX="1"  dirY="-1" dirZ="1"
+                    pExp="2" pCut="30" />
+                <light type="SPOT" posX="0" posY="0" posZ="0" 
+                    dirX="1" dirY="-1" dirZ="1"
                     diffR="0" diffG="1" diffB="0"
-                    pExp="2"  pCut="30" />
-                <light type="SPOT" posX="0" posY="0" posZ="0"
+                    pExp="2" pCut="30" />
+                <light type="SPOT" posX="0" posY="0" posZ="0" 
                     dirX="-1" dirY="-1" dirZ="-1"
                     diffR="0" diffG="0" diffB="1"
-                    pExp="2"  pCut="30" />
-                <light type="SPOT" posX="0" posY="0" posZ="0"
+                    pExp="2" pCut="30" />
+                <light type="SPOT" posX="0" posY="0" posZ="0" 
                     dirX="-1" dirY="-1" dirZ="1"
                     diffR="1" diffG="1" diffB="0"
-                    pExp="2"  pCut="30" />
+                    pExp="2" pCut="30" />
             </lights>
-            <scale  X="5" Y="5" Z="5" />
+
             <models>
                 <model file="sphere.3d" texture="./textures/test.jpg"/>
             </models>
