@@ -20,7 +20,6 @@ extern Scene* scene;
 
 const char* picking(int x, int y, float camX, float camY, float camZ) {
 
-    printf("Is Here?1");
     int res[4];
     //Preparation
     glDisable(GL_LIGHTING);
@@ -33,7 +32,6 @@ const char* picking(int x, int y, float camX, float camY, float camZ) {
             0.0f,1.0f,0.0f);
 
     glDepthFunc(GL_LEQUAL);
-    printf("Is Here?2");
 
     // draw
     scene->draw_picking();

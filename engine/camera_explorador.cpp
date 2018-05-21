@@ -27,7 +27,6 @@ void modo_explorador(){
 void rato_explorador(int botao, int estado, int x, int y){
     if(estado == GLUT_DOWN){
         if(botao == GLUT_LEFT_BUTTON) {
-            printf("botao esq\n");
             estado_botao=1;
             x_tela = x;
             y_tela = y;
@@ -36,15 +35,15 @@ void rato_explorador(int botao, int estado, int x, int y){
         }else if(botao == 4){
             raio += 0.3;
         }else { // Middle button
-            estado_botao=1;
-            printf("botao dir\n");
+            estado_botao=0;
+            /*
             picked = picking(x,y, cam_X, cam_Y, cam_Z);
-            printf("picked:%s\n", picked);
             if (picked)
                 sprintf(text, "%s\n", picked);
             else
                 sprintf(text, "Nothing\n");
             glutPostRedisplay();
+            */
         }
 
     }

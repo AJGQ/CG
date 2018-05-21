@@ -221,7 +221,7 @@ void menu(){
     glutAddSubMenu("Camera",Menu_Camera);
 
     //Activar pop-up Menu
-    glutAttachMenu(5);
+    glutAttachMenu(GLUT_RIGHT_BUTTON);
 
 }
 
