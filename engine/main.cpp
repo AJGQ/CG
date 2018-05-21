@@ -48,6 +48,9 @@ int vFBox = 0;
 int frame = 0;
 int timebase = 0;
 
+//-Texto dos Objetos---//
+char text[256] = "Space\n";
+
 
 //-Funcoes---------------------------------------------------------------------//
 

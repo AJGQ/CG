@@ -273,6 +273,8 @@ Light::Light(xml_node node) {
     if(!strncmp("POINT", aux_type.as_string(), 5)) this->pos[3] = 1;
     else if(!strncmp("DIRECTIONAL", aux_type.as_string(), 11)) this->pos[3] = 0;
     else if(!strncmp("SPOT", aux_type.as_string(), 4)){
+        this->pos[3] = 1.0f;
+
         this->dir = new float[4];
         this->dir[0] = aux_dx ? aux_dx.as_float() : 0.0f;
         this->dir[1] = aux_dy ? aux_dy.as_float() : 0.0f;
