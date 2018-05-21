@@ -1,9 +1,9 @@
 <scene>
     <lights>
-        <light type="POINT" posX="0" posY="0" posZ="0" />
+        <light type="POINT" posX="0" posY="10" posZ="0" />
     </lights>
     <group>
-        <translate X="10"/>
+        <rotate angle="90" axisX="-1"/>
         <models>
             <model file = "teapot.3d"/>
         </models>

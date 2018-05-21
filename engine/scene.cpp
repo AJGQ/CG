@@ -113,7 +113,7 @@ void Model::draw() {
     if(this->texture){
         glBindBuffer(GL_ARRAY_BUFFER, this->vertexTextureId);
         glBindTexture(GL_TEXTURE_2D, texturesId[*this->texture]);
-    	  glTexCoordPointer(2,GL_FLOAT,0,0);
+    	glTexCoordPointer(2,GL_FLOAT,0,0);
     }
 
     for(i=0; i<this->N; i++) {
@@ -382,6 +382,9 @@ Group::Group(xml_node node) {
 
         }else if(strcmp(trans.name(),"group") == 0) {
             this->transforms.push_back(new Group(trans));
+
+        }else if(strcmp(trans.name(),"lights") == 0) {
+            this->transforms.push_back(new Lights(trans));
 
         }else{
             cout << "Erro no formato do xml, foi lido: " << trans.name() << endl;

@@ -28,7 +28,7 @@ class PhysicScene{
 
 class Model {
   public:
-    GLuint vertexId, normalId, vertexTextureId, textureId;
+    GLuint vertexId, normalId, vertexTextureId;
     int N, index;
     float *amb, *diff, *spec, *emi;
     string *texture;
