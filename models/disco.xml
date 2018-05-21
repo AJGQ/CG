@@ -12,5 +12,11 @@
                 <light type="SPOT" posX="0" posY="0" posZ="0" dirX="1" dirY="1" dirZ="0" pExp="90" pcut="60" />
             </lights>
         </group>
+        <group>
+            <scale  X="20" Y="20" Z="20" />
+            <models>
+                <model file="inv_box.3d" texture="./textures/concrete.jpg"/>
+            </models>
+        </group>
     </group>
 </scene>
