@@ -1,8 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
-#include "scene.h"
-#include "picking.h"
 #include "camera_fps.h"
 #include "camera_explorador.h"
 #include <map>
@@ -164,7 +162,6 @@ void renderScene(void) {
     if (axes) { drawAxes(); }
 
     scene->draw();
-    renderText();
     glutSwapBuffers();
 }
 
@@ -224,7 +221,7 @@ void menu(){
     glutAddSubMenu("Camera",Menu_Camera);
 
     //Activar pop-up Menu
-    glutAttachMenu(GLUT_RIGHT_BUTTON);
+    glutAttachMenu(5);
 
 }
 

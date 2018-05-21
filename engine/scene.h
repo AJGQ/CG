@@ -18,7 +18,8 @@
 using namespace pugi;
 using namespace std;
 
-int code = 0;
+const char* picking(int, int, float, float, float);
+void renderText();
 
 extern void error(const char *s);
 
