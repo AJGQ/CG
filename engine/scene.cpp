@@ -40,6 +40,7 @@ Model::Model(xml_node node) {
     file = fopen(node.attribute("file").as_string(), "r");
 
     if(node.attribute("texture")) this->texture = new string(node.attribute("texture").as_string());
+    if(node.attribute("text")) this->text = node.attribute("text").as_string();
     if(this->texture) texturesId[*this->texture] = loadTexture(*this->texture);
     getLightComponent(node, "amb", &this->amb);
     getLightComponent(node, "diff", &this->diff);
@@ -93,6 +94,26 @@ Model::Model(xml_node node) {
     glBufferData(GL_ARRAY_BUFFER, i * 2 * sizeof(float), t, GL_STATIC_DRAW);
 
     free(v); free(n); free(t);
+}
+
+void Model::draw_picking() {
+    float color = code / 255.0f;
+    int i, gl;
+    glColor3f(color, color, color);
+
+    glBindBuffer(GL_ARRAY_BUFFER, this->vertexId);
+    glVertexPointer(3,GL_FLOAT,0,0);
+
+    for(i=0; i<this->N; i++) {
+        switch(this->typ[i]) {
+            case 's' : gl = GL_TRIANGLE_STRIP;  break;
+            case 'f' : gl = GL_TRIANGLE_FAN;    break;
+            case 't' : gl = GL_TRIANGLES;       break;
+            default  : error("array type bad specified");
+        }
+        glDrawArrays(gl, this->pos[i], this->len[i]);
+    }
+
 }
 
 void Model::draw() {
@@ -164,6 +185,20 @@ Translate::Translate(xml_node node) {
     //cout << "parse de Translate acabou" << endl;
 }
 
+void Translate::draw_picking() {
+    if (time == 0) {
+        glTranslatef(this->x,this->y,this->z);
+    } else {
+        if(this->x != 0.0 || this->y != 0.0 || this->z != 0.0)
+            glTranslatef(this->x,this->y,this->z);
+        if(trajetorias){
+            renderCatmullRomCurve(this->points);
+        }
+
+        startPath(this->points, this->time);
+    }
+}
+
 void Translate::draw() {
     if (time == 0) {
         glTranslatef(this->x,this->y,this->z);
@@ -178,6 +213,7 @@ void Translate::draw() {
     }
 }
 
+const char* Translate::testClass(){return "Translate";}
 //-Rotate---------------------------------------------------------------------//
 
 Rotate::Rotate(xml_node node) {
@@ -201,6 +237,18 @@ Rotate::Rotate(xml_node node) {
     //cout << "parse de Rotate acabou" << endl;
 }
 
+void Rotate::draw_picking() {
+    if(this->time == 0.0){
+        glRotatef(this->angle,this->x,this->y,this->z);
+    } else {
+        int globalTime = glutGet(GLUT_ELAPSED_TIME);
+        int time = (int)(1000*this->time);
+        int interval = globalTime % time;
+
+        glRotatef(((float)interval/(float)time)*360.0 , this->x, this->y, this->z);
+    }
+}
+
 void Rotate::draw() {
     if(this->time == 0.0){
         glRotatef(this->angle,this->x,this->y,this->z);
@@ -213,6 +261,7 @@ void Rotate::draw() {
     }
 }
 
+const char* Rotate::testClass(){return "Rotate";}
 //-Scale----------------------------------------------------------------------//
 
 Scale::Scale(xml_node node) {
@@ -227,10 +276,15 @@ Scale::Scale(xml_node node) {
     //cout << "parse de Scale acabou" << endl;
 }
 
+void Scale::draw_picking() {
+    glScalef(this->x,this->y,this->z);
+}
+
 void Scale::draw() {
     glScalef(this->x,this->y,this->z);
 }
 
+const char* Scale::testClass(){return "Scale";}
 //-Color----------------------------------------------------------------------//
 
 Color::Color(xml_node node) {
@@ -245,10 +299,13 @@ Color::Color(xml_node node) {
     //cout << "parse de Color acabou" << endl;
 }
 
+void Color::draw_picking() {}
+
 void Color::draw() {
     glColor3f(this->redVal,this->greenVal,this->blueVal);
 }
 
+const char* Color::testClass(){return "Color";}
 //-Light----------------------------------------------------------------------//
 
 Light::Light(xml_node node) {
@@ -341,12 +398,19 @@ Models::Models(xml_node node) {
     }
 }
 
+void Models::draw_picking() {
+    for(int i = 0; i<models.size();i++) {
+        this->models[i]->draw_picking();
+    }
+}
+
 void Models::draw() {
     for(int i = 0; i<models.size();i++) {
         this->models[i]->draw();
     }
 }
 
+const char* Models::testClass(){return "Models";}
 //-Lights----------------------------------------------------------------------//
 
 Lights::Lights(xml_node node) {
@@ -356,12 +420,15 @@ Lights::Lights(xml_node node) {
     }
 }
 
+void Lights::draw_picking(){}
+
 void Lights::draw(){
     for(int i = 0; i<vlights.size(); i++){
         this->vlights[i]->draw(i);
     }
 }
 
+const char* Lights::testClass(){return "Lights";}
 //-Group----------------------------------------------------------------------//
 
 Group::Group(xml_node node) {
@@ -395,6 +462,17 @@ Group::Group(xml_node node) {
     //cout << "parse de Group acabou" << endl;
 }
 
+void Group::draw_picking() {
+    glPushMatrix();
+    for(int i = 0; i<transforms.size(); i++) {
+        if(strcmp(transforms[i]->testClass(), "Lights") != 0)
+            this->transforms[i]->draw_picking();
+    }
+    glPopMatrix();
+}
+
+const char* Group::testClass(){return "Group";}
+
 void Group::draw() {
     glPushMatrix();
     for(int i = 0; i<transforms.size(); i++) {
@@ -423,6 +501,11 @@ Scene::Scene(const char* xml_file) {
         //this->group = new Group(models.first_child());
     }
     //cout << "parse de Scene acabou" << endl;
+}
+
+void Scene::draw_picking() {
+    code = 0;
+    this->group->draw_picking();
 }
 
 void Scene::draw() {

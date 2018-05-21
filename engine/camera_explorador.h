@@ -9,8 +9,8 @@
 
 #include <math.h>
 
-#ifndef Motor3D_camera_h
-#define Motor3D_camera_h
+#ifndef CAMERA_EXPLORADOR_H
+#define CAMERA_EXPLORADOR_H
 
 void modo_explorador();
 void rato_explorador(int botao, int estado, int x, int y);

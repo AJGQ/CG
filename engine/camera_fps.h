@@ -10,8 +10,9 @@
 #include <math.h>
 
 
-#ifndef Motor3D_camera_fps_h
-#define Motor3D_camera_fps_h
+#ifndef CAMERA_FPS_H
+#define CAMERA_FPS_H
+
 
 //Modo FPS
 void modo_fps();

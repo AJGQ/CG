@@ -1,10 +1,11 @@
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #include "camera_explorador.h"
+#include "picking.h"
+#include <stdio.h>
 
 float raio=20,angCam_h=0,angCam_v=0.5,angAux_h=0,angAux_v=0,x_tela,y_tela,look[3]={0,0,0},avanco=0.5;
 
 int estado_botao=0;
-
 
 //Modo Explorador
 
@@ -17,17 +18,26 @@ void modo_explorador(){
 
 //Funçoes para o Rato
 void rato_explorador(int botao, int estado, int x, int y){
-    if(botao == GLUT_LEFT_BUTTON && estado == GLUT_DOWN) {
-        estado_botao=1;
-        x_tela = x;
-        y_tela = y;
-    }else if(botao == 3){
-        raio = raio<1? 1: raio-0.3;
-    }else if(botao == 4){
-        raio += 0.3;
-    }
-    else{
-        estado_botao=0;
+    if(estado == GLUT_DOWN){
+        if(botao == GLUT_LEFT_BUTTON) {
+            estado_botao=1;
+            x_tela = x;
+            y_tela = y;
+        }else if(botao == 3){
+            raio = raio<1? 1: raio-0.3;
+        }else if(botao == 4){
+            raio += 0.3;
+        }else { // Middle button
+            tracking = 0;
+            estado_botao=1;
+            picked = picking(x,y);
+            if (picked)
+                sprintf(text, "Picked Snowman number %d\n", picked);
+            else
+                sprintf(text, "Nothing selected\n");
+            glutPostRedisplay();
+        }
+
     }
     //spherical2Cartesian();
     glutPostRedisplay();

@@ -18,11 +18,14 @@
 using namespace pugi;
 using namespace std;
 
+int code = 0;
 
 extern void error(const char *s);
 
 class PhysicScene{
   public:
+    virtual const char * testClass() = 0;
+    virtual void draw_picking() = 0;
     virtual void draw() = 0;
 };
 
@@ -34,8 +37,10 @@ class Model {
     string *texture;
     int *pos, *len;
     char *typ;
+    const char *text;
 
     Model(xml_node);
+    void draw_picking();
     void draw();
 };
 
@@ -44,6 +49,8 @@ class Translate : public PhysicScene{
     float time, x, y, z;
   public:
     Translate(xml_node);
+    const char * testClass();
+    void draw_picking();
     void draw();
 };
 
@@ -52,6 +59,8 @@ class Rotate : public PhysicScene{
     float x, y, z;
   public:
     Rotate(xml_node);
+    const char * testClass();
+    void draw_picking();
     void draw();
 };
 
@@ -59,6 +68,8 @@ class Scale : public PhysicScene{
     float x, y, z;
   public:
     Scale(xml_node);
+    const char * testClass();
+    void draw_picking();
     void draw();
 };
 
@@ -74,6 +85,8 @@ class Color : public PhysicScene{
     float redVal, greenVal, blueVal;
   public:
     Color(xml_node);
+    const char * testClass();
+    void draw_picking();
     void draw();
 };
 
@@ -81,6 +94,8 @@ class Models : public PhysicScene{
     vector<Model*> models;
   public:
     Models(xml_node);
+    const char * testClass();
+    void draw_picking();
     void draw();
 };
 
@@ -88,12 +103,16 @@ class Lights : public PhysicScene{
     vector<Light*> vlights;
   public:
     Lights(xml_node);
+    const char * testClass();
+    void draw_picking();
     void draw();
 };
 class Group : public PhysicScene{
     vector<PhysicScene*> transforms;
   public:
     Group(xml_node);
+    const char * testClass();
+    void draw_picking();
     void draw();
 };
 
@@ -102,6 +121,7 @@ class Scene {
     Lights* lights;
   public:
     Scene(const char* xml_file);
+    void draw_picking();
     void draw();
 };
 

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <stdio.h>
 #include "scene.h"
+#include "picking.h"
 #include "camera_fps.h"
 #include "camera_explorador.h"
 #include <map>
@@ -48,10 +49,6 @@ int vFBox = 0;
 int frame = 0;
 int timebase = 0;
 
-//-Texto dos Objetos---//
-char text[256] = "Space\n";
-
-
 //-Funcoes---------------------------------------------------------------------//
 
 void error(const char *s) {
@@ -90,7 +87,6 @@ void changeSize(int w, int h) {
     gluPerspective(45.0f ,ratio, 1.0f ,1000.0f);
     glMatrixMode(GL_MODELVIEW);
 }
-
 
 //-----------------------------------------------------------------------------//
 
@@ -168,6 +164,7 @@ void renderScene(void) {
     if (axes) { drawAxes(); }
 
     scene->draw();
+    renderText();
     glutSwapBuffers();
 }
 
